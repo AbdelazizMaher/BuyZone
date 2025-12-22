@@ -57,4 +57,9 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    //koin
+    val koin_android_version = "4.0.2"
+    implementation("io.insert-koin:koin-android:$koin_android_version")
+    implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
 }
