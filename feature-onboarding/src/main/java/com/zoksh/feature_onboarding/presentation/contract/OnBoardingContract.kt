@@ -16,6 +16,7 @@ interface OnBoardingContract {
         data object Skip : Intent
         data object Next : Intent
         data object GetStarted : Intent
+        data class PageChanged(val pageIndex: Int): Intent
     }
 
     sealed interface Effect {

@@ -19,11 +19,13 @@ import com.zoksh.feature_onboarding.presentation.component.OnBoardingBackground
 import com.zoksh.feature_onboarding.presentation.component.OnBoardingButtons
 import com.zoksh.feature_onboarding.presentation.component.OnBoardingIndicator
 import com.zoksh.feature_onboarding.presentation.component.OnBoardingText
+import com.zoksh.feature_onboarding.presentation.contract.OnBoardingContract
 import com.zoksh.feature_onboarding.presentation.viewmodel.OnBoardingViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OnBoardingScreen(
-    viewModel: OnBoardingViewModel
+    viewModel: OnBoardingViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState(
@@ -32,7 +34,7 @@ fun OnBoardingScreen(
     )
 
     LaunchedEffect(pagerState.currentPage) {
-
+        viewModel.handleIntent(OnBoardingContract.Intent.PageChanged(pagerState.currentPage))
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -61,13 +63,13 @@ fun OnBoardingScreen(
                 isLastPage = state.currentPageData.isLastPage,
                 color = state.currentPageData.color,
                 onNext = {
-
+                    viewModel.handleIntent(OnBoardingContract.Intent.Next)
                 },
                 onSkip = {
-
+                    viewModel.handleIntent(OnBoardingContract.Intent.Skip)
                 },
                 onGetStarted = {
-
+                    viewModel.handleIntent(OnBoardingContract.Intent.GetStarted)
                 }
             )
             HorizontalPager(
