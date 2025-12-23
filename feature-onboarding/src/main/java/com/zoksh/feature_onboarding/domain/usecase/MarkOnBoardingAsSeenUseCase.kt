@@ -2,10 +2,10 @@ package com.zoksh.feature_onboarding.domain.usecase
 
 import com.zoksh.feature_onboarding.domain.repository.OnBoardingRepository
 
-class ShouldShowOnBoardingUseCase(
+class MarkOnBoardingAsSeenUseCase(
     private val onBoardingRepository: OnBoardingRepository
 ) {
     operator fun invoke() {
-        onBoardingRepository.shouldShowOnBoarding()
+        onBoardingRepository.markOnBoardingAsSeen()
     }
 }
