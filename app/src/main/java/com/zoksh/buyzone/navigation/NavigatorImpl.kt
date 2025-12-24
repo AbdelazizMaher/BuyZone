@@ -9,18 +9,17 @@ import com.zoksh.core_navigation.Navigator
 
 class NavigatorImpl(
     private val navController: NavHostController,
-    private val routeMapper: RouteMapper
 ): Navigator {
     override fun navigate(
         destination: AppDestination,
         navOptions: NavOptions
     ) {
-        navController.navigate(routeMapper.route(destination)) {
+        navController.navigate(destination) {
             launchSingleTop = navOptions.launchSingleTop
             restoreState = navOptions.restoreState
 
             navOptions.popUpTo?.let {
-                popUpTo(routeMapper.route(destination)) {
+                popUpTo(destination) {
                     inclusive = navOptions.popUpToInclusive
                     saveState = navOptions.saveState
                 }
@@ -37,13 +36,13 @@ class NavigatorImpl(
         inclusive: Boolean
     ) {
         navController.popBackStack(
-            route = routeMapper.route(destination),
+            route = destination,
             inclusive = inclusive
         )
     }
 
     override fun resetTo(destination: AppDestination) {
-        navController.navigate(routeMapper.route(destination)) {
+        navController.navigate(destination) {
             popUpTo(0)
         }
     }
