@@ -1,0 +1,3 @@
+package com.zoksh.core_navigation
+
+interface AppDestination
