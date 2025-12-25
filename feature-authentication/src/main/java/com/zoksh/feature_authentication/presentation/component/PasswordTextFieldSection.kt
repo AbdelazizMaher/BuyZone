@@ -1,6 +1,9 @@
 package com.zoksh.feature_authentication.presentation.component
 
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 
 @Composable
@@ -10,8 +13,9 @@ fun PasswordTextFieldSection(
     placeholder: String,
     leadingIcon: @Composable (() -> Unit),
     trailingIcon: @Composable (() -> Unit),
-    visualTransformation: VisualTransformation,
-    singleLine: Boolean,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+    visualTransformation: VisualTransformation = PasswordVisualTransformation(),
+    singleLine: Boolean = true,
     isError: Boolean = false,
     errorText: String? = null
 ) {

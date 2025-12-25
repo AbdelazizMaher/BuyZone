@@ -5,13 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
-fun EmailTextFieldSection(
+fun NameTextFieldSection(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
     leadingIcon: @Composable (() -> Unit),
-    singleLine: Boolean,
-    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+    singleLine: Boolean = true,
+    keyboardOptions: KeyboardOptions= KeyboardOptions(keyboardType = KeyboardType.Text),
     isError: Boolean = false,
     errorText: String? = null
 ) {
@@ -21,6 +21,7 @@ fun EmailTextFieldSection(
         placeholder = placeholder,
         leadingIcon = leadingIcon,
         singleLine = singleLine,
+        keyboardOptions = keyboardOptions,
         isError = isError,
         errorText = errorText
     )

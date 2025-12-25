@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun PrimaryAction(
+    text: String,
     enabled: Boolean = true,
     onClick: () -> Unit = {}
 ) {
@@ -33,7 +34,7 @@ fun PrimaryAction(
     ) {
         if (enabled) {
             Text(
-                text = "Login",
+                text = text,
                 style = MaterialTheme.typography.titleMedium
             )
         } else {
