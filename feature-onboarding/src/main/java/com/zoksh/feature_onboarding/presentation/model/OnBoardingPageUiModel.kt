@@ -11,7 +11,7 @@ data class OnBoardingPageUiModel(
     val isLastPage: Boolean
 )
 
-val pages = listOf(
+val OnBoardingPages = listOf(
     OnBoardingPageUiModel(
         title = "Your Style,\nYour Way",
         description = "Discover thousands of premium products from top brands",
