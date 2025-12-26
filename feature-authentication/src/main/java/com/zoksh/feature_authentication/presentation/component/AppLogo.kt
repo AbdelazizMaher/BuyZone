@@ -37,13 +37,13 @@ fun AppLogo(
         AppLogoSize.MEDIUM -> Triple(
             36.dp,
             MaterialTheme.typography.titleMedium,
-            16.dp
+            8.dp
         )
 
         AppLogoSize.LARGE -> Triple(
             48.dp,
             MaterialTheme.typography.headlineLarge,
-            24.dp
+            8.dp
         )
     }
 

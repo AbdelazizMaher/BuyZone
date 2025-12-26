@@ -46,7 +46,6 @@ fun OptionsRow(
             style = MaterialTheme.typography.bodyMedium,
             color = colors.primary
         )
-
     }
 }
 

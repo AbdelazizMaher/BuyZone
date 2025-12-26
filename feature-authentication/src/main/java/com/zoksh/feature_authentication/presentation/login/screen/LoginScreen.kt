@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -34,10 +35,13 @@ import com.zoksh.feature_authentication.presentation.component.PasswordTextField
 import com.zoksh.feature_authentication.presentation.component.PrimaryAction
 import com.zoksh.feature_authentication.presentation.component.SocialAuthSection
 import com.zoksh.feature_authentication.presentation.component.TitleSection
+import com.zoksh.feature_authentication.presentation.login.contract.LoginContract
+import com.zoksh.feature_authentication.presentation.login.viewmodel.LoginViewModel
 
 
 @Composable
 fun LoginScreen(
+    viewModel: LoginViewModel
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -50,7 +54,7 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.background)
-            .statusBarsPadding()
+            .navigationBarsPadding()
             .padding(horizontal = 24.dp)
             .verticalScroll(rememberScrollState()),
     ) {
@@ -59,7 +63,7 @@ fun LoginScreen(
                 .fillMaxWidth()
                 .padding(top = 60.dp)
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         TitleSection(
             title = "Welcome Back",
             subtitle = "Sign in to continue shopping"
@@ -160,7 +164,7 @@ fun LoginScreen(
             text = "Don't have an account?",
             actionText = "Sign Up",
             onActionClick = {
-
+                viewModel.handleIntent(LoginContract.Intent.SignUp)
             }
         )
     }

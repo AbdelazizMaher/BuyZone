@@ -1,7 +1,10 @@
 package com.zoksh.feature_authentication.presentation.component
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -26,19 +29,21 @@ fun GuestAction(
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = colors.surface,
-            contentColor = Color.Black
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = Color.Transparent,
+            contentColor = colors.onSurface
         ),
+        border = BorderStroke(1.dp, colors.outline)
     ) {
         Icon(
             imageVector = Icons.Default.Person,
             contentDescription = null,
-            tint = Color.White
+            tint = colors.onSurfaceVariant
         )
+        Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = "Continue as a guest",
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.labelLarge
         )
     }
 }

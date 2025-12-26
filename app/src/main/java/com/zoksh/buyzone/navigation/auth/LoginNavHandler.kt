@@ -5,6 +5,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract
 import com.zoksh.feature_authentication.presentation.login.viewmodel.LoginViewModel
+import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
+import com.zoksh.feature_authentication.presentation.signup.screen.SignupScreen
 
 @Composable
 fun LoginNavHandler(
@@ -16,7 +18,9 @@ fun LoginNavHandler(
             when (effect) {
                 LoginContract.Effect.LoginSuccess -> TODO()
                 LoginContract.Effect.NavigateToForgotPassword -> TODO()
-                LoginContract.Effect.NavigateToSignup -> TODO()
+                LoginContract.Effect.NavigateToSignup -> {
+                    navController.navigate(AuthDestination.SignUp)
+                }
                 is LoginContract.Effect.ShowError -> TODO()
             }
         }
