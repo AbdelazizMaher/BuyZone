@@ -24,7 +24,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             navController = rememberNavController()
-            navigator = remember { NavigatorImpl(navController) }
             BuyZoneTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -37,7 +36,6 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     AppNavHost(
                         navController,
-                        navigator,
                         innerPadding
                     )
                 }

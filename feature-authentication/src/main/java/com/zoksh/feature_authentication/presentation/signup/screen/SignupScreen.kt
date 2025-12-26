@@ -25,9 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.zoksh.core_navigation.Navigator
 import com.zoksh.feature_authentication.presentation.component.AuthSwitchSection
 import com.zoksh.feature_authentication.presentation.component.EmailTextFieldSection
 import com.zoksh.feature_authentication.presentation.component.HeaderSection
@@ -42,7 +40,6 @@ import com.zoksh.feature_authentication.presentation.model.PasswordRequirement
 
 @Composable
 fun SignupScreen(
-    navigator: Navigator
 ) {
     val colors = MaterialTheme.colorScheme
 

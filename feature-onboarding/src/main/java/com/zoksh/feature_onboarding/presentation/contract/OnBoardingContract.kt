@@ -20,7 +20,7 @@ interface OnBoardingContract {
     }
 
     sealed interface Effect {
-        data object NavigateToApp: Effect
+        data object GetStarted: Effect
     }
 }
 

@@ -14,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.zoksh.core_navigation.Navigator
 import com.zoksh.feature_onboarding.presentation.component.AppLogo
 import com.zoksh.feature_onboarding.presentation.component.OnBoardingBackground
 import com.zoksh.feature_onboarding.presentation.component.OnBoardingButtons
@@ -27,7 +26,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun OnBoardingScreen(
     viewModel: OnBoardingViewModel = koinViewModel(),
-    navigator: Navigator
+    onGetStartedClick: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState(
