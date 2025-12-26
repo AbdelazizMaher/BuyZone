@@ -5,43 +5,43 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.zoksh.buyzone.navigation.AppNavHost
+import com.zoksh.buyzone.navigation.NavigatorImpl
 import com.zoksh.buyzone.ui.theme.BuyZoneTheme
+import com.zoksh.core_navigation.Navigator
 
 class MainActivity : ComponentActivity() {
+    private lateinit var navController: NavHostController
+    private lateinit var navigator: Navigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            navController = rememberNavController()
+            navigator = remember { NavigatorImpl(navController) }
             BuyZoneTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    snackbarHost = {
+
+                    },
+                    bottomBar = {
+
+                    }
+                ) { innerPadding ->
+                    AppNavHost(
+                        navController,
+                        navigator,
+                        innerPadding
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BuyZoneTheme {
-        Greeting("Android")
     }
 }

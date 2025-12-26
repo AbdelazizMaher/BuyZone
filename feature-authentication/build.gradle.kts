@@ -54,4 +54,6 @@ dependencies {
     //icon
     implementation("androidx.compose.material:material-icons-extended")
     implementation ("androidx.compose.material3:material3:1.4.0")
+
+    implementation(project(":core-navigation"))
 }

@@ -63,8 +63,11 @@ dependencies {
     implementation("io.insert-koin:koin-android:$koin_android_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
 
-    implementation(project(":core-navigation"))
-
     val nav_version = "2.9.6"
     implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    implementation(project(":core-navigation"))
+    implementation(project(":core-ui"))
+    implementation(project(":feature-authentication"))
+    implementation(project(":feature-onboarding"))
 }
