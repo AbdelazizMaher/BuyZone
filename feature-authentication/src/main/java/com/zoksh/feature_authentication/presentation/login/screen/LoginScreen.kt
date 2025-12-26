@@ -23,8 +23,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zoksh.feature_authentication.presentation.component.AuthSwitchSection
 import com.zoksh.feature_authentication.presentation.component.DividerWithText
@@ -38,16 +36,8 @@ import com.zoksh.feature_authentication.presentation.component.SocialAuthSection
 import com.zoksh.feature_authentication.presentation.component.TitleSection
 
 
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview() {
-    LoginScreen()
-}
-
-
 @Composable
 fun LoginScreen(
-
 ) {
     val colors = MaterialTheme.colorScheme
 

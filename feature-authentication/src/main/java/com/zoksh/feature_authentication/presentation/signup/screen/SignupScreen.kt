@@ -25,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zoksh.feature_authentication.presentation.component.AuthSwitchSection
 import com.zoksh.feature_authentication.presentation.component.EmailTextFieldSection
@@ -38,16 +37,9 @@ import com.zoksh.feature_authentication.presentation.component.TermsAndCondition
 import com.zoksh.feature_authentication.presentation.component.TitleSection
 import com.zoksh.feature_authentication.presentation.model.PasswordRequirement
 
-@Preview(showBackground = true)
-@Composable
-fun SignUpScreenPreview() {
-    SignUpScreen()
-}
-
 
 @Composable
-fun SignUpScreen(
-
+fun SignupScreen(
 ) {
     val colors = MaterialTheme.colorScheme
 

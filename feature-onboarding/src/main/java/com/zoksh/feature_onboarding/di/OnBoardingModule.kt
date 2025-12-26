@@ -9,10 +9,12 @@ import com.zoksh.feature_onboarding.data.repository.OnBoardingRepositoryImpl
 import com.zoksh.feature_onboarding.domain.repository.OnBoardingRepository
 import com.zoksh.feature_onboarding.domain.usecase.MarkOnBoardingAsSeenUseCase
 import com.zoksh.feature_onboarding.domain.usecase.ShouldShowOnBoardingUseCase
+import com.zoksh.feature_onboarding.presentation.viewmodel.OnBoardingViewModel
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val OnBoardingModule = module {
+val onBoardingModule = module {
     single<SharedPreferences> {
         androidContext().getSharedPreferences(
             PreferenceConfig.APP_PREFERENCES,
@@ -34,5 +36,9 @@ val OnBoardingModule = module {
 
     factory {
         ShouldShowOnBoardingUseCase(get())
+    }
+
+    viewModel {
+        OnBoardingViewModel(get())
     }
 }

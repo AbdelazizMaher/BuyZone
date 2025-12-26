@@ -25,7 +25,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OnBoardingScreen(
-    viewModel: OnBoardingViewModel = koinViewModel()
+    viewModel: OnBoardingViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState(

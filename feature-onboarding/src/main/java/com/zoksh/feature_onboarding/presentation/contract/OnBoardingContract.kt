@@ -1,12 +1,13 @@
 package com.zoksh.feature_onboarding.presentation.contract
 
 import com.zoksh.feature_onboarding.presentation.model.OnBoardingPageUiModel
+import com.zoksh.feature_onboarding.presentation.model.OnBoardingPages
 
 interface OnBoardingContract {
 
     data class State(
         val pageNo: Int = 0,
-        val pages: List<OnBoardingPageUiModel> = emptyList(),
+        val pages: List<OnBoardingPageUiModel> = OnBoardingPages,
     ) {
         val currentPageData: OnBoardingPageUiModel
             get() = pages[pageNo]
@@ -20,7 +21,7 @@ interface OnBoardingContract {
     }
 
     sealed interface Effect {
-        data object NavigateToApp: Effect
+        data object GetStarted: Effect
     }
 }
 

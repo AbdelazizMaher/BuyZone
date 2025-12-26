@@ -1,11 +1,11 @@
 package com.zoksh.buyzone.navigation
 
 import android.content.Intent
-import android.net.Uri
 import androidx.navigation.NavHostController
 import com.zoksh.core_navigation.AppDestination
 import com.zoksh.core_navigation.NavOptions
 import com.zoksh.core_navigation.Navigator
+import androidx.core.net.toUri
 
 class NavigatorImpl(
     private val navController: NavHostController,
@@ -49,7 +49,7 @@ class NavigatorImpl(
 
     override fun handleDeepLink(deepLink: String): Boolean {
         return navController.handleDeepLink(
-            Intent(Intent.ACTION_VIEW, Uri.parse(deepLink))
+            Intent(Intent.ACTION_VIEW, deepLink.toUri())
         )
     }
 }
