@@ -28,9 +28,14 @@ fun OnBoardingBackground(
             .background(
                 brush = Brush.verticalGradient(
                     colorStops = arrayOf(
-                        0.0f to color.copy(alpha = 0.75f),
-                        0.55f to color.copy(alpha = 0.45f),
-                        0.75f to Color.Black.copy(alpha = 0.6f),
+                        0.0f to Color.Transparent,
+                        0.30f to Color.Transparent,
+
+                        0.42f to color.copy(alpha = 0.55f),
+                        0.60f to color.copy(alpha = 0.35f),
+
+                        0.70f to Color.Black.copy(alpha = 0.55f),
+                        0.82f to Color.Black,
                         1.0f to Color.Black
                     )
                 )

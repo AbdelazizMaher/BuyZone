@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -47,7 +48,7 @@ fun OnBoardingButtons(
             TextButton(
                 onClick = onSkip,
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = color,
+                    containerColor = Color.Black,
                     contentColor = Color.White
                 )
             ) {
@@ -58,7 +59,6 @@ fun OnBoardingButtons(
             }
             Button(
                 onClick = onNext,
-                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(50.dp),
                 colors = ButtonDefaults.outlinedButtonColors(
                     containerColor = color,

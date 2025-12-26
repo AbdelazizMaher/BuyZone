@@ -20,17 +20,24 @@ val OnBoardingPages = listOf(
         isLastPage = false
     ),
     OnBoardingPageUiModel(
+        title = "Lightning Fast Delivery",
+        description = "Free express shipping on all orders with real-time tracking",
+        imageRes = R.drawable.page2,
+        color = Color(0xFF22C55E),
+        isLastPage = false
+    ),
+    OnBoardingPageUiModel(
         title = "Shop With Confidence",
         description = "Secure payments, easy returns, 24/7 support",
-        imageRes = R.drawable.page1,
-        color = Color(0xFFF97316),
+        imageRes = R.drawable.page3,
+        color = Color(0xFF64B6F7),
         isLastPage = false
     ),
     OnBoardingPageUiModel(
         title = "Ready to Start?",
         description = "Let’s find your perfect style today",
-        imageRes = R.drawable.page1,
-        color = Color(0xFF22C55E),
+        imageRes = R.drawable.page4,
+        color = Color(0xFFF97316),
         isLastPage = true
     )
 )

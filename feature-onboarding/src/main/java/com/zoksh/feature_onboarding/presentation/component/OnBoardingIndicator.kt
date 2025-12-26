@@ -18,10 +18,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun OnBoardingIndicator(
+    modifier: Modifier = Modifier,
     pageCount: Int,
     currentPage: Int
 ) {
     Row(
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
