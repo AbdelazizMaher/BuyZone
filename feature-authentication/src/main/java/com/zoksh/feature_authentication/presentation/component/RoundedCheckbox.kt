@@ -25,7 +25,7 @@ fun RoundedCheckbox(
 
     Surface(
         modifier = modifier
-            .size(24.dp)
+            .size(16.dp)
             .clickable { onCheckedChange(!checked) },
         shape = RoundedCornerShape(6.dp),
         color = if (checked) colors.primary else Color.Transparent,

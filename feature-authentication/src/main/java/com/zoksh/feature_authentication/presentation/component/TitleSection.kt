@@ -23,13 +23,13 @@ fun TitleSection(
     ) {
         Text(
             text = title,
-            color = colors.surface,
-            style = MaterialTheme.typography.titleLarge
+            color = colors.onBackground,
+            style = MaterialTheme.typography.headlineLarge
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = subtitle,
-            color = colors.surfaceVariant,
+            color = colors.onSurfaceVariant,
             style = MaterialTheme.typography.bodyMedium
         )
     }

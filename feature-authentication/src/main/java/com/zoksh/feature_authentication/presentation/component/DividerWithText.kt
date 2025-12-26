@@ -28,8 +28,8 @@ fun DividerWithText(
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onBackground,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.width(8.dp))
         HorizontalDivider(
