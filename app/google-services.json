@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "15592694090",
+    "project_id": "buyzone-5e65b",
+    "storage_bucket": "buyzone-5e65b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15592694090:android:c6772b3f03ba768b2aa1b3",
+        "android_client_info": {
+          "package_name": "com.zoksh.buyzone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15592694090-ah3c21crfh7vpk403jdrhq9onkfjj4kp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbc2nh7v0X4gAIeoOWHFMS7tFyJvNJAuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15592694090-ah3c21crfh7vpk403jdrhq9onkfjj4kp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
