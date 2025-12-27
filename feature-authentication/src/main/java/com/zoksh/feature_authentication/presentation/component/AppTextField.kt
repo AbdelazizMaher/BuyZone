@@ -23,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,7 +45,7 @@ fun AppTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    placeholder: String,
+    placeholder: String? = null,
     isError: Boolean = false,
     errorText: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -69,29 +70,32 @@ fun AppTextField(
         label?.let {
             Text(
                 text = label,
-                style = MaterialTheme.typography.bodyMedium.copy(color = colors.onBackground),
+                style = MaterialTheme.typography.labelLarge,
+                color = colors.onSurfaceVariant,
                 modifier = Modifier.padding(start = 4.dp, bottom = 4.dp)
             )
         }
-        OutlinedTextField(
+        TextField(
             value = value,
             onValueChange = onValueChange,
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(cornerRadius))
                 .border(
-                    width = borderWidth,
-                    color = borderColor,
-                    shape = RoundedCornerShape(cornerRadius)
+                    width = 1.dp,
+                    color = colors.outlineVariant.copy(alpha = 0.4f),
+                    shape = RoundedCornerShape(12.dp)
                 ),
             enabled = enabled,
             readOnly = readOnly,
             textStyle = MaterialTheme.typography.bodyMedium,
-            placeholder = {
-                Text(
-                    text = placeholder,
-                    style = MaterialTheme.typography.bodySmall,
-                )
+            placeholder = placeholder?.let {
+                {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = colors.onSurface.copy(alpha = 0.45f)
+                    )
+                }
             },
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
@@ -100,14 +104,18 @@ fun AppTextField(
             keyboardActions = keyboardActions,
             singleLine = singleLine,
             interactionSource = interactionSource,
+            shape = RoundedCornerShape(cornerRadius),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = colors.surface,
-                unfocusedContainerColor = colors.surface,
-                cursorColor = colors.primary,
+                focusedContainerColor = colors.surfaceContainerLow,
+                unfocusedContainerColor = colors.surfaceContainerLow,
+                disabledContainerColor = colors.surfaceContainerLow,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                focusedTextColor = colors.onBackground,
-                unfocusedTextColor = colors.onBackground
+                cursorColor = colors.primary,
+                focusedTextColor = colors.onSurface,
+                unfocusedTextColor = colors.onSurface,
+                focusedLeadingIconColor = colors.primary,
+                unfocusedLeadingIconColor = colors.onSurfaceVariant
             )
         )
         if (isError && errorText != null) {

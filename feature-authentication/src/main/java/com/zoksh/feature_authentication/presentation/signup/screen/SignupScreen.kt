@@ -60,6 +60,7 @@ fun SignupScreen(
             .padding(horizontal = 24.dp)
             .verticalScroll(rememberScrollState()),
     ) {
+        Spacer(modifier = Modifier.height(40.dp))
         HeaderSection(
             modifier = Modifier
                 .fillMaxWidth()
@@ -76,14 +77,8 @@ fun SignupScreen(
             onValueChange = {
                 name = it
             },
-            placeholder = "Full Name",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = null,
-                    tint = colors.onBackground
-                )
-            },
+            label = "Full Name",
+            placeholder = "Abdelaziz Maher",
             isError = false,
             errorText = null
         )
@@ -93,14 +88,8 @@ fun SignupScreen(
             onValueChange = {
                 email = it
             },
-            placeholder = "Email Address",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Email,
-                    contentDescription = null,
-                    tint = colors.onBackground
-                )
-            },
+            label = "Email Address",
+            placeholder = "example@gmail.com",
             singleLine = true,
             isError = false,
             errorText = null
@@ -111,14 +100,8 @@ fun SignupScreen(
             onValueChange = {
                 password = it
             },
-            placeholder = "Password",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Lock,
-                    contentDescription = null,
-                    tint = colors.onBackground
-                )
-            },
+            label = "Password",
+            placeholder = "**********",
             trailingIcon = {
                 if (isPasswordVisible) {
                     Icon(
@@ -145,14 +128,8 @@ fun SignupScreen(
             onValueChange = {
                 confirmPassword = it
             },
-            placeholder = "Confirm Password",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Lock,
-                    contentDescription = null,
-                    tint = colors.onBackground
-                )
-            },
+            label = "Confirm Password",
+            placeholder = "**********",
             trailingIcon = {
                 if (isConfirmPasswordVisible) {
                     Icon(

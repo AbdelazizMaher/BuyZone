@@ -58,6 +58,7 @@ fun LoginScreen(
             .padding(horizontal = 24.dp)
             .verticalScroll(rememberScrollState()),
     ) {
+        Spacer(modifier = Modifier.height(40.dp))
         HeaderSection(
             modifier = Modifier
                 .fillMaxWidth()
@@ -74,14 +75,8 @@ fun LoginScreen(
             onValueChange = {
                 email = it
             },
-            placeholder = "Email Address",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Email,
-                    contentDescription = null,
-                    tint = colors.onBackground
-                )
-            },
+            label = "Email Address",
+            placeholder = "email@example.com",
             singleLine = true,
             isError = false,
             errorText = null
@@ -92,14 +87,8 @@ fun LoginScreen(
             onValueChange = {
                 password = it
             },
-            placeholder = "Password",
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Lock,
-                    contentDescription = null,
-                    tint = colors.onBackground
-                )
-            },
+            label = "Password",
+            placeholder = "**********",
             trailingIcon = {
                 if (isPasswordVisible) {
                     Icon(
