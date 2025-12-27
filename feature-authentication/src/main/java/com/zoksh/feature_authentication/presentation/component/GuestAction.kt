@@ -30,7 +30,7 @@ fun GuestAction(
             .fillMaxWidth()
             .height(60.dp),
         colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = Color.Transparent,
+            containerColor = colors.background,
             contentColor = colors.onSurface
         ),
         border = BorderStroke(1.dp, colors.outline)

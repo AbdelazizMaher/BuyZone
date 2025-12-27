@@ -35,12 +35,18 @@ fun AppNavHost(
         composable<AuthDestination.Login> {
             val viewModel: LoginViewModel = koinViewModel()
             LoginNavHandler(navController, viewModel)
-            LoginScreen(viewModel = viewModel)
+            LoginScreen(
+                viewModel = viewModel,
+                innerPadding = innerPadding
+            )
         }
         composable<AuthDestination.SignUp> {
             val viewModel: SignupViewModel = koinViewModel()
             SignupNavHandler(navController, viewModel)
-            SignupScreen()
+            SignupScreen(
+                viewModel = viewModel,
+                innerPadding = innerPadding
+            )
         }
     }
 }

@@ -2,18 +2,15 @@ package com.zoksh.feature_authentication.presentation.login.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
@@ -41,7 +38,8 @@ import com.zoksh.feature_authentication.presentation.login.viewmodel.LoginViewMo
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel
+    viewModel: LoginViewModel,
+    innerPadding: PaddingValues
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -54,11 +52,11 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.background)
-            .navigationBarsPadding()
+            .padding(innerPadding)
             .padding(horizontal = 24.dp)
             .verticalScroll(rememberScrollState()),
     ) {
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         HeaderSection(
             modifier = Modifier
                 .fillMaxWidth()

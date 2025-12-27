@@ -1,11 +1,9 @@
 package com.zoksh.feature_onboarding.presentation.screen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -29,7 +27,7 @@ import com.zoksh.feature_onboarding.presentation.viewmodel.OnBoardingViewModel
 
 @Composable
 fun OnBoardingScreen(
-    viewModel: OnBoardingViewModel,
+    viewModel: OnBoardingViewModel
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState(
