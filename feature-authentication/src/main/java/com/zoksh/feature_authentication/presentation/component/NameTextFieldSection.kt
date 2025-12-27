@@ -8,8 +8,8 @@ import androidx.compose.ui.text.input.KeyboardType
 fun NameTextFieldSection(
     value: String,
     onValueChange: (String) -> Unit,
+    label: String ,
     placeholder: String,
-    leadingIcon: @Composable (() -> Unit),
     singleLine: Boolean = true,
     keyboardOptions: KeyboardOptions= KeyboardOptions(keyboardType = KeyboardType.Text),
     isError: Boolean = false,
@@ -18,8 +18,8 @@ fun NameTextFieldSection(
     AppTextField(
         value = value,
         onValueChange = onValueChange,
+        label = label,
         placeholder = placeholder,
-        leadingIcon = leadingIcon,
         singleLine = singleLine,
         keyboardOptions = keyboardOptions,
         isError = isError,

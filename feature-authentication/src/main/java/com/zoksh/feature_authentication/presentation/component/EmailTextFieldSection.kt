@@ -8,8 +8,8 @@ import androidx.compose.ui.text.input.KeyboardType
 fun EmailTextFieldSection(
     value: String,
     onValueChange: (String) -> Unit,
+    label: String ,
     placeholder: String,
-    leadingIcon: @Composable (() -> Unit),
     singleLine: Boolean,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
     isError: Boolean = false,
@@ -18,9 +18,10 @@ fun EmailTextFieldSection(
     AppTextField(
         value = value,
         onValueChange = onValueChange,
+        label = label,
         placeholder = placeholder,
-        leadingIcon = leadingIcon,
         singleLine = singleLine,
+        keyboardOptions = keyboardOptions,
         isError = isError,
         errorText = errorText
     )

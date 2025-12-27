@@ -10,8 +10,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 fun PasswordTextFieldSection(
     value: String,
     onValueChange: (String) -> Unit,
+    label: String ,
     placeholder: String,
-    leadingIcon: @Composable (() -> Unit),
     trailingIcon: @Composable (() -> Unit),
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
     visualTransformation: VisualTransformation = PasswordVisualTransformation(),
@@ -22,10 +22,11 @@ fun PasswordTextFieldSection(
     AppTextField(
         value = value,
         onValueChange = onValueChange,
+        label = label,
         placeholder = placeholder,
-        leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
         singleLine = singleLine,
+        keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,
         isError = isError,
         errorText = errorText
