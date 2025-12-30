@@ -15,7 +15,7 @@ import com.zoksh.buyzone.ui.theme.BuyZoneTheme
 
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
-
+//bbbbbbbbbbbbbbbbbommmmmmm
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
