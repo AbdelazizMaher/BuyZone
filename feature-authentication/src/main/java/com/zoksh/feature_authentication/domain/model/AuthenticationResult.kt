@@ -1,8 +1,8 @@
 package com.zoksh.feature_authentication.domain.model
 
 sealed interface AuthenticationResult {
-    object Success : AuthenticationResult
-    data class AuthenticationError(val error: ValidationError) : AuthenticationResult
-    object AuthenticationFailed : AuthenticationResult
-    object UnKnownError : AuthenticationResult
+    data class Success(val user: User) : AuthenticationResult
+    object GuestAccess : AuthenticationResult
+    data class ValidationFailed(val error: ValidationError) : AuthenticationResult
+    data class Failure(val error: AuthenticationError) : AuthenticationResult
 }
