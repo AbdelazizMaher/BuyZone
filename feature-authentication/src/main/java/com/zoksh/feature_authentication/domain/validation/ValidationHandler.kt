@@ -10,8 +10,14 @@ abstract class ValidationHandler {
         return handler
     }
 
-    fun handle(): ValidationError? {
-        return validate() ?: next?.handle()
+    fun handleFirstError() : ValidationError? {
+        return validate() ?: next?.handleFirstError()
+    }
+
+    fun handleAllErrors() : List<ValidationError> {
+        val errors = mutableListOf<ValidationError>()
+        validate()?.let { errors.add(it) }
+        return errors + (next?.handleAllErrors() ?: emptyList())
     }
 
     abstract fun validate() : ValidationError?

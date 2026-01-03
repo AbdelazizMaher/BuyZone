@@ -8,6 +8,7 @@ import androidx.compose.ui.text.input.KeyboardType
 fun NameTextFieldSection(
     value: String,
     onValueChange: (String) -> Unit,
+    onFocusLost: (() -> Unit),
     label: String ,
     placeholder: String,
     singleLine: Boolean = true,
@@ -18,6 +19,7 @@ fun NameTextFieldSection(
     AppTextField(
         value = value,
         onValueChange = onValueChange,
+        onFocusLost = onFocusLost,
         label = label,
         placeholder = placeholder,
         singleLine = singleLine,

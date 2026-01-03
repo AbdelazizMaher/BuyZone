@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TermsAndConditions(
+    text: String,
     isChecked: Boolean,
     onCheckedChange: (Boolean) -> Unit
 ) {
@@ -26,7 +27,7 @@ fun TermsAndConditions(
         )
         Spacer(modifier = Modifier.width(4.dp))
         Text(
-            text = "I agree to the Terms and Conditions",
+            text = text,
             style = MaterialTheme.typography.bodyMedium
         )
 

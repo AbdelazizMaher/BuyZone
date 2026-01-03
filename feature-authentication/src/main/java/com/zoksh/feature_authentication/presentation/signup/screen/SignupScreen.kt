@@ -22,7 +22,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zoksh.feature_authentication.presentation.component.AuthSwitchSection
 import com.zoksh.feature_authentication.presentation.component.EmailTextFieldSection
 import com.zoksh.feature_authentication.presentation.component.HeaderSection
@@ -33,6 +35,7 @@ import com.zoksh.feature_authentication.presentation.component.PrimaryAction
 import com.zoksh.feature_authentication.presentation.component.TermsAndConditions
 import com.zoksh.feature_authentication.presentation.component.TitleSection
 import com.zoksh.feature_authentication.presentation.model.PasswordRequirement
+import com.zoksh.feature_authentication.presentation.signup.contract.SignupContract
 import com.zoksh.feature_authentication.presentation.signup.viewmodel.SignupViewModel
 
 
@@ -41,20 +44,15 @@ fun SignupScreen(
     viewModel: SignupViewModel,
     innerPadding: PaddingValues
 ) {
-    val colors = MaterialTheme.colorScheme
+    val isPasswordVisible by remember { mutableStateOf(false) }
+    val isConfirmPasswordVisible by remember { mutableStateOf(false) }
 
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
-    var isPasswordVisible by remember { mutableStateOf(false) }
-    var isConfirmPasswordVisible by remember { mutableStateOf(false) }
-    var isChecked by remember { mutableStateOf(false) }
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colors.background)
+            .background(MaterialTheme.colorScheme.background)
             .padding(innerPadding)
             .padding(horizontal = 24.dp)
             .verticalScroll(rememberScrollState()),
@@ -72,109 +70,103 @@ fun SignupScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
         NameTextFieldSection(
-            value = name,
+            value = state.name,
             onValueChange = {
-                name = it
+                viewModel.handleIntent(SignupContract.Intent.NameChanged(it))
+            },
+            onFocusLost = {
+                viewModel.handleIntent(SignupContract.Intent.NameFocusLost)
             },
             label = "Full Name",
             placeholder = "Abdelaziz Maher",
-            isError = false,
-            errorText = null
+            isError = state.nameTouched && state.nameError != null,
+            errorText = state.nameError
         )
         Spacer(modifier = Modifier.height(16.dp))
         EmailTextFieldSection(
-            value = email,
+            value = state.email,
             onValueChange = {
-                email = it
+                viewModel.handleIntent(SignupContract.Intent.EmailChanged(it))
+            },
+            onFocusLost = {
+                viewModel.handleIntent(SignupContract.Intent.EmailFocusLost)
             },
             label = "Email Address",
             placeholder = "example@gmail.com",
-            singleLine = true,
-            isError = false,
-            errorText = null
+            isError = state.emailTouched && state.emailError != null,
+            errorText = state.emailError
         )
         Spacer(modifier = Modifier.height(16.dp))
         PasswordTextFieldSection(
-            value = password,
+            value = state.password,
             onValueChange = {
-                password = it
+                viewModel.handleIntent(SignupContract.Intent.PasswordChanged(it))
+            },
+            onFocusLost = {
+                viewModel.handleIntent(SignupContract.Intent.PasswordFocusLost)
             },
             label = "Password",
             placeholder = "**********",
             trailingIcon = {
-                if (isPasswordVisible) {
-                    Icon(
-                        imageVector = Icons.Default.Visibility,
-                        contentDescription = null,
-                        tint = colors.onBackground
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Default.VisibilityOff,
-                        contentDescription = null,
-                        tint = colors.onBackground
-                    )
-                }
+                Icon(
+                    imageVector = if (isPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground
+                )
             },
-            visualTransformation = PasswordVisualTransformation(),
-            singleLine = true,
-            isError = false,
-            errorText = null
+            visualTransformation = if (isPasswordVisible) PasswordVisualTransformation() else VisualTransformation.None,
+            isError = state.passwordTouched && state.passwordError != null,
+            errorText = state.passwordError
         )
         Spacer(modifier = Modifier.height(16.dp))
         PasswordTextFieldSection(
-            value = confirmPassword,
+            value = state.confirmPassword,
             onValueChange = {
-                confirmPassword = it
+                viewModel.handleIntent(SignupContract.Intent.ConfirmPasswordChanged(it))
+            },
+            onFocusLost = {
+                viewModel.handleIntent(SignupContract.Intent.ConfirmPasswordFocusLost)
             },
             label = "Confirm Password",
             placeholder = "**********",
             trailingIcon = {
-                if (isConfirmPasswordVisible) {
-                    Icon(
-                        imageVector = Icons.Default.Visibility,
-                        contentDescription = null,
-                        tint = colors.onBackground
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Default.VisibilityOff,
-                        contentDescription = null,
-                        tint = colors.onBackground
-                    )
-                }
+                Icon(
+                    imageVector = if (isConfirmPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground
+                )
             },
-            visualTransformation = PasswordVisualTransformation(),
-            singleLine = true,
-            isError = false,
-            errorText = null
+            visualTransformation = if (isConfirmPasswordVisible) PasswordVisualTransformation() else VisualTransformation.None,
+            isError = state.confirmPasswordTouched && state.confirmPasswordError != null,
+            errorText = state.confirmPasswordError
         )
         Spacer(modifier = Modifier.height(16.dp))
         PasswordRequirementsSection(
             requirements = listOf(
                 PasswordRequirement(
                     text = "At least 8 characters",
-                    isSatisfied = false
+                    isSatisfied = state.passwordRequirements.minLength
                 ),
                 PasswordRequirement(
                     text = "At least one uppercase letter",
-                    isSatisfied = false
+                    isSatisfied = state.passwordRequirements.upperCase
                 ),
                 PasswordRequirement(
                     text = "At least one lowercase letter",
-                    isSatisfied = false
+                    isSatisfied = state.passwordRequirements.lowerCase
                 ),
                 PasswordRequirement(
                     text = "At least one number",
-                    isSatisfied = false
+                    isSatisfied = state.passwordRequirements.number
                 )
             )
         )
         Spacer(modifier = Modifier.height(16.dp))
         TermsAndConditions(
-            isChecked = isChecked,
+            text = "I agree to the Terms and Conditions",
+            isChecked = state.termsAccepted,
             onCheckedChange = {
-                isChecked = it
+                viewModel.handleIntent(SignupContract.Intent.TermsAccepted(it))
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -182,7 +174,7 @@ fun SignupScreen(
             text = "Sign Up",
             enabled = true,
             onClick = {
-
+                viewModel.handleIntent(SignupContract.Intent.Signup)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -190,7 +182,7 @@ fun SignupScreen(
             text = "Already have an account?",
             actionText = "Sign In",
             onActionClick = {
-
+                viewModel.handleIntent(SignupContract.Intent.Login)
             }
         )
     }
