@@ -73,6 +73,9 @@ fun LoginScreen(
             onValueChange = {
                 email = it
             },
+            onFocusLost = {
+
+            },
             label = "Email Address",
             placeholder = "email@example.com",
             singleLine = true,
@@ -84,6 +87,9 @@ fun LoginScreen(
             value = password,
             onValueChange = {
                 password = it
+            },
+            onFocusLost = {
+
             },
             label = "Password",
             placeholder = "**********",

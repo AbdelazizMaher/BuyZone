@@ -1,5 +1,6 @@
 package com.zoksh.feature_authentication.presentation.signup.contract
 
+import com.zoksh.feature_authentication.domain.model.User
 import com.zoksh.feature_authentication.presentation.model.PasswordRequirementState
 
 interface SignupContract {
@@ -47,7 +48,8 @@ interface SignupContract {
     sealed interface Effect {
         data object NavigateBack: Effect
         data object NavigateToLogin: Effect
-        data object SignupSuccess : Effect
+        data object GuestAccess: Effect
+        data class SignupSuccess(val user: User) : Effect
         data class ShowError(val message: String): Effect
     }
 }

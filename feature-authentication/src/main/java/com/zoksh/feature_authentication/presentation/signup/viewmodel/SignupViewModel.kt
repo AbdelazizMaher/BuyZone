@@ -5,13 +5,20 @@ import androidx.lifecycle.viewModelScope
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
 import com.zoksh.feature_authentication.domain.model.AuthenticationProvider
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
+import com.zoksh.feature_authentication.domain.model.ValidationError
 import com.zoksh.feature_authentication.domain.usecase.SignupUseCase
+import com.zoksh.feature_authentication.presentation.mapper.isEmailError
+import com.zoksh.feature_authentication.presentation.mapper.isNameError
+import com.zoksh.feature_authentication.presentation.mapper.isPasswordError
+import com.zoksh.feature_authentication.presentation.mapper.isTermsError
 import com.zoksh.feature_authentication.presentation.mapper.toUiMessage
 import com.zoksh.feature_authentication.presentation.model.PasswordRequirementState
 import com.zoksh.feature_authentication.presentation.signup.contract.SignupContract
+import com.zoksh.feature_authentication.presentation.validation.ConfirmPasswordValidationChain
 import com.zoksh.feature_authentication.presentation.validation.EmailValidationChain
 import com.zoksh.feature_authentication.presentation.validation.NameValidationChain
 import com.zoksh.feature_authentication.presentation.validation.PasswordValidationChain
+import com.zoksh.feature_authentication.presentation.validation.SignUpWithEmailValidationChain
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -84,7 +91,11 @@ class SignupViewModel(
     }
 
     private fun handleConfirmPasswordFocusLost() {
-        _state.update { it.copy(confirmPasswordTouched = true) }
+        val error = ConfirmPasswordValidationChain.build(
+            _state.value.password,
+            _state.value.confirmPassword
+        ).handleFirstError()
+        _state.update { it.copy(confirmPasswordTouched = true, confirmPasswordError = error?.toUiMessage()) }
     }
 
     private fun handleTermsAccepted(accepted: Boolean) {
@@ -99,18 +110,36 @@ class SignupViewModel(
 
     private fun handleSignup() {
         viewModelScope.launch {
+            _state.update { it.copy(signupClicked = true) }
             val signupResult = signupUseCase(
                 credential = AuthenticationCredential.EmailAndPassword(
                     _state.value.email, _state.value.password,
                     AuthenticationProvider.EMAIL_SIGNUP
-                )
+                ),
+                validator = SignUpWithEmailValidationChain.build(_state.value.name, _state.value.email, _state.value.password, _state.value.confirmPassword)
             )
             when (signupResult) {
-                is AuthenticationResult.Success -> {}
-                is AuthenticationResult.Failure -> TODO()
-                AuthenticationResult.GuestAccess -> TODO()
-                is AuthenticationResult.ValidationFailed -> TODO()
+                is AuthenticationResult.Success -> { _event.emit(SignupContract.Effect.SignupSuccess(signupResult.user)) }
+                is AuthenticationResult.Failure -> {  _event.emit(SignupContract.Effect.ShowError(signupResult.error.toUiMessage())) }
+                AuthenticationResult.GuestAccess -> { _event.emit(SignupContract.Effect.GuestAccess) }
+                is AuthenticationResult.ValidationFailed -> {
+                    _state.update { state ->
+                        state.copy(
+                            nameError = signupResult.errors.firstOrNull { it.isNameError() }?.toUiMessage(),
+                            emailError = signupResult.errors.firstOrNull { it.isEmailError() }?.toUiMessage(),
+                            passwordError = signupResult.errors.firstOrNull { it.isPasswordError() }?.toUiMessage(),
+                            confirmPasswordError = signupResult.errors.firstOrNull { it.isPasswordError() }?.toUiMessage(),
+                            termsAcceptedError = signupResult.errors.firstOrNull { it.isTermsError() }?.toUiMessage(),
+
+                            nameTouched = true,
+                            emailTouched = true,
+                            passwordTouched = true,
+                            confirmPasswordTouched = true,
+                        )
+                    }
+                }
             }
+            _state.update { it.copy(signupClicked = false) }
         }
     }
 }

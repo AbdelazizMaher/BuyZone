@@ -172,7 +172,7 @@ fun SignupScreen(
         Spacer(modifier = Modifier.height(16.dp))
         PrimaryAction(
             text = "Sign Up",
-            enabled = true,
+            enabled = !state.signupClicked,
             onClick = {
                 viewModel.handleIntent(SignupContract.Intent.Signup)
             }

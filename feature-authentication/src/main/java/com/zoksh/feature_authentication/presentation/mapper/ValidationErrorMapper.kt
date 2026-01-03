@@ -15,5 +15,12 @@ fun ValidationError.toUiMessage(): String {
         ValidationError.PasswordNoNumber -> "Password must contain at least one number"
         ValidationError.PasswordNoSpecialChar -> "Password must contain at least one special character"
         ValidationError.PasswordNoMatching -> "Passwords do not match"
+        ValidationError.TermsNotAccepted -> "You must accept the terms and conditions"
     }
 }
+
+fun ValidationError.isNameError() = this == ValidationError.EmptyName || this == ValidationError.InvalidName
+fun ValidationError.isPasswordError() = this == ValidationError.EmptyPassword || this == ValidationError.PasswordTooShort || this == ValidationError.PasswordNoUpperCase || this == ValidationError.PasswordNoLowerCase || this == ValidationError.PasswordNoNumber || this == ValidationError.PasswordNoSpecialChar
+fun ValidationError.isEmailError() = this == ValidationError.EmptyEmail || this == ValidationError.InvalidEmail
+fun ValidationError.isTermsError() = this == ValidationError.TermsNotAccepted
+fun ValidationError.isConfirmPasswordError() = this == ValidationError.PasswordNoMatching

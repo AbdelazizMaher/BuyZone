@@ -14,10 +14,11 @@ fun SignupNavHandler(
     LaunchedEffect(Unit) {
         viewModel.event.collect { effect ->
             when (effect) {
-                SignupContract.Effect.NavigateBack -> TODO()
-                SignupContract.Effect.NavigateToLogin -> TODO()
-                is SignupContract.Effect.ShowError -> TODO()
-                SignupContract.Effect.SignupSuccess -> TODO()
+                SignupContract.Effect.NavigateBack -> {}
+                SignupContract.Effect.NavigateToLogin -> {}
+                is SignupContract.Effect.ShowError -> {}
+                SignupContract.Effect.GuestAccess -> {}
+                is SignupContract.Effect.SignupSuccess -> {}
             }
         }
     }

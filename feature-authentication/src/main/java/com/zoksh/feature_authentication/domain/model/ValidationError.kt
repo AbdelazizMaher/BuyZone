@@ -12,4 +12,5 @@ sealed interface ValidationError {
     object PasswordNoNumber : ValidationError
     object PasswordNoSpecialChar : ValidationError
     object PasswordNoMatching : ValidationError
+    object TermsNotAccepted : ValidationError
 }

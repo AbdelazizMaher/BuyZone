@@ -10,13 +10,13 @@ import com.zoksh.feature_authentication.domain.validation.ValidationHandler
 class LoginUseCase(
     private val userSetupUseCase: UserSetupUseCase,
     private val repository: AuthenticationRepository,
-    private val validator: ValidationHandler
 ) {
     operator fun invoke(
-        credential: AuthenticationCredential
+        credential: AuthenticationCredential,
+        validator: ValidationHandler
     ): AuthenticationResult {
-        validator.validate()?.let {
-            return AuthenticationResult.ValidationFailed(it)
+        validator.handleAllErrors().also {
+            if (it.isNotEmpty()) return AuthenticationResult.ValidationFailed(it)
         }
 
         return when (val result = repository.authenticate(credential)) {
