@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.apollo)
 }
 
 android {
@@ -54,6 +55,9 @@ dependencies {
 
     // serialization
     implementation(libs.kotlinx.serialization.json)
+
+    // apollo
+    implementation(libs.apollo.runtime)
 
     // firebase
     implementation(platform(libs.firebase.bom))
