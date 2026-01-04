@@ -11,6 +11,6 @@ val authModule = module {
     factory { LoginUseCase(get(), get()) }
     factory { SignupUseCase(get(), get()) }
 
-    viewModel { LoginViewModel() }
+    viewModel { LoginViewModel(get()) }
     viewModel { SignupViewModel(get()) }
 }

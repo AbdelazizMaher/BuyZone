@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 @Preview(showBackground = true)
 @Composable
 fun OptionsRow(
-    isCheck: Boolean = false,
-    onCheckedChange: (Boolean) -> Unit = {},
+    isChecked: Boolean = false,
+    onRememberMeClick: (Boolean) -> Unit = {},
     onForgotPasswordClick: () -> Unit = {}
 ) {
     Row(
@@ -29,8 +29,8 @@ fun OptionsRow(
         val colors = MaterialTheme.colorScheme
 
         RoundedCheckbox(
-            checked = isCheck,
-            onCheckedChange = onCheckedChange,
+            checked = isChecked,
+            onCheckedChange = onRememberMeClick,
         )
         Spacer(modifier = Modifier.width(4.dp))
         Text(

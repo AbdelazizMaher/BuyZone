@@ -22,6 +22,7 @@ fun LoginNavHandler(
                     navController.navigate(AuthDestination.SignUp)
                 }
                 is LoginContract.Effect.ShowError -> TODO()
+                LoginContract.Effect.GuestAccess -> TODO()
             }
         }
     }

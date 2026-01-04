@@ -1,6 +1,7 @@
 package com.zoksh.feature_authentication.presentation.login.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -21,7 +22,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zoksh.feature_authentication.presentation.component.AuthSwitchSection
 import com.zoksh.feature_authentication.presentation.component.DividerWithText
 import com.zoksh.feature_authentication.presentation.component.EmailTextFieldSection
@@ -41,17 +45,13 @@ fun LoginScreen(
     viewModel: LoginViewModel,
     innerPadding: PaddingValues
 ) {
-    val colors = MaterialTheme.colorScheme
-
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
-    var isChecked by remember { mutableStateOf(false) }
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colors.background)
+            .background(MaterialTheme.colorScheme.background)
             .padding(innerPadding)
             .padding(horizontal = 24.dp)
             .verticalScroll(rememberScrollState()),
@@ -69,64 +69,58 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
         EmailTextFieldSection(
-            value = email,
+            value = state.email,
             onValueChange = {
-                email = it
+                viewModel.handleIntent(LoginContract.Intent.EmailChanged(it))
             },
             onFocusLost = {
-
+                viewModel.handleIntent(LoginContract.Intent.EmailFocusLost)
             },
             label = "Email Address",
             placeholder = "email@example.com",
-            singleLine = true,
-            isError = false,
-            errorText = null
+            isError = state.emailTouched && state.emailError != null,
+            errorText = state.emailError
         )
         Spacer(modifier = Modifier.height(16.dp))
         PasswordTextFieldSection(
-            value = password,
+            value = state.password,
             onValueChange = {
-                password = it
+                viewModel.handleIntent(LoginContract.Intent.PasswordChanged(it))
             },
             onFocusLost = {
-
+                viewModel.handleIntent(LoginContract.Intent.PasswordFocusLost)
             },
             label = "Password",
             placeholder = "**********",
             trailingIcon = {
-                if (isPasswordVisible) {
-                    Icon(
-                        imageVector = Icons.Default.Visibility,
-                        contentDescription = null,
-                        tint = colors.onBackground
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Default.VisibilityOff,
-                        contentDescription = null,
-                        tint = colors.onBackground
-                    )
-                }
+                Icon(
+                    imageVector = if (isPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                    modifier = Modifier
+                        .clickable { isPasswordVisible = !isPasswordVisible },
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground
+                )
             },
-            isError = false,
-            errorText = null
+            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            isError = state.passwordTouched && state.passwordError != null,
+            errorText = state.passwordError
         )
         Spacer(modifier = Modifier.height(16.dp))
         OptionsRow(
-            isCheck = isChecked,
-            onCheckedChange = {
-                isChecked = it
+            isChecked = state.rememberMe,
+            onRememberMeClick = {
+                viewModel.handleIntent(LoginContract.Intent.RememberMe(it))
             },
             onForgotPasswordClick = {
-
+                viewModel.handleIntent(LoginContract.Intent.ForgotPassword)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
         PrimaryAction(
             text = "Sign In",
-            enabled = true,
+            enabled = !state.loginClicked,
             onClick = {
-
+                viewModel.handleIntent(LoginContract.Intent.SignIn)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -136,10 +130,10 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
         SocialAuthSection(
             onGoogleClick = {
-
+                viewModel.handleIntent(LoginContract.Intent.GoogleLogin)
             },
             onFacebookClick = {
-
+                viewModel.handleIntent(LoginContract.Intent.FacebookLogin)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -149,7 +143,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
         GuestAction(
             onClick = {
-
+                viewModel.handleIntent(LoginContract.Intent.GuestAccess)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))

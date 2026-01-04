@@ -1,6 +1,7 @@
 package com.zoksh.feature_authentication.presentation.signup.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -44,8 +45,8 @@ fun SignupScreen(
     viewModel: SignupViewModel,
     innerPadding: PaddingValues
 ) {
-    val isPasswordVisible by remember { mutableStateOf(false) }
-    val isConfirmPasswordVisible by remember { mutableStateOf(false) }
+    var isPasswordVisible by remember { mutableStateOf(false) }
+    var isConfirmPasswordVisible by remember { mutableStateOf(false) }
 
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -110,6 +111,8 @@ fun SignupScreen(
             trailingIcon = {
                 Icon(
                     imageVector = if (isPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                    modifier = Modifier
+                        .clickable { isPasswordVisible = !isPasswordVisible },
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onBackground
                 )
@@ -132,11 +135,13 @@ fun SignupScreen(
             trailingIcon = {
                 Icon(
                     imageVector = if (isConfirmPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                    modifier = Modifier
+                        .clickable { isConfirmPasswordVisible = !isConfirmPasswordVisible },
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onBackground
                 )
             },
-            visualTransformation = if (isConfirmPasswordVisible) PasswordVisualTransformation() else VisualTransformation.None,
+            visualTransformation = if (isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             isError = state.confirmPasswordTouched && state.confirmPasswordError != null,
             errorText = state.confirmPasswordError
         )
