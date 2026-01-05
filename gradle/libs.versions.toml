@@ -13,6 +13,7 @@ appcompat = "1.6.1"
 material = "1.10.0"
 google-services = "4.4.4"
 firebase-bom = "34.7.0"
+apollo = "4.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +36,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+apollo-runtime = { module = "com.apollographql.apollo:apollo-runtime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -43,5 +45,5 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
-
+apollo = { id = "com.apollographql.apollo", version.ref = "apollo" }
 
