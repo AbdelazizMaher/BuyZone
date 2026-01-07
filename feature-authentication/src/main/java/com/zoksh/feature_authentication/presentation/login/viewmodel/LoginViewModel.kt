@@ -6,11 +6,15 @@ import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
 import com.zoksh.feature_authentication.domain.model.AuthenticationProvider
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
 import com.zoksh.feature_authentication.domain.usecase.LoginUseCase
+import com.zoksh.feature_authentication.domain.validation.ValidationHandler
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract
+import com.zoksh.feature_authentication.presentation.mapper.isEmailError
+import com.zoksh.feature_authentication.presentation.mapper.isPasswordError
 import com.zoksh.feature_authentication.presentation.mapper.toUiMessage
 import com.zoksh.feature_authentication.presentation.validation.EmailValidationChain
 import com.zoksh.feature_authentication.presentation.validation.LoginWithEmailValidationChain
 import com.zoksh.feature_authentication.presentation.validation.PasswordValidationChain
+import com.zoksh.feature_authentication.presentation.validation.SocialValidationChain
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -30,7 +34,7 @@ class LoginViewModel(
 
     fun handleIntent(intent: LoginContract.Intent) {
         when (intent) {
-            is LoginContract.Intent.SignIn -> handleSignIn()
+            is LoginContract.Intent.SignIn -> handleSignInWithEmailAndPassword()
             LoginContract.Intent.SignUp -> handleSignUp()
             is LoginContract.Intent.EmailChanged -> handleEmailChanged(intent.email)
             is LoginContract.Intent.PasswordChanged -> handlePasswordChanged(intent.password)
@@ -40,40 +44,16 @@ class LoginViewModel(
             is LoginContract.Intent.RememberMe -> handleRememberMe(intent.rememberMe)
             LoginContract.Intent.FacebookLogin -> handleFacebookLogin()
             LoginContract.Intent.GoogleLogin -> handleGoogleLogin()
+            is LoginContract.Intent.GoogleAuthFailure -> handleGoogleAuthFailure(intent.error)
+            is LoginContract.Intent.GoogleAuthSuccess -> handleGoogleAuthSuccess(intent.idToken)
             LoginContract.Intent.GuestAccess -> handleGuestAccess()
         }
     }
 
-    private fun emitEffect(effect: LoginContract.Effect) {
-        viewModelScope.launch {
-            _event.emit(effect)
-        }
-    }
-
-    private fun handleSignIn() {
-        viewModelScope.launch {
-            _state.update { it.copy(loginClicked = true) }
-            val loginResult = loginUseCase(
-                credential = AuthenticationCredential.EmailAndPassword(
-                    _state.value.email, _state.value.password, AuthenticationProvider.EMAIL_LOGIN
-                ),
-                validator = LoginWithEmailValidationChain.build(
-                    _state.value.email,
-                    _state.value.password
-                )
-            )
-            when (loginResult) {
-                is AuthenticationResult.Success -> {}
-                is AuthenticationResult.Failure -> {}
-                AuthenticationResult.GuestAccess -> {}
-                is AuthenticationResult.ValidationFailed -> {}
-            }
-            _state.update { it.copy(loginClicked = false) }
-        }
-    }
-
     private fun handleSignUp() {
-        emitEffect(LoginContract.Effect.NavigateToSignup)
+        viewModelScope.launch {
+           _event.emit(LoginContract.Effect.NavigateToSignup)
+        }
     }
 
     private fun handleEmailChanged(email: String) {
@@ -95,11 +75,46 @@ class LoginViewModel(
     }
 
     private fun handleForgotPassword() {
-        emitEffect(LoginContract.Effect.NavigateToForgotPassword)
+        viewModelScope.launch {
+            _event.emit(LoginContract.Effect.NavigateToForgotPassword)
+        }
     }
 
     private fun handleRememberMe(rememberMe: Boolean) {
 
+    }
+
+    private fun handleSignIn(validator: ValidationHandler,credential: AuthenticationCredential) {
+        viewModelScope.launch {
+            _state.update { it.copy(loginClicked = true) }
+            val loginResult = loginUseCase(
+                credential = credential,
+                validator = validator
+            )
+            when (loginResult) {
+                is AuthenticationResult.Success -> { _event.emit(LoginContract.Effect.LoginSuccess(loginResult.user)) }
+                is AuthenticationResult.Failure -> { _event.emit(LoginContract.Effect.ShowError(loginResult.error.toUiMessage())) }
+                AuthenticationResult.GuestAccess -> { _event.emit(LoginContract.Effect.GuestAccess) }
+                is AuthenticationResult.ValidationFailed -> { _state.update { state ->
+                    state.copy(
+                        emailError = loginResult.errors.firstOrNull { it.isEmailError() }?.toUiMessage(),
+                        passwordError = loginResult.errors.firstOrNull { it.isPasswordError() }?.toUiMessage(),
+
+                        emailTouched = true,
+                        passwordTouched = true,
+                    )
+                }}
+            }
+            _state.update { it.copy(loginClicked = false) }
+        }
+    }
+
+    private fun handleSignInWithEmailAndPassword() {
+        val validator = LoginWithEmailValidationChain.build(_state.value.email, _state.value.password)
+        val credential = AuthenticationCredential.EmailAndPassword(
+            _state.value.email, _state.value.password,AuthenticationProvider.EMAIL_LOGIN
+        )
+        handleSignIn(validator,credential)
     }
 
     private fun handleFacebookLogin() {
@@ -107,10 +122,24 @@ class LoginViewModel(
     }
 
     private fun handleGoogleLogin() {
+        viewModelScope.launch {
+            _event.emit(LoginContract.Effect.StartGoogleAuth)
+        }
+    }
+
+    private fun handleGoogleAuthSuccess(idToken: String) {
+        val validator = SocialValidationChain.build()
+        val credential = AuthenticationCredential.Social(token = idToken, provider = AuthenticationProvider.GOOGLE)
+        handleSignIn(validator, credential)
+    }
+
+    private fun handleGoogleAuthFailure(error: String) {
 
     }
 
     private fun handleGuestAccess() {
-        emitEffect(LoginContract.Effect.GuestAccess)
+        viewModelScope.launch {
+            _event.emit(LoginContract.Effect.GuestAccess)
+        }
     }
 }

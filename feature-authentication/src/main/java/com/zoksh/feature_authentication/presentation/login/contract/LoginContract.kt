@@ -1,5 +1,7 @@
 package com.zoksh.feature_authentication.presentation.login.contract
 
+import com.zoksh.feature_authentication.domain.model.User
+
 interface LoginContract {
     data class State(
         val email: String = "",
@@ -26,13 +28,17 @@ interface LoginContract {
         data object ForgotPassword : Intent
         data object FacebookLogin : Intent
         data object GoogleLogin : Intent
+        data class GoogleAuthSuccess(val idToken: String) : Intent
+        data class GoogleAuthFailure(val error: String) : Intent
         data object SignIn : Intent
         data object SignUp: Intent
     }
     sealed interface Effect {
         data object NavigateToSignup: Effect
         data object NavigateToForgotPassword: Effect
-        data object LoginSuccess : Effect
+        data object StartGoogleAuth: Effect
+        data object StartFacebookAuth: Effect
+        data class LoginSuccess(val user: User) : Effect
         data object GuestAccess : Effect
         data class ShowError(val message: String): Effect
     }
