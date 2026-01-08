@@ -13,6 +13,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
 import com.zoksh.buyzone.R
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract
+import com.zoksh.feature_authentication.presentation.login.contract.LoginContract.Intent.*
 import com.zoksh.feature_authentication.presentation.login.viewmodel.LoginViewModel
 import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
 
@@ -26,7 +27,6 @@ fun LoginNavHandler(
     LaunchedEffect(viewModel) {
         viewModel.event.collect { effect ->
             when (effect) {
-                LoginContract.Effect.LoginSuccess -> TODO()
                 LoginContract.Effect.NavigateToForgotPassword -> TODO()
                 LoginContract.Effect.NavigateToSignup -> {
                     navController.navigate(AuthDestination.SignUp)
@@ -38,12 +38,14 @@ fun LoginNavHandler(
                 LoginContract.Effect.StartGoogleAuth -> handleGoogleAuth(
                     activity = activity,
                     onSuccess = { token ->
-                        viewModel.handleIntent(LoginContract.Intent.GoogleAuthSuccess(token))
+                        viewModel.handleIntent(GoogleAuthSuccess(token))
                     },
                     onFailure = { error ->
-                        viewModel.handleIntent(LoginContract.Intent.GoogleAuthFailure(error))
+                        viewModel.handleIntent(GoogleAuthFailure(error))
                     }
                 )
+
+                is LoginContract.Effect.LoginSuccess -> TODO()
             }
         }
     }
@@ -75,5 +77,4 @@ private suspend fun handleGoogleAuth(
     } catch (e: Exception) {
         onFailure(e.message ?: "Unknown error")
     }
-
 }
