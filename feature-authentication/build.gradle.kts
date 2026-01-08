@@ -38,6 +38,25 @@ android {
     buildFeatures {
         compose = true
     }
+
+    apollo {
+        service("shopify") {
+            packageName.set("com.zoksh.shopify")
+
+            schemaFile.set(file("src/main/graphql/shopify/schema.graphqls"))
+
+            introspection {
+                endpointUrl.set(
+                    "https://mad45-alex-and02.myshopify.com/api/2024-01/graphql.json"
+                )
+                headers.set(
+                    mapOf(
+                        "X-Shopify-Storefront-Access-Token" to "cf0390c1a174351fc5092b6f62d71a32"
+                    )
+                )
+            }
+        }
+    }
 }
 
 dependencies {
