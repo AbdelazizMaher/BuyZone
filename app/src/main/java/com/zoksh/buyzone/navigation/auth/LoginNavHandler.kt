@@ -75,7 +75,7 @@ private suspend fun handleGoogleAuth(
     val credentialManager = CredentialManager.create(activity)
     val googleIdOption = GetGoogleIdOption.Builder()
         .setServerClientId(activity.getString(R.string.default_web_client_id))
-        .setFilterByAuthorizedAccounts(true)
+        .setFilterByAuthorizedAccounts(false)
         .build()
 
     val request = GetCredentialRequest.Builder()

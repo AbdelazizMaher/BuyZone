@@ -11,7 +11,7 @@ fun createApolloClient(
         .serverUrl(BuildConfig.SHOPIFY_STOREFRONT_URL)
         .addHttpHeader(
             "X-Shopify-Storefront-Access-Token",
-            BuildConfig.STOREFRONT_TOKEN
+            BuildConfig.SHOPIFY_STOREFRONT_TOKEN
         )
         .addHttpInterceptor(expiryInterceptor)
         .build()

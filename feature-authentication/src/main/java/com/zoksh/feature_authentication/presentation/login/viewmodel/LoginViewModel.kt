@@ -1,5 +1,6 @@
 package com.zoksh.feature_authentication.presentation.login.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
@@ -120,15 +121,17 @@ class LoginViewModel(
     }
 
     private fun handleFacebookLogin() {
-
+        viewModelScope.launch {
+            _event.emit(LoginContract.Effect.StartFacebookAuth)
+        }
     }
 
     private fun handleFacebookAuthSuccess(token: String) {
-
+        Log.d("LoginViewModel", "handleFacebookAuthSuccess: $token")
     }
 
     private fun handleFacebookAuthFailure(error: String) {
-
+        Log.d("LoginViewModel", "handleFacebookAuthFailure: $error")
     }
 
     private fun handleGoogleLogin() {
@@ -138,13 +141,14 @@ class LoginViewModel(
     }
 
     private fun handleGoogleAuthSuccess(idToken: String) {
+        Log.d("LoginViewModel", "handleGoogleAuthSuccess: $idToken")
         val validator = SocialValidationChain.build()
         val credential = AuthenticationCredential.Social(token = idToken, provider = AuthenticationProvider.GOOGLE)
         handleSignIn(validator, credential)
     }
 
     private fun handleGoogleAuthFailure(error: String) {
-
+        Log.d("LoginViewModel", "handleGoogleAuthFailure: $error")
     }
 
     private fun handleGuestAccess() {
