@@ -43,6 +43,8 @@ class LoginViewModel(
             LoginContract.Intent.ForgotPassword -> handleForgotPassword()
             is LoginContract.Intent.RememberMe -> handleRememberMe(intent.rememberMe)
             LoginContract.Intent.FacebookLogin -> handleFacebookLogin()
+            is LoginContract.Intent.FacebookAuthFailure -> handleFacebookAuthFailure(intent.error)
+            is LoginContract.Intent.FacebookAuthSuccess -> handleFacebookAuthSuccess(intent.token)
             LoginContract.Intent.GoogleLogin -> handleGoogleLogin()
             is LoginContract.Intent.GoogleAuthFailure -> handleGoogleAuthFailure(intent.error)
             is LoginContract.Intent.GoogleAuthSuccess -> handleGoogleAuthSuccess(intent.idToken)
@@ -118,6 +120,14 @@ class LoginViewModel(
     }
 
     private fun handleFacebookLogin() {
+
+    }
+
+    private fun handleFacebookAuthSuccess(token: String) {
+
+    }
+
+    private fun handleFacebookAuthFailure(error: String) {
 
     }
 

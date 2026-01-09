@@ -1,5 +1,6 @@
 package com.zoksh.feature_authentication.data.repository
 
+import com.apollographql.apollo.ApolloClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
@@ -9,7 +10,8 @@ import com.zoksh.feature_authentication.domain.repository.AuthenticationReposito
 
 class AuthenticationRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
-    private val firebaseFirestore: FirebaseFirestore
+    private val firebaseFirestore: FirebaseFirestore,
+    private val apolloClient: ApolloClient
 
 ): AuthenticationRepository {
     override fun authenticate(credential: AuthenticationCredential): AuthenticationResult {

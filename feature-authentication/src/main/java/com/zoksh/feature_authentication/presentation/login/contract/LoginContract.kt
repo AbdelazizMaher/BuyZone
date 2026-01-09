@@ -27,6 +27,8 @@ interface LoginContract {
         data object GuestAccess : Intent
         data object ForgotPassword : Intent
         data object FacebookLogin : Intent
+        data class FacebookAuthSuccess(val token: String) : Intent
+        data class FacebookAuthFailure(val error: String) : Intent
         data object GoogleLogin : Intent
         data class GoogleAuthSuccess(val idToken: String) : Intent
         data class GoogleAuthFailure(val error: String) : Intent

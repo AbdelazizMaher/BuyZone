@@ -1,12 +1,14 @@
 package com.zoksh.buyzone
 
 import android.app.Application
+import com.zoksh.core_session.session.di.sessionModule
 import com.zoksh.feature_authentication.di.authModule
 import com.zoksh.feature_onboarding.di.onBoardingModule
+import com.zoksh.network_apollo.apollo.di.apolloModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class App: Application() {
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -18,10 +20,10 @@ class App: Application() {
             androidContext(this@App)
             modules(
                 onBoardingModule,
-                authModule
+                authModule,
+                sessionModule,
+                apolloModule,
             )
         }
-
-
     }
 }

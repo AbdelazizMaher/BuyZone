@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.apollo)
 }
 
 android {
@@ -51,6 +52,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(project(":network-apollo"))
+
+    // apollo
+    implementation(libs.apollo.runtime)
 
     // serialization
     implementation(libs.kotlinx.serialization.json)

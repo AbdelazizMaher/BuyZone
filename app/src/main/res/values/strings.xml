@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">BuyZone</string>
+
     <string name="default_web_client_id">15592694090-ah3c21crfh7vpk403jdrhq9onkfjj4kp.apps.googleusercontent.com</string>
+
+    <string name="facebook_app_id">1234</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
 </resources>

@@ -8,6 +8,11 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.navigation.NavHostController
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
@@ -16,11 +21,13 @@ import com.zoksh.feature_authentication.presentation.login.contract.LoginContrac
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract.Intent.*
 import com.zoksh.feature_authentication.presentation.login.viewmodel.LoginViewModel
 import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
+import java.util.Arrays
 
 @Composable
 fun LoginNavHandler(
     navController: NavHostController,
     viewModel: LoginViewModel,
+    callbackManager: CallbackManager
 ) {
     val activity = LocalContext.current as? Activity ?: return
 
@@ -34,7 +41,16 @@ fun LoginNavHandler(
 
                 is LoginContract.Effect.ShowError -> TODO()
                 LoginContract.Effect.GuestAccess -> TODO()
-                LoginContract.Effect.StartFacebookAuth -> TODO()
+                LoginContract.Effect.StartFacebookAuth -> handleFacebookAuth(
+                    activity = activity,
+                    callbackManager = callbackManager,
+                    onSuccess = { token ->
+                        viewModel.handleIntent(FacebookAuthSuccess(token))
+                    },
+                    onFailure = { error ->
+                        viewModel.handleIntent(FacebookAuthFailure(error))
+                    }
+                )
                 LoginContract.Effect.StartGoogleAuth -> handleGoogleAuth(
                     activity = activity,
                     onSuccess = { token ->
@@ -77,4 +93,26 @@ private suspend fun handleGoogleAuth(
     } catch (e: Exception) {
         onFailure(e.message ?: "Unknown error")
     }
+}
+
+private fun handleFacebookAuth(
+    activity: Activity,
+    callbackManager: CallbackManager,
+    onSuccess: (token: String) -> Unit,
+    onFailure: (error: String) -> Unit,
+) {
+    LoginManager.getInstance().logInWithReadPermissions(activity, listOf("public_profile", "email"))
+    LoginManager.getInstance().registerCallback(callbackManager, object: FacebookCallback<LoginResult> {
+        override fun onCancel() {
+
+        }
+
+        override fun onError(error: FacebookException) {
+            onFailure(error.message ?: "Unknown error")
+        }
+
+        override fun onSuccess(result: LoginResult) {
+           onSuccess(result.accessToken.token)
+        }
+    })
 }
