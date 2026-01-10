@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.facebook.CallbackManager
 import com.zoksh.buyzone.navigation.auth.LoginNavHandler
 import com.zoksh.buyzone.navigation.auth.SignupNavHandler
 import com.zoksh.buyzone.navigation.onboarding.OnBoardingNavHandler
@@ -21,6 +22,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AppNavHost(
     navController: NavHostController,
+    callbackManager: CallbackManager,
     innerPadding: PaddingValues
 ) {
     NavHost(
@@ -34,7 +36,7 @@ fun AppNavHost(
         }
         composable<AuthDestination.Login> {
             val viewModel: LoginViewModel = koinViewModel()
-            LoginNavHandler(navController, viewModel)
+            LoginNavHandler(navController, viewModel, callbackManager)
             LoginScreen(
                 viewModel = viewModel,
                 innerPadding = innerPadding

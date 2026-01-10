@@ -67,3 +67,7 @@ class PasswordNoMatchingHandler(private val password: String, private val confir
     override fun validate() = if (password != confirmPassword) ValidationError.PasswordNoMatching
     else null
 }
+
+class EmptyHandler() : ValidationHandler() {
+    override fun validate() = null
+}

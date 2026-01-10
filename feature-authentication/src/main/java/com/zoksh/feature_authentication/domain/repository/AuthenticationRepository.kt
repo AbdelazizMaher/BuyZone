@@ -5,15 +5,14 @@ import com.zoksh.feature_authentication.domain.model.AuthenticationResult
 import com.zoksh.feature_authentication.domain.model.User
 
 interface AuthenticationRepository {
-    fun authenticate(credential: AuthenticationCredential): AuthenticationResult
+    suspend fun authenticate(credential: AuthenticationCredential): AuthenticationResult
 
-    fun getUser(userId: String): AuthenticationResult
-    fun createUser(user: User): AuthenticationResult
-    fun updateUser(user: User): AuthenticationResult
+    suspend fun getUser(userId: String): AuthenticationResult
+    suspend fun createUser(user: User): AuthenticationResult
+    suspend fun updateUser(user: User): AuthenticationResult
 
-    fun authenticateShop(
-        email: String,
-        shopId: String
+    suspend fun authenticateShop(
+        user: User,
     ): AuthenticationResult
 
     fun signOut()

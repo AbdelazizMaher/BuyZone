@@ -53,11 +53,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // serialization
-    implementation(libs.kotlinx.serialization.json)
+    implementation(project(":network-apollo"))
 
     // apollo
     implementation(libs.apollo.runtime)
+
+    // serialization
+    implementation(libs.kotlinx.serialization.json)
 
     // firebase
     implementation(platform(libs.firebase.bom))
@@ -72,4 +74,14 @@ dependencies {
     val koin_android_version = "4.0.2"
     implementation("io.insert-koin:koin-android:$koin_android_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
+}
+
+apollo {
+    service("shopify") {
+        packageName.set("com.yourapp.auth.shopify")
+        schemaFile.set(
+            project(":network-apollo")
+                .file("src/main/graphql/shopify/schema.graphqls")
+        )
+    }
 }
