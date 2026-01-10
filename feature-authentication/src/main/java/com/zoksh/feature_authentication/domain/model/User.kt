@@ -4,5 +4,7 @@ data class User(
     val id: String,
     val email: String,
     val name: String? = null,
+    val isShopCreated: Boolean = false,
+    val cartId: String? = null,
     val state: UserState = UserState.UNAUTHENTICATED
 )

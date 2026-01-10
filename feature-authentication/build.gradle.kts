@@ -75,3 +75,13 @@ dependencies {
     implementation("io.insert-koin:koin-android:$koin_android_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
 }
+
+apollo {
+    service("shopify") {
+        packageName.set("com.yourapp.auth.shopify")
+        schemaFile.set(
+            project(":network-apollo")
+                .file("src/main/graphql/shopify/schema.graphqls")
+        )
+    }
+}
