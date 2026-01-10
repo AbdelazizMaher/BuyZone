@@ -14,7 +14,8 @@ interface LoginContract {
 
         val rememberMe: Boolean = false,
 
-        val loginClicked: Boolean = false
+        val loginClicked: Boolean = false,
+        val submitAttempted: Boolean = false
     )
 
     sealed interface Intent {

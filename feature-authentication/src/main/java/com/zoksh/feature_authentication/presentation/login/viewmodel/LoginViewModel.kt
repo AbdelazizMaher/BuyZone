@@ -84,12 +84,12 @@ class LoginViewModel(
     }
 
     private fun handleRememberMe(rememberMe: Boolean) {
-
+        _state.update { it.copy(rememberMe = rememberMe) }
     }
 
     private fun handleSignIn(validator: ValidationHandler,credential: AuthenticationCredential) {
         viewModelScope.launch {
-            _state.update { it.copy(loginClicked = true) }
+            _state.update { it.copy(loginClicked = true, submitAttempted = true) }
             val loginResult = loginUseCase(
                 credential = credential,
                 validator = validator
@@ -128,6 +128,9 @@ class LoginViewModel(
 
     private fun handleFacebookAuthSuccess(token: String) {
         Log.d("LoginViewModel", "handleFacebookAuthSuccess: $token")
+        val validator = SocialValidationChain.build()
+        val credential = AuthenticationCredential.Social(token = token, provider = AuthenticationProvider.FACEBOOK)
+        handleSignIn(validator, credential)
     }
 
     private fun handleFacebookAuthFailure(error: String) {
