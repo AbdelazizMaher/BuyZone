@@ -11,7 +11,7 @@ class LoginUseCase(
     private val userSetupUseCase: UserSetupUseCase,
     private val repository: AuthenticationRepository,
 ) {
-    operator fun invoke(
+    suspend operator fun invoke(
         credential: AuthenticationCredential,
         validator: ValidationHandler
     ): AuthenticationResult {

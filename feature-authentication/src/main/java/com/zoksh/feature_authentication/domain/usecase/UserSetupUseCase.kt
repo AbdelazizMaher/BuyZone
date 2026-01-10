@@ -9,10 +9,10 @@ import com.zoksh.feature_authentication.domain.repository.AuthenticationReposito
 class UserSetupUseCase(
     private val repository: AuthenticationRepository
 ) {
-    operator fun invoke(
+    suspend operator fun invoke(
         authUser: User,
     ): AuthenticationResult {
-        val userResult = when (val result = repository.getUser(authUser.id)) {
+        val user = when (val result = repository.getUser(authUser.id)) {
             is AuthenticationResult.Success -> result.user
             is AuthenticationResult.Failure -> {
                 if (result.error == AuthenticationError.UserNotRegistered) {
@@ -27,10 +27,10 @@ class UserSetupUseCase(
             else -> return AuthenticationResult.Failure(AuthenticationError.Unknown)
         }
 
-        return when (repository.authenticateShop(userResult.email, userResult.id)) {
+        return when (repository.authenticateShop(user)) {
             is AuthenticationResult.Success -> {
-                repository.updateUser(userResult.copy(state = UserState.SHOP_LINKED))
-                AuthenticationResult.Success(userResult.copy(state = UserState.SHOP_LINKED))
+                repository.updateUser(user.copy(state = UserState.SHOP_LINKED))
+                AuthenticationResult.Success(user.copy(state = UserState.SHOP_LINKED))
             }
 
             else -> AuthenticationResult.GuestAccess
