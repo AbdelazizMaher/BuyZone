@@ -1,5 +1,6 @@
 package com.zoksh.feature_authentication.domain.usecase
 
+import android.util.Log
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
 import com.zoksh.feature_authentication.domain.model.AuthenticationError
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
@@ -16,6 +17,7 @@ class LoginUseCase(
         validator: ValidationHandler
     ): AuthenticationResult {
         validator.handleAllErrors().also {
+            Log.d("LoginUseCase", "invoke: $it")
             if (it.isNotEmpty()) return AuthenticationResult.ValidationFailed(it)
         }
 

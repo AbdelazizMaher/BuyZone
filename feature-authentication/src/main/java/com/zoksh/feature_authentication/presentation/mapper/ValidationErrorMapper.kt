@@ -8,7 +8,7 @@ fun ValidationError.toUiMessage(): String {
         ValidationError.EmptyPassword -> "Password cannot be empty"
         ValidationError.EmptyName -> "Name cannot be empty"
         ValidationError.InvalidEmail -> "Invalid email"
-        ValidationError.InvalidName -> "Invalid name"
+        ValidationError.InvalidName -> "Name must be at least 2 words"
         ValidationError.PasswordTooShort -> "Password must be at least 8 characters"
         ValidationError.PasswordNoUpperCase -> "Password must contain at least one uppercase letter"
         ValidationError.PasswordNoLowerCase -> "Password must contain at least one lowercase letter"

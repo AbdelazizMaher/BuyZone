@@ -110,7 +110,7 @@ class SignupViewModel(
 
     private fun handleSignup() {
         viewModelScope.launch {
-            _state.update { it.copy(signupClicked = true) }
+            _state.update { it.copy(signupClicked = true, submitAttempted = true) }
             val signupResult = signupUseCase(
                 credential = AuthenticationCredential.EmailAndPassword(
                     _state.value.email, _state.value.password,

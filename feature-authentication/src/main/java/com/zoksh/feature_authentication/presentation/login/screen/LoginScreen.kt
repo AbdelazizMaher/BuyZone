@@ -78,7 +78,7 @@ fun LoginScreen(
             },
             label = "Email Address",
             placeholder = "email@example.com",
-            isError = state.emailTouched && state.emailError != null,
+            isError = (state.emailTouched || state.submitAttempted) && state.emailError != null,
             errorText = state.emailError
         )
         Spacer(modifier = Modifier.height(16.dp))

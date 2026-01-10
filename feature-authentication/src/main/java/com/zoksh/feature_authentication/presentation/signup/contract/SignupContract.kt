@@ -26,7 +26,8 @@ interface SignupContract {
         val termsAccepted: Boolean = false,
         val termsAcceptedError: String? = null,
 
-        val signupClicked: Boolean = false
+        val signupClicked: Boolean = false,
+        val submitAttempted: Boolean = false
     )
 
     sealed interface Intent {

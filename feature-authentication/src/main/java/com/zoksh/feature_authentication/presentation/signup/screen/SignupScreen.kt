@@ -80,7 +80,7 @@ fun SignupScreen(
             },
             label = "Full Name",
             placeholder = "Abdelaziz Maher",
-            isError = state.nameTouched && state.nameError != null,
+            isError = (state.nameTouched || state.submitAttempted) && state.nameError != null,
             errorText = state.nameError
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -94,7 +94,7 @@ fun SignupScreen(
             },
             label = "Email Address",
             placeholder = "example@gmail.com",
-            isError = state.emailTouched && state.emailError != null,
+            isError = (state.emailTouched || state.submitAttempted) && state.emailError != null,
             errorText = state.emailError
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -118,7 +118,7 @@ fun SignupScreen(
                 )
             },
             visualTransformation = if (isPasswordVisible) PasswordVisualTransformation() else VisualTransformation.None,
-            isError = state.passwordTouched && state.passwordError != null,
+            isError = (state.passwordTouched || state.submitAttempted) && state.passwordError != null,
             errorText = state.passwordError
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -142,7 +142,7 @@ fun SignupScreen(
                 )
             },
             visualTransformation = if (isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            isError = state.confirmPasswordTouched && state.confirmPasswordError != null,
+            isError = (state.confirmPasswordTouched || state.submitAttempted) && state.confirmPasswordError != null,
             errorText = state.confirmPasswordError
         )
         Spacer(modifier = Modifier.height(16.dp))
