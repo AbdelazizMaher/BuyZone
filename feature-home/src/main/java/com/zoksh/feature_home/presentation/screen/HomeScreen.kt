@@ -3,6 +3,11 @@ package com.zoksh.feature_home.presentation.screen
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import com.zoksh.feature_home.presentation.contract.HomeContract
+import com.zoksh.feature_home.presentation.model.BrandsUiModel
+import com.zoksh.feature_home.presentation.model.CategoryUiModel
+import com.zoksh.feature_home.presentation.model.HeaderUiModel
+import com.zoksh.feature_home.presentation.model.PromosUiModel
+import com.zoksh.feature_home.presentation.model.TrendingUiModel
 
 @Composable
 fun HomeScreen(
@@ -13,19 +18,53 @@ fun HomeScreen(
 
     ) {
         item {
-            HeaderSection()
+            HeaderSection(
+                header = state.header,
+                onNotificationClick = {
+
+                }
+            )
         }
         item {
-            CarouselPromosSection()
+            CarouselPromosSection(
+                promos = state.promos,
+                onClick = {
+
+                }
+            )
         }
         item {
-            CategoriesSection()
+            CategoriesSection(
+                categories = state.categories,
+                onClick = {
+
+                }
+            )
         }
         item {
-            BrandsSection()
+            BrandsSection(
+                brands = state.brands,
+                onClick = {
+
+                },
+                onViewAllClick = {
+
+                }
+            )
         }
         item {
-            TrendingSection()
+            TrendingSection(
+                trending = state.trending,
+                onClick = {
+
+                },
+                onAddToFavClick = {
+
+                },
+                onViewAllClick = {
+
+                }
+            )
         }
 
     }
@@ -33,9 +72,7 @@ fun HomeScreen(
 
 @Composable
 fun HeaderSection(
-    image: String?,
-    message: String,
-    name: String,
+    header: HeaderUiModel,
     onNotificationClick: () -> Unit,
 ) {
 
@@ -43,7 +80,7 @@ fun HeaderSection(
 
 @Composable
 fun CarouselPromosSection(
-    promos: List<String>,
+    promos: List<PromosUiModel>,
     onClick: () -> Unit
 ) {
 
@@ -51,9 +88,7 @@ fun CarouselPromosSection(
 
 @Composable
 fun CategoriesSection(
-    imageRes: Int,
-    title: String,
-    infoIcon: Int,
+    categories: List<CategoryUiModel>,
     onClick: () -> Unit
 ) {
 
@@ -61,20 +96,19 @@ fun CategoriesSection(
 
 @Composable
 fun BrandsSection(
-    logoImage: String,
-    name: String,
-    onClick: () -> Unit
+    brands: List<BrandsUiModel>,
+    onClick: () -> Unit,
+    onViewAllClick: () -> Unit
 ) {
 
 }
 
 @Composable
 fun TrendingSection(
-    image: String,
-    name: String,
-    price: String,
+    trending: List<TrendingUiModel>,
     onClick: () -> Unit,
-    onAddToFavClick: () -> Unit
+    onAddToFavClick: () -> Unit,
+    onViewAllClick: () -> Unit
 ) {
 
 }

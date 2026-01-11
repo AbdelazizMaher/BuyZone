@@ -4,5 +4,4 @@ data class CategoryUiModel(
     val imageRes: Int,
     val title: String,
     val infoIcon: Int,
-    val onClick: () -> Unit
 )
