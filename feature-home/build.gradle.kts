@@ -54,6 +54,9 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
 
+    // coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
     //koin
     val koin_android_version = "4.0.2"
     implementation("io.insert-koin:koin-android:$koin_android_version")
