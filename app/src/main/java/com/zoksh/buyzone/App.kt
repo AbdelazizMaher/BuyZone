@@ -3,6 +3,7 @@ package com.zoksh.buyzone
 import android.app.Application
 import com.zoksh.core_session.session.di.sessionModule
 import com.zoksh.feature_authentication.di.authModule
+import com.zoksh.feature_home.di.homeModule
 import com.zoksh.feature_onboarding.di.onBoardingModule
 import com.zoksh.network_apollo.apollo.di.apolloModule
 import org.koin.android.ext.koin.androidContext
@@ -21,6 +22,7 @@ class App : Application() {
             modules(
                 onBoardingModule,
                 authModule,
+                homeModule,
                 sessionModule,
                 apolloModule,
             )
