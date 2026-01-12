@@ -8,7 +8,7 @@ import com.zoksh.feature_home.presentation.model.TrendingUiModel
 
 sealed interface HomeContract {
     data class State(
-        val header: HeaderUiModel,
+        val header: HeaderUiModel = HeaderUiModel(),
         val promos: List<PromosUiModel> = emptyList(),
         val categories: List<CategoryUiModel> = emptyList(),
         val brands: List<BrandsUiModel> = emptyList(),

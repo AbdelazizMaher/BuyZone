@@ -22,6 +22,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -47,6 +49,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.zoksh.feature_home.R
+import com.zoksh.feature_home.presentation.components.PromosIndicator
 import com.zoksh.feature_home.presentation.contract.HomeContract
 import com.zoksh.feature_home.presentation.model.BrandsUiModel
 import com.zoksh.feature_home.presentation.model.CategoryUiModel
@@ -57,10 +60,11 @@ import com.zoksh.feature_home.presentation.model.TrendingUiModel
 @Composable
 fun HomeScreen(
     state: HomeContract.State,
-    onIntent: (HomeContract.Intent) -> Unit
+    onIntent: (HomeContract.Intent) -> Unit,
+    innerPadding: PaddingValues
 ) {
     LazyColumn(
-
+        contentPadding = innerPadding
     ) {
         item {
             HeaderSection(
@@ -182,7 +186,41 @@ fun CarouselPromosSection(
     promos: List<PromosUiModel>,
     onClick: () -> Unit
 ) {
-
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        pageCount = { promos.size }
+    )
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(150.dp),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Box{
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize()
+            ) { }
+            AsyncImage(
+                model = promos,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                placeholder = painterResource(R.drawable.avatar),
+                error = painterResource(R.drawable.avatar),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable { onClick() }
+            )
+            PromosIndicator(
+                pageCount = promos.size,
+                currentPage = pagerState.currentPage,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 16.dp)
+            )
+        }
+    }
 }
 
 @Composable
@@ -192,9 +230,7 @@ fun CategoriesSection(
 ) {
     Column {
         SectionHeader(title = "Categories")
-
         Spacer(Modifier.height(12.dp))
-
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(horizontal = 16.dp)
@@ -358,9 +394,7 @@ fun TrendingSection(
             title = "Trending Now",
             onViewAllClick = onViewAllClick
         )
-
         Spacer(Modifier.height(12.dp))
-
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(horizontal = 16.dp)

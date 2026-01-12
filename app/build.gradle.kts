@@ -81,6 +81,7 @@ dependencies {
     implementation(project(":core-ui"))
     implementation(project(":feature-authentication"))
     implementation(project(":feature-onboarding"))
+    implementation(project(":feature-home"))
     implementation(project(":core-session"))
     implementation(project(":network-apollo"))
 }
