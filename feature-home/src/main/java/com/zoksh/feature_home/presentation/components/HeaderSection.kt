@@ -1,6 +1,7 @@
 package com.zoksh.feature_home.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,62 +32,76 @@ import com.zoksh.feature_home.presentation.model.HeaderUiModel
 
 @Composable
 fun HeaderSection(
+    modifier: Modifier = Modifier,
     header: HeaderUiModel,
     onNotificationClick: () -> Unit,
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primary)
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.surface)
     ) {
-        AsyncImage(
-            model = header.image,
-            contentDescription = "Profile Image",
-            contentScale = ContentScale.Crop,
-            placeholder = painterResource(R.drawable.avatar),
-            error = painterResource(R.drawable.avatar),
+        Row(
             modifier = Modifier
-                .size(32.dp)
-                .clip(CircleShape)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Column(
-
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = header.message,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+            AsyncImage(
+                model = header.image,
+                contentDescription = "Profile Image",
+                contentScale = ContentScale.Crop,
+                placeholder = painterResource(R.drawable.avatar),
+                error = painterResource(R.drawable.avatar),
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
             )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = header.name,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        IconButton(onClick = onNotificationClick) {
-            BadgedBox(
-                badge = {
-                    if (header.notificationCount > 0) {
-                        Badge {
-                            Text(
-                                text = header.notificationCount.toString(),
-                                color = Color.White
-                            )
-                        }
-                    }
-                }
+            Spacer(modifier = Modifier.width(12.dp))
+            Column(
+                horizontalAlignment = Alignment.Start,
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.notification),
-                    contentDescription = "Notifications",
-                    tint = MaterialTheme.colorScheme.onPrimary
+                Text(
+                    text = header.message,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = header.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
+            Spacer(modifier = Modifier.weight(1f))
+            IconButton(
+                onClick = onNotificationClick,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary)
+            ) {
+                BadgedBox(
+                    badge = {
+                        if (header.notificationCount > 0) {
+                            Badge {
+                                Text(
+                                    text = header.notificationCount.toString(),
+                                    color = Color.White
+                                )
+                            }
+                        }
+                    }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.notification),
+                        contentDescription = "Notifications",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+            }
         }
+        HorizontalDivider(
+            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+        )
     }
 }

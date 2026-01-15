@@ -34,10 +34,10 @@ import com.zoksh.feature_home.presentation.model.TrendingUiModel
 
 @Composable
 fun ProductCard(
+    modifier: Modifier = Modifier,
     product: TrendingUiModel,
     onClick: (String) -> Unit,
-    onFavoriteClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    onFavoriteClick: (String) -> Unit
 ) {
     Card(
         modifier = modifier

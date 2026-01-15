@@ -3,7 +3,6 @@ package com.zoksh.feature_home.presentation.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,11 +11,12 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun SectionHeader(
+    modifier: Modifier = Modifier,
     title: String,
     onViewAllClick: (() -> Unit)? = null
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -28,7 +28,7 @@ fun SectionHeader(
         onViewAllClick?.let {
             Text(
                 modifier = Modifier.clickable { it() },
-                text = "View All",
+                text = "View All →",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary
             )

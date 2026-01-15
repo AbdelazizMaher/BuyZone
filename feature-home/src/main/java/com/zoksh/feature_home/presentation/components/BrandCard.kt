@@ -1,7 +1,9 @@
 package com.zoksh.feature_home.presentation.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -17,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -26,18 +29,18 @@ import com.zoksh.feature_home.presentation.model.BrandsUiModel
 
 @Composable
 fun BrandCard(
+    modifier: Modifier = Modifier,
     brand: BrandsUiModel,
-    onClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    onClick: (String) -> Unit
 ) {
     Card(
         modifier = modifier
             .aspectRatio(1f)
             .clickable { onClick(brand.name) },
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surface
         )
     ) {
         Column(
@@ -47,16 +50,21 @@ fun BrandCard(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            AsyncImage(
-                model = brand.logoImage,
-                contentDescription = brand.name,
+            Box(
                 modifier = Modifier
-                    .size(48.dp),
-                contentScale = ContentScale.Fit
-            )
-
+                    .size(56.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
+                contentAlignment = Alignment.Center
+            ) {
+                AsyncImage(
+                    model = brand.logoImage,
+                    contentDescription = brand.name,
+                    modifier = Modifier.size(36.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
             Spacer(Modifier.height(8.dp))
-
             Text(
                 text = brand.name,
                 style = MaterialTheme.typography.labelMedium,
