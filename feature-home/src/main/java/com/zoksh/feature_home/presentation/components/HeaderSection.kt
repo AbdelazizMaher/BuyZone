@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.HorizontalDivider
@@ -49,7 +50,7 @@ fun HeaderSection(
                 placeholder = painterResource(R.drawable.avatar),
                 error = painterResource(R.drawable.avatar),
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(48.dp)
                     .clip(CircleShape)
             )
             Spacer(modifier = Modifier.width(12.dp))
@@ -72,10 +73,10 @@ fun HeaderSection(
             IconButton(
                 onClick = onNotificationClick,
                 modifier = Modifier
+                    .padding(end = 8.dp)
                     .size(48.dp)
-                    .clip(CircleShape)
+                    .clip(RoundedCornerShape(18.dp))
                     .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
-                    .padding(16.dp)
             ) {
                 BadgedBox(
                     badge = {

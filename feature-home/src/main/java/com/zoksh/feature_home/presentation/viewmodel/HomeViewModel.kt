@@ -2,6 +2,7 @@ package com.zoksh.feature_home.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.zoksh.feature_home.presentation.contract.HomeContract
+import com.zoksh.feature_home.presentation.preview.HomePreviewData
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -11,7 +12,7 @@ class HomeViewModel(
 
 ): ViewModel() {
 
-    private val _state = MutableStateFlow(HomeContract.State())
+    private val _state = MutableStateFlow(HomePreviewData.state)
     val state = _state.asStateFlow()
 
     private val _effect = MutableSharedFlow<HomeContract.Effect>()

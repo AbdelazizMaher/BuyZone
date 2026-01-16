@@ -21,9 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.zoksh.feature_home.R
 import com.zoksh.feature_home.presentation.model.BrandsUiModel
 
 
@@ -35,10 +37,10 @@ fun BrandCard(
 ) {
     Card(
         modifier = modifier
-            .aspectRatio(1f)
             .clickable { onClick(brand.name) },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = CardDefaults.outlinedCardBorder(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         )
@@ -54,14 +56,16 @@ fun BrandCard(
                 modifier = Modifier
                     .size(56.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(MaterialTheme.colorScheme.surfaceVariant),
+                    .background(MaterialTheme.colorScheme.secondaryContainer),
                 contentAlignment = Alignment.Center
             ) {
                 AsyncImage(
                     model = brand.logoImage,
                     contentDescription = brand.name,
                     modifier = Modifier.size(36.dp),
-                    contentScale = ContentScale.Fit
+                    contentScale = ContentScale.Fit,
+                    placeholder = painterResource(R.drawable.addidas_logo),
+                    error = painterResource(R.drawable.addidas_logo)
                 )
             }
             Spacer(Modifier.height(8.dp))
