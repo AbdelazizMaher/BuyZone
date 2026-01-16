@@ -1,18 +1,17 @@
 package com.zoksh.feature_home.presentation.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,14 +35,11 @@ fun HeaderSection(
     header: HeaderUiModel,
     onNotificationClick: () -> Unit,
 ) {
-    Column(
-        modifier = modifier
-            .background(MaterialTheme.colorScheme.surface)
-    ) {
+    Column(modifier = modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -65,7 +61,7 @@ fun HeaderSection(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = header.name,
                     style = MaterialTheme.typography.bodyLarge,
@@ -76,9 +72,10 @@ fun HeaderSection(
             IconButton(
                 onClick = onNotificationClick,
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(48.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary)
+                    .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
+                    .padding(16.dp)
             ) {
                 BadgedBox(
                     badge = {
@@ -95,7 +92,7 @@ fun HeaderSection(
                     Icon(
                         painter = painterResource(id = R.drawable.notification),
                         contentDescription = "Notifications",
-                        tint = MaterialTheme.colorScheme.onPrimary
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }

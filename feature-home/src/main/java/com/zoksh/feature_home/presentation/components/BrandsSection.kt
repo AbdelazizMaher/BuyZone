@@ -3,6 +3,7 @@ package com.zoksh.feature_home.presentation.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,18 +32,27 @@ fun BrandsSection(
             onViewAllClick = onViewAllClick
         )
         Spacer(Modifier.height(12.dp))
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
+        Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp)
         ) {
-            items(brands, key = { it.name }) {
-                BrandCard(
-                    brand = it,
-                    onClick = onBrandClick
-                )
-            }
+            brands
+                .take(9)
+                .chunked(3)
+                .forEach { rowItems ->
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        rowItems.forEach { brand ->
+                            BrandCard(
+                                brand = brand,
+                                onClick = onBrandClick,
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                    }
+                }
         }
     }
 }

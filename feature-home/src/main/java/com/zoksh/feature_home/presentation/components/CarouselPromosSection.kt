@@ -39,6 +39,7 @@ fun CarouselPromosSection(
     promos: List<PromosUiModel>,
     onClick: () -> Unit
 ) {
+    if (promos.isEmpty()) return
     val pagerState = rememberPagerState { promos.size }
     val scope = rememberCoroutineScope()
 
