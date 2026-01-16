@@ -1,14 +1,18 @@
 package com.zoksh.feature_home.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -30,19 +34,31 @@ fun TrendingSection(
             title = "Trending Now",
             onViewAllClick = onViewAllClick
         )
-        Spacer(Modifier.height(12.dp))
-        LazyRow(
-            userScrollEnabled = false,
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp)
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(horizontal = 16.dp)
         ) {
-            items(trending, key = { it.name }) {
-                ProductCard(
-                    product = it,
-                    onClick = onProductClick,
-                    onFavoriteClick = onAddToFavClick
-                )
-            }
+            trending
+                .chunked(2)
+                .take(8)
+                .forEach { rowItems ->
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        rowItems.forEach { product ->
+                            ProductCard(
+                                modifier = Modifier.weight(1f),
+                                product = product,
+                                onClick = onProductClick,
+                                onFavoriteClick = onAddToFavClick
+                            )
+                        }
+                        if (rowItems.size == 1) {
+                            Spacer(modifier = Modifier.weight(1f))
+                        }
+                    }
+                }
         }
     }
 }

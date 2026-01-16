@@ -31,9 +31,8 @@ fun BrandsSection(
             title = "Popular Brands",
             onViewAllClick = onViewAllClick
         )
-        Spacer(Modifier.height(12.dp))
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
             brands
@@ -41,7 +40,7 @@ fun BrandsSection(
                 .chunked(3)
                 .forEach { rowItems ->
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         rowItems.forEach { brand ->

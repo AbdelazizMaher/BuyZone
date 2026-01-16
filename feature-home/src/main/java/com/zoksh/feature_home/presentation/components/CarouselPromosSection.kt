@@ -43,11 +43,14 @@ fun CarouselPromosSection(
     val pagerState = rememberPagerState { promos.size }
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(pagerState.currentPage) {
-        if (pagerState.isScrollInProgress) return@LaunchedEffect
-        delay(3000)
-        val nextPage = (pagerState.currentPage + 1) % promos.size
-        pagerState.animateScrollToPage(nextPage)
+    LaunchedEffect(pagerState) {
+        while (true) {
+            delay(3000)
+            if (!pagerState.isScrollInProgress) {
+                val nextPage = (pagerState.currentPage + 1) % promos.size
+                pagerState.animateScrollToPage(nextPage)
+            }
+        }
     }
 
     Card(
@@ -64,8 +67,8 @@ fun CarouselPromosSection(
                     model = promos[page].image,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    placeholder = painterResource(R.drawable.avatar),
-                    error = painterResource(R.drawable.avatar),
+                    placeholder = painterResource(R.drawable.promo_ads),
+                    error = painterResource(R.drawable.promo_ads),
                     modifier = Modifier
                         .fillMaxSize()
                         .clickable { onClick() }
@@ -84,15 +87,15 @@ fun CarouselPromosSection(
                 },
                 modifier = Modifier
                     .align(Alignment.CenterStart)
-                    .padding(start = 8.dp)
+                    .padding(start = 12.dp)
                     .size(36.dp)
                     .background(
                         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
-                        shape = RoundedCornerShape(24.dp)
+                        shape = RoundedCornerShape(18.dp)
                     )
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurface
                 )
@@ -107,15 +110,15 @@ fun CarouselPromosSection(
                 },
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
-                    .padding(start = 8.dp)
+                    .padding(end = 12.dp)
                     .size(36.dp)
                     .background(
                         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
-                        shape = RoundedCornerShape(24.dp)
+                        shape = RoundedCornerShape(18.dp)
                     )
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurface
                 )

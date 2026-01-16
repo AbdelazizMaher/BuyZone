@@ -25,11 +25,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.zoksh.feature_home.R
 import com.zoksh.feature_home.presentation.model.TrendingUiModel
 
 @Composable
@@ -41,9 +44,8 @@ fun ProductCard(
 ) {
     Card(
         modifier = modifier
-            .width(180.dp)
             .clickable { onClick(product.name) },
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column {
@@ -52,6 +54,8 @@ fun ProductCard(
                     model = product.image,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
+                    placeholder = painterResource(R.drawable.addidas_logo),
+                    error = painterResource(R.drawable.addidas_logo),
                     modifier = Modifier
                         .height(160.dp)
                         .fillMaxWidth()
@@ -70,23 +74,24 @@ fun ProductCard(
                     onClick = { onFavoriteClick(product.name) },
                     modifier = Modifier
                         .align(Alignment.TopEnd)
-                        .padding(8.dp)
-                        .size(36.dp)
+                        .padding(12.dp)
+                        .size(28.dp)
                         .background(
                             color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
-                            shape = CircleShape
+                            shape = RoundedCornerShape(18.dp)
                         )
                 ) {
                     Icon(
-                        imageVector = if (product.isFavorite)
-                            Icons.Filled.Favorite
+                        painter = painterResource(if (product.isFavorite)
+                            R.drawable.ic_favourite_filled
                         else
-                            Icons.Outlined.FavoriteBorder,
+                            R.drawable.ic_favourite
+                        ),
                         contentDescription = null,
                         tint = if (product.isFavorite)
                             MaterialTheme.colorScheme.error
                         else
-                            MaterialTheme.colorScheme.onSurface
+                            Color.Unspecified
                     )
                 }
             }

@@ -25,15 +25,14 @@ fun HomeScreen(
     innerPadding: PaddingValues
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(bottom = 16.dp),
+        contentPadding = innerPadding,
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item {
             HeaderSection(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surface)
-                    .padding(innerPadding),
+                    .background(MaterialTheme.colorScheme.surface),
                 header = state.header,
                 onNotificationClick = {
 
@@ -44,7 +43,8 @@ fun HomeScreen(
             CarouselPromosSection(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp),
+                    .padding(horizontal = 16.dp)
+                    .height(200.dp),
                 promos = state.promos,
                 onClick = {
 
