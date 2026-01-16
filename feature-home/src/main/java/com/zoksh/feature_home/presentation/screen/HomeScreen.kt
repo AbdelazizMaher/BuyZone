@@ -1,11 +1,13 @@
 package com.zoksh.feature_home.presentation.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,18 +25,15 @@ fun HomeScreen(
     innerPadding: PaddingValues
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(
-            start = 16.dp,
-            end = 16.dp,
-            bottom = 16.dp
-        ),
+        contentPadding = PaddingValues(bottom = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item {
             HeaderSection(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = (-16).dp),
+                    .background(MaterialTheme.colorScheme.surface)
+                    .padding(innerPadding),
                 header = state.header,
                 onNotificationClick = {
 
@@ -54,6 +53,9 @@ fun HomeScreen(
         }
         item {
             CategoriesSection(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 categories = state.categories,
                 onCategoryClick = {
 
@@ -62,6 +64,9 @@ fun HomeScreen(
         }
         item {
             BrandsSection(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 brands = state.brands,
                 onBrandClick = {
 
@@ -73,6 +78,9 @@ fun HomeScreen(
         }
         item {
             TrendingSection(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 trending = state.trending,
                 onProductClick = {
 
