@@ -53,8 +53,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(project(":network-apollo"))
-
     // apollo
     implementation(libs.apollo.runtime)
 
@@ -74,6 +72,9 @@ dependencies {
     val koin_android_version = "4.0.2"
     implementation("io.insert-koin:koin-android:$koin_android_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
+
+    implementation(project(":network-apollo"))
+    implementation(project(":core-ui"))
 }
 
 apollo {

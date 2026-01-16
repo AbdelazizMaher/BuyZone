@@ -1,4 +1,4 @@
-package com.zoksh.buyzone.ui.theme
+package com.zoksh.core_ui.theme
 
 import androidx.compose.ui.graphics.Color
 

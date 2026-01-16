@@ -1,4 +1,4 @@
-package com.zoksh.buyzone.ui.theme
+package com.zoksh.core_ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

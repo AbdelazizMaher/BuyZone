@@ -1,10 +1,11 @@
-package com.zoksh.buyzone.ui.theme
+package com.zoksh.core_ui.theme
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import com.zoksh.core_ui.R
 import androidx.compose.material3.Typography
-import com.zoksh.buyzone.R
+
 
 val displayFontFamily = FontFamily(
     Font(R.font.montserrat_bold, FontWeight.Bold),
