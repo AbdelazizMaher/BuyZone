@@ -32,6 +32,7 @@ fun TrendingSection(
         )
         Spacer(Modifier.height(12.dp))
         LazyRow(
+            userScrollEnabled = false,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(horizontal = 16.dp)
         ) {
