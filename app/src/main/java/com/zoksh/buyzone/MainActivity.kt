@@ -13,8 +13,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.facebook.CallbackManager
 import com.facebook.FacebookSdk
+import com.zoksh.buyzone.bottombar.AppBottomBar
 import com.zoksh.buyzone.navigation.AppNavHost
-import com.zoksh.buyzone.ui.theme.BuyZoneTheme
+import com.zoksh.core_ui.theme.BuyZoneTheme
 
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
                     },
                     bottomBar = {
-
+                        AppBottomBar(navController)
                     }
                 ) { innerPadding ->
                     AppNavHost(
