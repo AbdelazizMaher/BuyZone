@@ -1,8 +1,8 @@
-package com.zoksh.core_session.session
+package com.zoksh.core_session.session.store
 
+import com.zoksh.core_session.session.SecureStorage
 import com.zoksh.core_session.session.event.SessionEvent
 import com.zoksh.core_session.session.model.Session
-import com.zoksh.core_session.session.store.SessionStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
