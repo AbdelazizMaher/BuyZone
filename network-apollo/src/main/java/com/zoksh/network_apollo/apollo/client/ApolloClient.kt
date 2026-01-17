@@ -1,5 +1,6 @@
 package com.zoksh.network_apollo.apollo.client
 
+import android.util.Log
 import com.apollographql.apollo.ApolloClient
 import com.zoksh.network_apollo.apollo.interceptor.SessionExpiryInterceptor
 import com.zoksh.network_apollo.BuildConfig

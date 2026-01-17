@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "15592694090-8qsi7eaug1ggmilu2ejfr2h0dpqk3ev7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zoksh.buyzone",
+            "certificate_hash": "65357b7764d2f7cc5d82709979e9163ff98629f1"
+          }
+        },
+        {
           "client_id": "15592694090-ah3c21crfh7vpk403jdrhq9onkfjj4kp.apps.googleusercontent.com",
           "client_type": 3
         }

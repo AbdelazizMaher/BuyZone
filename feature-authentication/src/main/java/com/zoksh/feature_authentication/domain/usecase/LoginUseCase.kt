@@ -17,7 +17,6 @@ class LoginUseCase(
         validator: ValidationHandler
     ): AuthenticationResult {
         validator.handleAllErrors().also {
-            Log.d("LoginUseCase", "invoke: $it")
             if (it.isNotEmpty()) return AuthenticationResult.ValidationFailed(it)
         }
 

@@ -31,7 +31,7 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeDestination.Home,
+        startDestination = AuthDestination.Login,
     ) {
         composable<OnBoardingDestination.OnBoarding> {
             val viewModel: OnBoardingViewModel = koinViewModel()

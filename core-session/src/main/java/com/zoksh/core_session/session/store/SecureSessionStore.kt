@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class SecureSessionStore(
+internal class SecureSessionStore(
     private val secureStorage: SecureStorage
 ) : SessionStore {
     private val _session =
