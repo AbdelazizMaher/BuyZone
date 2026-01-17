@@ -10,6 +10,8 @@ import com.yourapp.auth.shopify.CustomerAccessTokenCreateMutation
 import com.yourapp.auth.shopify.CustomerCreateMutation
 import com.yourapp.auth.shopify.type.CustomerAccessTokenCreateInput
 import com.yourapp.auth.shopify.type.CustomerCreateInput
+import com.zoksh.core_session.session.SecureStorage
+import com.zoksh.core_session.session.store.SessionStore
 import com.zoksh.feature_authentication.data.mapper.authCall
 import com.zoksh.feature_authentication.data.mapper.toUser
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
@@ -25,7 +27,8 @@ import java.io.IOException
 class AuthenticationRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseFirestore: FirebaseFirestore,
-    private val apolloClient: ApolloClient
+    private val apolloClient: ApolloClient,
+    private val sessionStore: SessionStore
 
 ) : AuthenticationRepository {
     override suspend fun authenticate(credential: AuthenticationCredential): AuthenticationResult {
@@ -65,7 +68,7 @@ class AuthenticationRepositoryImpl(
 
         } catch (_: IOException) {
             AuthenticationResult.Failure(AuthenticationError.NetworkFailure)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             AuthenticationResult.Failure(AuthenticationError.Unknown)
         }
     }
@@ -126,6 +129,7 @@ class AuthenticationRepositoryImpl(
 
     override fun signOut() {
         firebaseAuth.signOut()
+        sessionStore.clear(expired = false)
     }
 
     private suspend fun loginWithEmailAndPassword(credential: AuthenticationCredential.EmailAndPassword): AuthenticationResult =
