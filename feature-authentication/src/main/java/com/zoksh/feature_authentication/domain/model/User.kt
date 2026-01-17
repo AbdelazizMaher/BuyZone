@@ -1,10 +1,10 @@
 package com.zoksh.feature_authentication.domain.model
 
 data class User(
-    val id: String,
-    val email: String,
-    val name: String? = null,
+    val id: String = "",
+    val email: String = "",
+    val name: String = "",
     val isShopCreated: Boolean = false,
-    val cartId: String? = null,
+    val cartId: String = "",
     val state: UserState = UserState.UNAUTHENTICATED
 )

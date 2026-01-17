@@ -7,6 +7,7 @@ import com.zoksh.feature_authentication.domain.model.AuthenticationProvider
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
 import com.zoksh.feature_authentication.domain.model.ValidationError
 import com.zoksh.feature_authentication.domain.usecase.SignupUseCase
+import com.zoksh.feature_authentication.presentation.mapper.isConfirmPasswordError
 import com.zoksh.feature_authentication.presentation.mapper.isEmailError
 import com.zoksh.feature_authentication.presentation.mapper.isNameError
 import com.zoksh.feature_authentication.presentation.mapper.isPasswordError
@@ -128,7 +129,7 @@ class SignupViewModel(
                             nameError = signupResult.errors.firstOrNull { it.isNameError() }?.toUiMessage(),
                             emailError = signupResult.errors.firstOrNull { it.isEmailError() }?.toUiMessage(),
                             passwordError = signupResult.errors.firstOrNull { it.isPasswordError() }?.toUiMessage(),
-                            confirmPasswordError = signupResult.errors.firstOrNull { it.isPasswordError() }?.toUiMessage(),
+                            confirmPasswordError = signupResult.errors.firstOrNull { it.isConfirmPasswordError() }?.toUiMessage(),
                             termsAcceptedError = signupResult.errors.firstOrNull { it.isTermsError() }?.toUiMessage(),
 
                             nameTouched = true,

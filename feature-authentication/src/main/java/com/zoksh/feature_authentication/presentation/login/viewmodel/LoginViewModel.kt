@@ -127,14 +127,15 @@ class LoginViewModel(
     }
 
     private fun handleFacebookAuthSuccess(token: String) {
-        Log.d("LoginViewModel", "handleFacebookAuthSuccess: $token")
         val validator = SocialValidationChain.build()
         val credential = AuthenticationCredential.Social(token = token, provider = AuthenticationProvider.FACEBOOK)
         handleSignIn(validator, credential)
     }
 
     private fun handleFacebookAuthFailure(error: String) {
-        Log.d("LoginViewModel", "handleFacebookAuthFailure: $error")
+        viewModelScope.launch {
+            _event.emit(LoginContract.Effect.ShowError(error))
+        }
     }
 
     private fun handleGoogleLogin() {
@@ -144,14 +145,15 @@ class LoginViewModel(
     }
 
     private fun handleGoogleAuthSuccess(idToken: String) {
-        Log.d("LoginViewModel", "handleGoogleAuthSuccess: $idToken")
         val validator = SocialValidationChain.build()
         val credential = AuthenticationCredential.Social(token = idToken, provider = AuthenticationProvider.GOOGLE)
         handleSignIn(validator, credential)
     }
 
     private fun handleGoogleAuthFailure(error: String) {
-        Log.d("LoginViewModel", "handleGoogleAuthFailure: $error")
+        viewModelScope.launch {
+            _event.emit(LoginContract.Effect.ShowError(error))
+        }
     }
 
     private fun handleGuestAccess() {

@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -10,6 +13,10 @@ android {
         version = release(36)
     }
 
+    val file = rootProject.file("local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(file))
+
     defaultConfig {
         minSdk = 24
 
@@ -19,12 +26,12 @@ android {
         buildConfigField(
             "String",
             "SHOPIFY_STOREFRONT_URL",
-            "\"${project.findProperty("SHOPIFY_STOREFRONT_URL")}\""
+            properties.getProperty("SHOPIFY_STOREFRONT_URL")
         )
         buildConfigField(
             "String",
             "SHOPIFY_STOREFRONT_TOKEN",
-            "\"${project.findProperty("SHOPIFY_STOREFRONT_TOKEN")}\""
+            properties.getProperty("SHOPIFY_STOREFRONT_TOKEN")
         )
     }
 

@@ -61,12 +61,7 @@ fun SocialIconButton(
     Surface(
         modifier = Modifier
             .size(56.dp)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null
-            ) {
-                onClick()
-            },
+            .clickable { onClick() },
         shape = CircleShape,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
         color = MaterialTheme.colorScheme.surface

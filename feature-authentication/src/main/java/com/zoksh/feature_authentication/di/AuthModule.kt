@@ -17,7 +17,7 @@ val authModule = module {
     single { FirebaseFirestore.getInstance() }
 
     single<AuthenticationRepository> {
-        AuthenticationRepositoryImpl(get(), get(), get())
+        AuthenticationRepositoryImpl(get(), get(), get(), get())
     }
 
     factory { UserSetupUseCase(get()) }

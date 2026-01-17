@@ -5,7 +5,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.zoksh.core_session.session.model.Session
 
-class SecureStorageImpl(
+internal class SecureStorageImpl(
     context: Context
 ) : SecureStorage {
 
