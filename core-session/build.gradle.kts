@@ -44,4 +44,7 @@ dependencies {
     val koin_android_version = "4.0.2"
     implementation("io.insert-koin:koin-android:$koin_android_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
+
+    //encrypted shared preferences
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 }
