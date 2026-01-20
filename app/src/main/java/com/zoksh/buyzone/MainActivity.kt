@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     AppNavHost(
                         navController,
+                        bottomBarState,
                         callbackManager,
                         innerPadding
                     )
