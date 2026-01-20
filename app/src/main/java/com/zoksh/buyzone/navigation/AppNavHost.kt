@@ -2,6 +2,7 @@ package com.zoksh.buyzone.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,19 +27,22 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AppNavHost(
     navController: NavHostController,
+    bottomBarState: MutableState<Boolean>,
     callbackManager: CallbackManager,
     innerPadding: PaddingValues
 ) {
     NavHost(
         navController = navController,
-        startDestination = AuthDestination.Login,
+        startDestination = OnBoardingDestination.OnBoarding,
     ) {
         composable<OnBoardingDestination.OnBoarding> {
+            bottomBarState.value = false
             val viewModel: OnBoardingViewModel = koinViewModel()
             OnBoardingNavHandler(navController, viewModel)
             OnBoardingScreen(viewModel = viewModel)
         }
         composable<AuthDestination.Login> {
+            bottomBarState.value = false
             val viewModel: LoginViewModel = koinViewModel()
             LoginNavHandler(navController, viewModel, callbackManager)
             LoginScreen(
@@ -47,6 +51,7 @@ fun AppNavHost(
             )
         }
         composable<AuthDestination.SignUp> {
+            bottomBarState.value = false
             val viewModel: SignupViewModel = koinViewModel()
             SignupNavHandler(navController, viewModel)
             SignupScreen(
@@ -55,6 +60,7 @@ fun AppNavHost(
             )
         }
         composable<HomeDestination.Home> {
+            bottomBarState.value = true
             val viewModel: HomeViewModel = koinViewModel()
             HomeNavHandler(navController, viewModel)
             HomeScreen(
