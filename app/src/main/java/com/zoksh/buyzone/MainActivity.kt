@@ -8,6 +8,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -19,6 +23,8 @@ import com.zoksh.core_ui.theme.BuyZoneTheme
 
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
+    private lateinit var snackBarHostState: SnackbarHostState
+    private lateinit var bottomBarState: MutableState<Boolean>
     val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +33,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             navController = rememberNavController()
+            bottomBarState = remember { mutableStateOf(false) }
             BuyZoneTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -34,11 +41,12 @@ class MainActivity : ComponentActivity() {
 
                     },
                     bottomBar = {
-                        AppBottomBar(navController)
+                        if (bottomBarState.value)  AppBottomBar(navController)
                     }
                 ) { innerPadding ->
                     AppNavHost(
                         navController,
+                        bottomBarState,
                         callbackManager,
                         innerPadding
                     )
