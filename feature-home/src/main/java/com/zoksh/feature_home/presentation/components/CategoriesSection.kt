@@ -28,7 +28,7 @@ fun CategoriesSection(
         SectionHeader(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
             title = "Categories"
         )
         BoxWithConstraints {

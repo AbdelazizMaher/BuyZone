@@ -26,7 +26,7 @@ fun HomeScreen(
 ) {
     LazyColumn(
         contentPadding = innerPadding,
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         item {
             HeaderSection(
@@ -43,7 +43,7 @@ fun HomeScreen(
             CarouselPromosSection(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 8.dp)
                     .height(200.dp),
                 promos = state.promos,
                 onClick = {
@@ -55,7 +55,7 @@ fun HomeScreen(
             CategoriesSection(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 8.dp),
                 categories = state.categories,
                 onCategoryClick = {
 
@@ -66,7 +66,7 @@ fun HomeScreen(
             BrandsSection(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 8.dp),
                 brands = state.brands,
                 onBrandClick = {
 
@@ -80,7 +80,7 @@ fun HomeScreen(
             TrendingSection(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 8.dp),
                 trending = state.trending,
                 onProductClick = {
 

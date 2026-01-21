@@ -30,13 +30,13 @@ fun TrendingSection(
         SectionHeader(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
             title = "Trending Now",
             onViewAllClick = onViewAllClick
         )
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 8.dp)
         ) {
             trending
                 .chunked(2)

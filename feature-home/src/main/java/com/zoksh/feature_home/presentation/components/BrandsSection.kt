@@ -27,13 +27,13 @@ fun BrandsSection(
         SectionHeader(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
             title = "Popular Brands",
             onViewAllClick = onViewAllClick
         )
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 8.dp)
         ) {
             brands
                 .take(9)
