@@ -1,11 +1,15 @@
 package com.zoksh.core_ui.snackbar.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -18,9 +22,15 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.zoksh.core_ui.snackbar.mapper.visualsFor
 import com.zoksh.core_ui.snackbar.model.AppMessage
+import com.zoksh.core_ui.snackbar.model.AppMessageAction
+import com.zoksh.core_ui.snackbar.model.MessageType
+import com.zoksh.core_ui.theme.BuyZoneTheme
 
 @Composable
 fun AppSnackBar(
@@ -37,6 +47,7 @@ fun AppSnackBar(
     ) {
         Row(
             modifier = Modifier
+                .height(IntrinsicSize.Min)
                 .heightIn(min = 56.dp)
         ) {
             Box(
@@ -71,4 +82,43 @@ fun AppSnackBar(
             }
         }
     }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(
+    showBackground = true,
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun AppSnackBarPreview(
+    @PreviewParameter(AppMessagePreviewParameterProvider::class) message: AppMessage
+) {
+    BuyZoneTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            AppSnackBar(message = message)
+        }
+    }
+}
+
+private class AppMessagePreviewParameterProvider : PreviewParameterProvider<AppMessage> {
+    override val values = sequenceOf(
+        AppMessage(
+            text = "Success! Your profile has been updated.",
+            type = MessageType.SUCCESS
+        ),
+        AppMessage(
+            text = "An error occurred while saving.",
+            type = MessageType.ERROR,
+            action = AppMessageAction("Retry") {}
+        ),
+        AppMessage(
+            text = "Your subscription is about to expire.",
+            type = MessageType.WARNING
+        ),
+        AppMessage(
+            text = "Did you know you can save items to your wishlist?",
+            type = MessageType.INFO
+        )
+    )
 }
