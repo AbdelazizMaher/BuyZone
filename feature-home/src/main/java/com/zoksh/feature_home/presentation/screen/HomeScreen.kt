@@ -44,7 +44,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp)
-                    .height(200.dp),
+                    .height(160.dp),
                 promos = state.promos,
                 onClick = {
 
