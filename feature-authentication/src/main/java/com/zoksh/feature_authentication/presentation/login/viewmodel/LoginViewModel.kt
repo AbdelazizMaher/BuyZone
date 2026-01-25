@@ -1,8 +1,9 @@
 package com.zoksh.feature_authentication.presentation.login.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zoksh.core_ui.snackbar.model.AppMessage
+import com.zoksh.core_ui.snackbar.model.MessageType
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
 import com.zoksh.feature_authentication.domain.model.AuthenticationProvider
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
@@ -11,6 +12,7 @@ import com.zoksh.feature_authentication.domain.validation.ValidationHandler
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract
 import com.zoksh.feature_authentication.presentation.mapper.isEmailError
 import com.zoksh.feature_authentication.presentation.mapper.isPasswordError
+import com.zoksh.feature_authentication.presentation.mapper.toAppMessage
 import com.zoksh.feature_authentication.presentation.mapper.toUiMessage
 import com.zoksh.feature_authentication.presentation.validation.EmailValidationChain
 import com.zoksh.feature_authentication.presentation.validation.LoginWithEmailValidationChain
@@ -55,7 +57,7 @@ class LoginViewModel(
 
     private fun handleSignUp() {
         viewModelScope.launch {
-           _event.emit(LoginContract.Effect.NavigateToSignup)
+            _event.emit(LoginContract.Effect.NavigateToSignup)
         }
     }
 
@@ -87,7 +89,7 @@ class LoginViewModel(
         _state.update { it.copy(rememberMe = rememberMe) }
     }
 
-    private fun handleSignIn(validator: ValidationHandler,credential: AuthenticationCredential) {
+    private fun handleSignIn(validator: ValidationHandler, credential: AuthenticationCredential) {
         viewModelScope.launch {
             _state.update { it.copy(loginClicked = true, submitAttempted = true) }
             val loginResult = loginUseCase(
@@ -95,29 +97,43 @@ class LoginViewModel(
                 validator = validator
             )
             when (loginResult) {
-                is AuthenticationResult.Success -> { _event.emit(LoginContract.Effect.LoginSuccess(loginResult.user)) }
-                is AuthenticationResult.Failure -> { _event.emit(LoginContract.Effect.ShowError(loginResult.error.toUiMessage())) }
-                AuthenticationResult.GuestAccess -> { _event.emit(LoginContract.Effect.GuestAccess) }
-                is AuthenticationResult.ValidationFailed -> { _state.update { state ->
-                    state.copy(
-                        emailError = loginResult.errors.firstOrNull { it.isEmailError() }?.toUiMessage(),
-                        passwordError = loginResult.errors.firstOrNull { it.isPasswordError() }?.toUiMessage(),
+                is AuthenticationResult.Success -> {
+                    _event.emit(LoginContract.Effect.LoginSuccess(loginResult.user))
+                }
 
-                        emailTouched = true,
-                        passwordTouched = true,
-                    )
-                }}
+                is AuthenticationResult.Failure -> {
+                    _event.emit(LoginContract.Effect.ShowError(loginResult.error.toAppMessage()))
+                }
+
+                AuthenticationResult.GuestAccess -> {
+                    _event.emit(LoginContract.Effect.GuestAccess)
+                }
+
+                is AuthenticationResult.ValidationFailed -> {
+                    _state.update { state ->
+                        state.copy(
+                            emailError = loginResult.errors.firstOrNull { it.isEmailError() }
+                                ?.toUiMessage(),
+                            passwordError = loginResult.errors.firstOrNull { it.isPasswordError() }
+                                ?.toUiMessage(),
+
+                            emailTouched = true,
+                            passwordTouched = true,
+                        )
+                    }
+                }
             }
             _state.update { it.copy(loginClicked = false) }
         }
     }
 
     private fun handleSignInWithEmailAndPassword() {
-        val validator = LoginWithEmailValidationChain.build(_state.value.email, _state.value.password)
+        val validator =
+            LoginWithEmailValidationChain.build(_state.value.email, _state.value.password)
         val credential = AuthenticationCredential.EmailAndPassword(
-            _state.value.email, _state.value.password,AuthenticationProvider.EMAIL_LOGIN
+            _state.value.email, _state.value.password, AuthenticationProvider.EMAIL_LOGIN
         )
-        handleSignIn(validator,credential)
+        handleSignIn(validator, credential)
     }
 
     private fun handleFacebookLogin() {
@@ -128,13 +144,23 @@ class LoginViewModel(
 
     private fun handleFacebookAuthSuccess(token: String) {
         val validator = SocialValidationChain.build()
-        val credential = AuthenticationCredential.Social(token = token, provider = AuthenticationProvider.FACEBOOK)
+        val credential = AuthenticationCredential.Social(
+            token = token,
+            provider = AuthenticationProvider.FACEBOOK
+        )
         handleSignIn(validator, credential)
     }
 
     private fun handleFacebookAuthFailure(error: String) {
         viewModelScope.launch {
-            _event.emit(LoginContract.Effect.ShowError(error))
+            _event.emit(
+                LoginContract.Effect.ShowError(
+                    AppMessage(
+                        text = error,
+                        type = MessageType.ERROR
+                    )
+                )
+            )
         }
     }
 
@@ -146,13 +172,23 @@ class LoginViewModel(
 
     private fun handleGoogleAuthSuccess(idToken: String) {
         val validator = SocialValidationChain.build()
-        val credential = AuthenticationCredential.Social(token = idToken, provider = AuthenticationProvider.GOOGLE)
+        val credential = AuthenticationCredential.Social(
+            token = idToken,
+            provider = AuthenticationProvider.GOOGLE
+        )
         handleSignIn(validator, credential)
     }
 
     private fun handleGoogleAuthFailure(error: String) {
         viewModelScope.launch {
-            _event.emit(LoginContract.Effect.ShowError(error))
+            _event.emit(
+                LoginContract.Effect.ShowError(
+                    AppMessage(
+                        text = error,
+                        type = MessageType.ERROR
+                    )
+                )
+            )
         }
     }
 

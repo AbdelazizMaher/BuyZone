@@ -2,6 +2,7 @@ package com.zoksh.buyzone.navigation.auth
 
 import android.app.Activity
 import android.util.Log
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
@@ -21,6 +22,7 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
 import com.zoksh.buyzone.R
+import com.zoksh.core_ui.snackbar.component.AppSnackBarVisuals
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract.Intent.FacebookAuthFailure
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract.Intent.FacebookAuthSuccess
@@ -34,6 +36,7 @@ import com.zoksh.feature_home.presentation.navigation.HomeDestination
 fun LoginNavHandler(
     navController: NavHostController,
     viewModel: LoginViewModel,
+    snackBarHostState: SnackbarHostState,
     callbackManager: CallbackManager
 ) {
     val activity = LocalContext.current as? Activity ?: return
@@ -50,11 +53,12 @@ fun LoginNavHandler(
                 }
 
                 is LoginContract.Effect.ShowError -> {
-                    Log.e("LoginNavHandler", effect.message)
+                    snackBarHostState.showSnackbar(
+                        visuals = AppSnackBarVisuals(effect.message)
+                    )
                 }
 
                 LoginContract.Effect.GuestAccess -> {
-                    Log.e("LoginNavHandler", "GuestAccess")
                     navController.navigate(HomeDestination.Home)
                 }
 
