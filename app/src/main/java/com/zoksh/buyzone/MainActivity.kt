@@ -60,6 +60,7 @@ class MainActivity : ComponentActivity() {
                     AppNavHost(
                         navController,
                         bottomBarState,
+                        snackBarHostState,
                         callbackManager,
                         innerPadding
                     )

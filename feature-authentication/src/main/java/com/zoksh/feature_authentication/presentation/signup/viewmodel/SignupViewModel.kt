@@ -12,6 +12,7 @@ import com.zoksh.feature_authentication.presentation.mapper.isEmailError
 import com.zoksh.feature_authentication.presentation.mapper.isNameError
 import com.zoksh.feature_authentication.presentation.mapper.isPasswordError
 import com.zoksh.feature_authentication.presentation.mapper.isTermsError
+import com.zoksh.feature_authentication.presentation.mapper.toAppMessage
 import com.zoksh.feature_authentication.presentation.mapper.toUiMessage
 import com.zoksh.feature_authentication.presentation.model.PasswordRequirementState
 import com.zoksh.feature_authentication.presentation.signup.contract.SignupContract
@@ -121,7 +122,7 @@ class SignupViewModel(
             )
             when (signupResult) {
                 is AuthenticationResult.Success -> { _event.emit(SignupContract.Effect.SignupSuccess(signupResult.user)) }
-                is AuthenticationResult.Failure -> {  _event.emit(SignupContract.Effect.ShowError(signupResult.error.toUiMessage())) }
+                is AuthenticationResult.Failure -> {  _event.emit(SignupContract.Effect.ShowError(signupResult.error.toAppMessage())) }
                 AuthenticationResult.GuestAccess -> { _event.emit(SignupContract.Effect.GuestAccess) }
                 is AuthenticationResult.ValidationFailed -> {
                     _state.update { state ->
