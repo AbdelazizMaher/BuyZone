@@ -3,7 +3,6 @@ package com.zoksh.core_ui.snackbar.component
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,9 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,6 +38,7 @@ import com.zoksh.core_ui.theme.BuyZoneTheme
 @Composable
 fun AppSnackBar(
     message: AppMessage,
+    onDismiss: () -> Unit = {}
 ) {
     val visuals = visualsFor(message.type)
 
@@ -48,7 +52,8 @@ fun AppSnackBar(
         Row(
             modifier = Modifier
                 .height(IntrinsicSize.Min)
-                .heightIn(min = 56.dp)
+                .heightIn(min = 56.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
                 modifier = Modifier
@@ -58,7 +63,7 @@ fun AppSnackBar(
             )
             Row(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(start = 16.dp, end = 8.dp)
                     .weight(1f),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -73,10 +78,22 @@ fun AppSnackBar(
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.weight(1f)
                 )
-                message.action?.let {
-                    Spacer(Modifier.width(12.dp))
-                    TextButton(onClick = it.onClick) {
-                        Text(it.label)
+
+                if (message.action != null) {
+                    TextButton(onClick = message.action.onClick) {
+                        Text(message.action.label)
+                    }
+                } else {
+                    IconButton(
+                        onClick = onDismiss,
+                        modifier = Modifier.size(40.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Close,
+                            contentDescription = "Dismiss",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                            modifier = Modifier.size(20.dp)
+                        )
                     }
                 }
             }
