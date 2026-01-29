@@ -35,7 +35,7 @@ fun BottomBarItem(
     ) {
 
         Icon(
-            modifier = Modifier.size(36.dp),
+            modifier = Modifier.size(32.dp),
             painter = if (selected) selectedIcon else unselectedIcon,
             contentDescription = label,
             tint = if (selected)

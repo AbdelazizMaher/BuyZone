@@ -8,6 +8,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -15,10 +20,16 @@ import com.facebook.CallbackManager
 import com.facebook.FacebookSdk
 import com.zoksh.buyzone.bottombar.AppBottomBar
 import com.zoksh.buyzone.navigation.AppNavHost
+import com.zoksh.core_ui.snackbar.component.AppSnackBar
+import com.zoksh.core_ui.snackbar.component.AppSnackBarVisuals
+import com.zoksh.core_ui.snackbar.model.AppMessage
+import com.zoksh.core_ui.snackbar.model.MessageVisuals
 import com.zoksh.core_ui.theme.BuyZoneTheme
 
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
+    private lateinit var snackBarHostState: SnackbarHostState
+    private lateinit var bottomBarState: MutableState<Boolean>
     val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,18 +38,29 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             navController = rememberNavController()
+            bottomBarState = remember { mutableStateOf(false) }
+            snackBarHostState = remember { SnackbarHostState() }
             BuyZoneTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     snackbarHost = {
-
+                        SnackbarHost(
+                            hostState = snackBarHostState,
+                        ) { snackBarData ->
+                            AppSnackBar(
+                                message = (snackBarData.visuals as AppSnackBarVisuals).appMessage,
+                                onDismiss = { snackBarData.dismiss() }
+                            )
+                        }
                     },
                     bottomBar = {
-                        AppBottomBar(navController)
+                        if (bottomBarState.value)  AppBottomBar(navController)
                     }
                 ) { innerPadding ->
                     AppNavHost(
                         navController,
+                        bottomBarState,
+                        snackBarHostState,
                         callbackManager,
                         innerPadding
                     )

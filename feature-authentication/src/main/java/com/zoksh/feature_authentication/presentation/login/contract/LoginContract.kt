@@ -1,5 +1,6 @@
 package com.zoksh.feature_authentication.presentation.login.contract
 
+import com.zoksh.core_ui.snackbar.model.AppMessage
 import com.zoksh.feature_authentication.domain.model.User
 
 interface LoginContract {
@@ -43,6 +44,6 @@ interface LoginContract {
         data object StartFacebookAuth: Effect
         data class LoginSuccess(val user: User) : Effect
         data object GuestAccess : Effect
-        data class ShowError(val message: String): Effect
+        data class ShowError(val message: AppMessage): Effect
     }
 }

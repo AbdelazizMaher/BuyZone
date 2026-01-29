@@ -1,31 +1,36 @@
-package com.zoksh.core_session.session
+package com.zoksh.core_session.session.store
 
+import com.zoksh.core_session.session.SecureStorage
 import com.zoksh.core_session.session.event.SessionEvent
 import com.zoksh.core_session.session.model.Session
-import com.zoksh.core_session.session.store.SessionStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class SecureSessionStore(
+internal class SecureSessionStore(
     private val secureStorage: SecureStorage
 ) : SessionStore {
-    override val session: StateFlow<Session>
-        get() = MutableStateFlow(secureStorage.readSession() ?: guest())
-    override val event: SharedFlow<SessionEvent>
-        get() = MutableSharedFlow()
+    private val _session =
+        MutableStateFlow(secureStorage.readSession() ?: guest())
+    override val session: StateFlow<Session> = _session
+
+    private val _event = MutableSharedFlow<SessionEvent>(
+        replay = 0,
+        extraBufferCapacity = 1
+    )
+    override val event: SharedFlow<SessionEvent> = _event
 
     override fun update(session: Session) {
         secureStorage.writeSession(session)
-        (this.session as MutableStateFlow).value = session
+        _session.value = session
     }
 
     override fun clear(expired: Boolean) {
         secureStorage.clear()
-        (this.session as MutableStateFlow).value = guest()
+        _session.value = guest()
 
-        (this.event as MutableSharedFlow).tryEmit(
+        _event.tryEmit(
             if (expired) SessionEvent.Expired else SessionEvent.LoggedOut
         )
     }

@@ -1,7 +1,10 @@
 package com.zoksh.buyzone.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,39 +29,43 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AppNavHost(
     navController: NavHostController,
+    bottomBarState: MutableState<Boolean>,
+    snackBarHostState: SnackbarHostState,
     callbackManager: CallbackManager,
     innerPadding: PaddingValues
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeDestination.Home,
+        startDestination = OnBoardingDestination.OnBoarding,
     ) {
         composable<OnBoardingDestination.OnBoarding> {
+            bottomBarState.value = false
             val viewModel: OnBoardingViewModel = koinViewModel()
             OnBoardingNavHandler(navController, viewModel)
             OnBoardingScreen(viewModel = viewModel)
         }
         composable<AuthDestination.Login> {
+            bottomBarState.value = false
             val viewModel: LoginViewModel = koinViewModel()
-            LoginNavHandler(navController, viewModel, callbackManager)
+            LoginNavHandler(navController, viewModel, snackBarHostState, callbackManager)
             LoginScreen(
-                viewModel = viewModel,
-                innerPadding = innerPadding
+                viewModel = viewModel, innerPadding = innerPadding
             )
         }
         composable<AuthDestination.SignUp> {
+            bottomBarState.value = false
             val viewModel: SignupViewModel = koinViewModel()
-            SignupNavHandler(navController, viewModel)
+            SignupNavHandler(navController, viewModel, snackBarHostState)
             SignupScreen(
-                viewModel = viewModel,
-                innerPadding = innerPadding
+                viewModel = viewModel, innerPadding = innerPadding
             )
         }
         composable<HomeDestination.Home> {
+            bottomBarState.value = true
             val viewModel: HomeViewModel = koinViewModel()
             HomeNavHandler(navController, viewModel)
             HomeScreen(
-                state = viewModel.state.value,
+                state = viewModel.state.collectAsStateWithLifecycle().value,
                 onIntent = viewModel::handleIntent,
                 innerPadding = innerPadding
             )
