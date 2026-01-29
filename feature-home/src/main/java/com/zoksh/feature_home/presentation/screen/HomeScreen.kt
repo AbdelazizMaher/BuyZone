@@ -50,7 +50,7 @@ fun HomeScreen(
                 AppSearchBar(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
                     value = "",
                     hint = "Search for products...",
                 )
@@ -61,7 +61,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp)
-                    .height(160.dp),
+                    .height(200.dp),
                 promos = state.promos,
                 onClick = {
 

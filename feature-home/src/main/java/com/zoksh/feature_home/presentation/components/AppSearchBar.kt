@@ -1,6 +1,7 @@
 package com.zoksh.feature_home.presentation.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -60,8 +62,15 @@ fun AppSearchBar(
             .height(48.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(14.dp),
-        tonalElevation = if (isFocused) 4.dp else 1.dp,
-        color = MaterialTheme.colorScheme.surfaceContainerLow
+        color = MaterialTheme.colorScheme.surface,
+        shadowElevation = if (isFocused) 4.dp else 0.dp,
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (isFocused)
+                MaterialTheme.colorScheme.primary
+            else
+                MaterialTheme.colorScheme.outline.copy(alpha = 0.4f)
+        )
     ) {
         Row(
             modifier = Modifier
@@ -101,6 +110,7 @@ fun AppSearchBar(
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Search
                     ),
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary)
                 )
             }
             if (value.isNotEmpty()) {
