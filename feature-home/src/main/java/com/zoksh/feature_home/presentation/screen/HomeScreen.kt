@@ -1,7 +1,9 @@
 package com.zoksh.feature_home.presentation.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.zoksh.feature_home.presentation.components.AppSearchBar
 import com.zoksh.feature_home.presentation.components.BrandsSection
 import com.zoksh.feature_home.presentation.components.CarouselPromosSection
 import com.zoksh.feature_home.presentation.components.CategoriesSection
@@ -38,6 +41,20 @@ fun HomeScreen(
 
                 }
             )
+        }
+        item {
+            Box(
+                modifier = Modifier
+                    .clickable{ }
+            ) {
+                AppSearchBar(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    value = "",
+                    hint = "Search for products...",
+                )
+            }
         }
         item {
             CarouselPromosSection(
