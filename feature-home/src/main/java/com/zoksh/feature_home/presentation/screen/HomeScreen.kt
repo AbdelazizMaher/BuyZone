@@ -18,6 +18,7 @@ import com.zoksh.feature_home.presentation.components.BrandsSection
 import com.zoksh.feature_home.presentation.components.CarouselPromosSection
 import com.zoksh.feature_home.presentation.components.CategoriesSection
 import com.zoksh.feature_home.presentation.components.HeaderSection
+import com.zoksh.feature_home.presentation.components.SearchBarLauncher
 import com.zoksh.feature_home.presentation.components.TrendingSection
 import com.zoksh.feature_home.presentation.contract.HomeContract
 
@@ -43,18 +44,14 @@ fun HomeScreen(
             )
         }
         item {
-            Box(
+            SearchBarLauncher(
                 modifier = Modifier
-                    .clickable{ }
-            ) {
-                AppSearchBar(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    value = "",
-                    hint = "Search for products...",
-                )
-            }
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                onClick = {
+
+                }
+            )
         }
         item {
             CarouselPromosSection(
