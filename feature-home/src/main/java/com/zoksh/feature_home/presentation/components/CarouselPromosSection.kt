@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
@@ -37,7 +35,7 @@ import kotlinx.coroutines.launch
 fun CarouselPromosSection(
     modifier: Modifier = Modifier,
     promos: List<PromosUiModel>,
-    onClick: () -> Unit
+    onClick: (String) -> Unit
 ) {
     if (promos.isEmpty()) return
     val pagerState = rememberPagerState { promos.size }
@@ -71,7 +69,7 @@ fun CarouselPromosSection(
                     error = painterResource(R.drawable.promo_ads),
                     modifier = Modifier
                         .fillMaxSize()
-                        .clickable { onClick() }
+                        .clickable { onClick(promos[page].id) }
                 )
             }
 
