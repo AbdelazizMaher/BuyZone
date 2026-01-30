@@ -15,6 +15,7 @@ import com.zoksh.feature_home.presentation.components.BrandsSection
 import com.zoksh.feature_home.presentation.components.CarouselPromosSection
 import com.zoksh.feature_home.presentation.components.CategoriesSection
 import com.zoksh.feature_home.presentation.components.HeaderSection
+import com.zoksh.feature_home.presentation.components.SearchBarLauncher
 import com.zoksh.feature_home.presentation.components.TrendingSection
 import com.zoksh.feature_home.presentation.contract.HomeContract
 
@@ -35,7 +36,17 @@ fun HomeScreen(
                     .background(MaterialTheme.colorScheme.surface),
                 header = state.header,
                 onNotificationClick = {
-
+                    onIntent(HomeContract.Intent.OnNotificationClick)
+                }
+            )
+        }
+        item {
+            SearchBarLauncher(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                onClick = {
+                    onIntent(HomeContract.Intent.OnSearchClick)
                 }
             )
         }
@@ -44,10 +55,10 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp)
-                    .height(160.dp),
+                    .height(200.dp),
                 promos = state.promos,
-                onClick = {
-
+                onClick = { id ->
+                    onIntent(HomeContract.Intent.OnPromoClick(id))
                 }
             )
         }
@@ -57,8 +68,8 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),
                 categories = state.categories,
-                onCategoryClick = {
-
+                onCategoryClick = { id ->
+                    onIntent(HomeContract.Intent.OnCategoryClick(id))
                 }
             )
         }
@@ -68,11 +79,11 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),
                 brands = state.brands,
-                onBrandClick = {
-
+                onBrandClick = { id ->
+                    onIntent(HomeContract.Intent.OnBrandClick(id))
                 },
                 onViewAllClick = {
-
+                    onIntent(HomeContract.Intent.OnBrandsViewAllClick)
                 }
             )
         }
@@ -82,14 +93,14 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),
                 trending = state.trending,
-                onProductClick = {
-
+                onProductClick = { id ->
+                    onIntent(HomeContract.Intent.OnProductClick(id))
                 },
-                onAddToFavClick = {
-
+                onAddToFavClick = { id ->
+                    onIntent(HomeContract.Intent.OnAddToFavClick(id))
                 },
                 onViewAllClick = {
-
+                    onIntent(HomeContract.Intent.OnTrendingViewAllClick)
                 }
             )
         }

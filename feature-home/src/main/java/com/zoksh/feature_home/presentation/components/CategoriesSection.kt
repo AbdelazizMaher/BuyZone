@@ -39,7 +39,7 @@ fun CategoriesSection(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(horizontal = 8.dp)
             ) {
-                items(categories, key = { it.title }) {
+                items(categories, key = { it.id }) {
                     CategoryCard(
                         modifier = Modifier
                             .width(itemWidth)
