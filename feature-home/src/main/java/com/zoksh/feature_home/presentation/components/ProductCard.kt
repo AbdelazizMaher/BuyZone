@@ -44,7 +44,7 @@ fun ProductCard(
 ) {
     Card(
         modifier = modifier
-            .clickable { onClick(product.name) },
+            .clickable { onClick(product.id) },
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {

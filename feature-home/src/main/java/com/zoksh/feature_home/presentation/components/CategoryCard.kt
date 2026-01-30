@@ -33,7 +33,7 @@ fun CategoryCard(
 ) {
     Card(
         modifier = modifier
-            .clickable { onCategoryClick(category.title) },
+            .clickable { onCategoryClick(category.id) },
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
