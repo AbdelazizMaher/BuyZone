@@ -10,6 +10,8 @@ import com.yourapp.auth.shopify.CustomerAccessTokenCreateMutation
 import com.yourapp.auth.shopify.CustomerCreateMutation
 import com.yourapp.auth.shopify.type.CustomerAccessTokenCreateInput
 import com.yourapp.auth.shopify.type.CustomerCreateInput
+import com.zoksh.core_model.model.User
+import com.zoksh.core_model.model.UserState
 import com.zoksh.core_session.session.model.Session
 import com.zoksh.core_session.session.store.SessionStore
 import com.zoksh.feature_authentication.data.mapper.authCall
@@ -18,8 +20,6 @@ import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
 import com.zoksh.feature_authentication.domain.model.AuthenticationError
 import com.zoksh.feature_authentication.domain.model.AuthenticationProvider
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
-import com.zoksh.feature_authentication.domain.model.User
-import com.zoksh.feature_authentication.domain.model.UserState
 import com.zoksh.feature_authentication.domain.repository.AuthenticationRepository
 import kotlinx.coroutines.tasks.await
 import java.io.IOException

@@ -1,4 +1,4 @@
-package com.zoksh.feature_authentication.domain.model
+package com.zoksh.core_model.model
 
 data class User(
     val id: String = "",

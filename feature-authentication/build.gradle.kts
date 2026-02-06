@@ -76,6 +76,7 @@ dependencies {
     implementation(project(":network-apollo"))
     implementation(project(":core-ui"))
     implementation(project(":core-session"))
+    implementation(project(":core-model"))
 }
 
 apollo {
