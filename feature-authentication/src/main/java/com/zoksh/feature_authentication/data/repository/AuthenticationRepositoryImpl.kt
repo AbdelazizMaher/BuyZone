@@ -10,6 +10,7 @@ import com.yourapp.auth.shopify.CustomerAccessTokenCreateMutation
 import com.yourapp.auth.shopify.CustomerCreateMutation
 import com.yourapp.auth.shopify.type.CustomerAccessTokenCreateInput
 import com.yourapp.auth.shopify.type.CustomerCreateInput
+import com.zoksh.core_session.session.model.Session
 import com.zoksh.core_session.session.store.SessionStore
 import com.zoksh.feature_authentication.data.mapper.authCall
 import com.zoksh.feature_authentication.data.mapper.toUser
@@ -22,6 +23,7 @@ import com.zoksh.feature_authentication.domain.model.UserState
 import com.zoksh.feature_authentication.domain.repository.AuthenticationRepository
 import kotlinx.coroutines.tasks.await
 import java.io.IOException
+import java.time.Instant
 
 class AuthenticationRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
@@ -163,7 +165,7 @@ class AuthenticationRepositoryImpl(
 
     private suspend fun loginWithFacebook(credential: AuthenticationCredential.Social): AuthenticationResult =
         authCall {
-            val firebaseCredential =
+            val firebaseCredential = 
                 FacebookAuthProvider.getCredential(credential.token)
 
             val result = firebaseAuth
@@ -214,6 +216,18 @@ class AuthenticationRepositoryImpl(
         return if (response.hasErrors()) {
             AuthenticationResult.Failure(AuthenticationError.ShopLinkFailed)
         } else {
+            val accessToken = response.data?.customerAccessTokenCreate?.customerAccessToken?.accessToken
+            val expiresAt = response.data?.customerAccessTokenCreate?.customerAccessToken?.expiresAt
+
+            val expirationTimestamp = expiresAt?.let { Instant.parse(it.toString()).toEpochMilli() }
+
+            sessionStore.update(
+                Session(
+                    accessToken = accessToken,
+                    expiresIn = expirationTimestamp,
+                    isGuest = false
+                )
+            )
             AuthenticationResult.Success(
                 user = user.copy(
                     state = UserState.SHOP_LINKED,
