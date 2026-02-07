@@ -1,4 +1,4 @@
-package com.zoksh.feature_authentication.data.remote
+package com.zoksh.feature_authentication.data.remote.auth
 
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -7,14 +7,6 @@ import com.zoksh.core_session.identity.model.User
 import com.zoksh.feature_authentication.data.mapper.toUser
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
 import kotlinx.coroutines.tasks.await
-
-interface AuthRemoteDataSource {
-    suspend fun signInWithEmail(credential: AuthenticationCredential.EmailAndPassword): User
-    suspend fun signUpWithEmail(credential: AuthenticationCredential.EmailAndPassword): User
-    suspend fun signInWithGoogle(credential: AuthenticationCredential.Social): User
-    suspend fun signInWithFacebook(credential: AuthenticationCredential.Social): User
-    fun signOut()
-}
 
 class FirebaseAuthRemoteDataSource(
     private val firebaseAuth: FirebaseAuth

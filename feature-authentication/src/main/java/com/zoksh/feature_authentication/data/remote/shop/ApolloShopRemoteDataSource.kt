@@ -1,4 +1,4 @@
-package com.zoksh.feature_authentication.data.remote
+package com.zoksh.feature_authentication.data.remote.shop
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Optional
@@ -7,17 +7,9 @@ import com.yourapp.auth.shopify.CustomerCreateMutation
 import com.yourapp.auth.shopify.type.CustomerAccessTokenCreateInput
 import com.yourapp.auth.shopify.type.CustomerCreateInput
 import com.zoksh.core_session.identity.model.User
-import java.time.Instant
-
-interface ShopRemoteDataSource {
-    suspend fun createCustomer(user: User): Boolean
-    suspend fun createAccessToken(user: User): ShopAccessToken?
-}
-
-data class ShopAccessToken(
-    val token: String,
-    val expiresAt: Long?
-)
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 class ApolloShopRemoteDataSource(
     private val apolloClient: ApolloClient
@@ -53,7 +45,17 @@ class ApolloShopRemoteDataSource(
 
         val data = response.data?.customerAccessTokenCreate?.customerAccessToken
         val token = data?.accessToken ?: return null
-        val expiresAt = data.expiresAt?.let { Instant.parse(it.toString()).toEpochMilli() }
+        
+        val expiresAt = data.expiresAt?.let { dateString ->
+            try {
+                val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }
+                sdf.parse(dateString.toString())?.time
+            } catch (_: Exception) {
+                null
+            }
+        }
 
         return ShopAccessToken(token, expiresAt)
     }

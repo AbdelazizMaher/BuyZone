@@ -6,9 +6,9 @@ import com.zoksh.core_session.identity.store.UserStore
 import com.zoksh.core_session.session.model.Session
 import com.zoksh.core_session.session.store.SessionStore
 import com.zoksh.feature_authentication.data.mapper.authCall
-import com.zoksh.feature_authentication.data.remote.AuthRemoteDataSource
-import com.zoksh.feature_authentication.data.remote.ShopRemoteDataSource
-import com.zoksh.feature_authentication.data.remote.UserRemoteDataSource
+import com.zoksh.feature_authentication.data.remote.auth.AuthRemoteDataSource
+import com.zoksh.feature_authentication.data.remote.shop.ShopRemoteDataSource
+import com.zoksh.feature_authentication.data.remote.user.UserRemoteDataSource
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
 import com.zoksh.feature_authentication.domain.model.AuthenticationError
 import com.zoksh.feature_authentication.domain.model.AuthenticationProvider

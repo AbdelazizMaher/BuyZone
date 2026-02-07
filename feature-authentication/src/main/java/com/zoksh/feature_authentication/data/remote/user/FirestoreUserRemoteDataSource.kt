@@ -1,13 +1,8 @@
-package com.zoksh.feature_authentication.data.remote
+package com.zoksh.feature_authentication.data.remote.user
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.zoksh.core_session.identity.model.User
 import kotlinx.coroutines.tasks.await
-
-interface UserRemoteDataSource {
-    suspend fun getUser(userId: String): User?
-    suspend fun saveUser(user: User)
-}
 
 class FirestoreUserRemoteDataSource(
     private val firestore: FirebaseFirestore
