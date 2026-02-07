@@ -9,7 +9,7 @@ import com.zoksh.core_session.identity.model.User
 import com.zoksh.core_session.identity.model.UserState
 import kotlinx.coroutines.flow.first
 
-class UserStorageImpl(
+internal class UserStorageImpl(
     private val context: Context
 ) : UserStorage {
 

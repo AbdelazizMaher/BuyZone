@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface UserStore {
     val user: StateFlow<User?>
-    fun save(user: User)
-    fun clear()
+    suspend fun save(user: User)
+    suspend fun clear()
 }
