@@ -1,7 +1,7 @@
 package com.zoksh.buyzone
 
 import android.app.Application
-import com.zoksh.core_session.session.di.sessionModule
+import com.zoksh.core_session.di.sessionModule
 import com.zoksh.feature_authentication.di.authModule
 import com.zoksh.feature_home.di.homeModule
 import com.zoksh.feature_onboarding.di.onBoardingModule

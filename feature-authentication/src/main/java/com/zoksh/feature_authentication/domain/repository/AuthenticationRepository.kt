@@ -1,8 +1,8 @@
 package com.zoksh.feature_authentication.domain.repository
 
+import com.zoksh.core_session.identity.model.User
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
-import com.zoksh.feature_authentication.domain.model.User
 
 interface AuthenticationRepository {
     suspend fun authenticate(credential: AuthenticationCredential): AuthenticationResult
@@ -15,5 +15,5 @@ interface AuthenticationRepository {
         user: User,
     ): AuthenticationResult
 
-    fun signOut()
+    suspend fun signOut()
 }

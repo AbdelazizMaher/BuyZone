@@ -1,4 +1,4 @@
-package com.zoksh.core_session.session
+package com.zoksh.core_session.session.store.secure_storage
 
 import com.zoksh.core_session.session.model.Session
 

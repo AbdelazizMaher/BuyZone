@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.zoksh.core_session"
+    namespace = "com.zoksh.core_model"
     compileSdk {
         version = release(36)
     }
@@ -36,17 +36,9 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    //koin
-    val koin_android_version = "4.0.2"
-    implementation("io.insert-koin:koin-android:$koin_android_version")
-    implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
-
-    //encrypted shared preferences
-    implementation("androidx.security:security-crypto:1.1.0-alpha06")
-    // data store
-    implementation("androidx.datastore:datastore-preferences:1.1.7")
 }

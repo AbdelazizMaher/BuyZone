@@ -2,8 +2,8 @@ package com.zoksh.feature_authentication.domain.usecase
 
 import com.zoksh.feature_authentication.domain.model.AuthenticationError
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
-import com.zoksh.feature_authentication.domain.model.User
-import com.zoksh.feature_authentication.domain.model.UserState
+import com.zoksh.core_session.identity.model.User
+import com.zoksh.core_session.identity.model.UserState
 import com.zoksh.feature_authentication.domain.repository.AuthenticationRepository
 
 class UserSetupUseCase(

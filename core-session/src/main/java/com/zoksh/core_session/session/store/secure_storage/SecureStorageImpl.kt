@@ -1,9 +1,10 @@
-package com.zoksh.core_session.session
+package com.zoksh.core_session.session.store.secure_storage
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.zoksh.core_session.session.model.Session
+import androidx.core.content.edit
 
 internal class SecureStorageImpl(
     context: Context
@@ -22,10 +23,10 @@ internal class SecureStorageImpl(
     )
 
     override fun writeSession(session: Session) {
-        prefs.edit()
-            .putString(KEY_ACCESS_TOKEN, session.accessToken)
-            .putLong(KEY_EXPIRES_AT, session.expiresIn ?: -1)
-            .apply()
+        prefs.edit {
+            putString(KEY_ACCESS_TOKEN, session.accessToken)
+                .putLong(KEY_EXPIRES_AT, session.expiresIn ?: -1)
+        }
     }
 
     override fun readSession(): Session? {
@@ -41,7 +42,7 @@ internal class SecureStorageImpl(
     }
 
     override fun clear() {
-        prefs.edit().clear().apply()
+        prefs.edit { clear() }
     }
 
     private companion object {
