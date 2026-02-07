@@ -3,7 +3,7 @@ package com.zoksh.feature_authentication.data.mapper
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
-import com.zoksh.core_model.model.User
+import com.zoksh.core_session.identity.model.User
 import com.zoksh.feature_authentication.domain.model.AuthenticationError
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
 

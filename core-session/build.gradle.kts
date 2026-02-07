@@ -47,4 +47,6 @@ dependencies {
 
     //encrypted shared preferences
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    // data store
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
 }

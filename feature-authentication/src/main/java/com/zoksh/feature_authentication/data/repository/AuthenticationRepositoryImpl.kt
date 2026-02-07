@@ -10,8 +10,8 @@ import com.yourapp.auth.shopify.CustomerAccessTokenCreateMutation
 import com.yourapp.auth.shopify.CustomerCreateMutation
 import com.yourapp.auth.shopify.type.CustomerAccessTokenCreateInput
 import com.yourapp.auth.shopify.type.CustomerCreateInput
-import com.zoksh.core_model.model.User
-import com.zoksh.core_model.model.UserState
+import com.zoksh.core_session.identity.model.User
+import com.zoksh.core_session.identity.model.UserState
 import com.zoksh.core_session.session.model.Session
 import com.zoksh.core_session.session.store.SessionStore
 import com.zoksh.feature_authentication.data.mapper.authCall

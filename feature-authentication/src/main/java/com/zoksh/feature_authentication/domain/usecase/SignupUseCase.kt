@@ -3,7 +3,7 @@ package com.zoksh.feature_authentication.domain.usecase
 import com.zoksh.feature_authentication.domain.model.AuthenticationCredential
 import com.zoksh.feature_authentication.domain.model.AuthenticationError
 import com.zoksh.feature_authentication.domain.model.AuthenticationResult
-import com.zoksh.core_model.model.UserState
+import com.zoksh.core_session.identity.model.UserState
 import com.zoksh.feature_authentication.domain.repository.AuthenticationRepository
 import com.zoksh.feature_authentication.domain.validation.ValidationHandler
 
