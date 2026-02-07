@@ -15,5 +15,5 @@ interface AuthenticationRepository {
         user: User,
     ): AuthenticationResult
 
-    fun signOut()
+    suspend fun signOut()
 }
