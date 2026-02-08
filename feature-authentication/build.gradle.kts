@@ -80,7 +80,7 @@ dependencies {
 
 apollo {
     service("shopify") {
-        packageName.set("com.yourapp.auth.shopify")
+        packageName.set("com.zoksh.auth.shopify")
         schemaFile.set(
             project(":network-apollo")
                 .file("src/main/graphql/shopify/schema.graphqls")
