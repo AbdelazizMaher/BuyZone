@@ -1,4 +1,4 @@
-package com.zoksh.core_common.presentation
+package com.zoksh.core_common.presentation.ui_text
 
 import android.content.Context
 import androidx.annotation.StringRes
