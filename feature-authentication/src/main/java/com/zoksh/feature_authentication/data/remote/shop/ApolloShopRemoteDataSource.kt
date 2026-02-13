@@ -2,10 +2,10 @@ package com.zoksh.feature_authentication.data.remote.shop
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Optional
-import com.yourapp.auth.shopify.CustomerAccessTokenCreateMutation
-import com.yourapp.auth.shopify.CustomerCreateMutation
-import com.yourapp.auth.shopify.type.CustomerAccessTokenCreateInput
-import com.yourapp.auth.shopify.type.CustomerCreateInput
+import com.zoksh.auth.shopify.CustomerAccessTokenCreateMutation
+import com.zoksh.auth.shopify.CustomerCreateMutation
+import com.zoksh.auth.shopify.type.CustomerAccessTokenCreateInput
+import com.zoksh.auth.shopify.type.CustomerCreateInput
 import com.zoksh.core_session.identity.model.User
 import java.text.SimpleDateFormat
 import java.util.Locale

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.apollo)
 }
 
 android {
@@ -62,5 +63,19 @@ dependencies {
     implementation("io.insert-koin:koin-android:$koin_android_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
 
+    // apollo
+    implementation(libs.apollo.runtime)
+
     implementation(project(":core-ui"))
+    implementation(project(":network-apollo"))
+}
+
+apollo {
+    service("shopify") {
+        packageName.set("com.zoksh.home.shopify")
+        schemaFile.set(
+            project(":network-apollo")
+                .file("src/main/graphql/shopify/schema.graphqls")
+        )
+    }
 }
