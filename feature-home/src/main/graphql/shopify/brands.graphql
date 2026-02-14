@@ -1,6 +1,7 @@
 query Brands($first: Int!) {
     collections(first: $first) {
         nodes {
+            id
             title
             image {
                 url

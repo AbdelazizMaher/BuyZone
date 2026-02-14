@@ -6,11 +6,15 @@ query Trending {
         nodes {
             id
             title
+            description
             featuredImage { url }
             vendor
             variants(first: 1) {
                 nodes {
-                    price { amount }
+                    price {
+                        amount
+                        currencyCode
+                    }
                 }
             }
         }
