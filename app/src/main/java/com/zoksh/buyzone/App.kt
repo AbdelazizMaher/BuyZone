@@ -1,6 +1,7 @@
 package com.zoksh.buyzone
 
 import android.app.Application
+import com.zoksh.core_common.di.coreCommonModule
 import com.zoksh.core_session.di.sessionModule
 import com.zoksh.feature_authentication.di.authModule
 import com.zoksh.feature_home.di.homeModule
@@ -20,6 +21,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(
+                coreCommonModule,
                 onBoardingModule,
                 authModule,
                 homeModule,
