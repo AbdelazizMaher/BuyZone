@@ -1,0 +1,22 @@
+query Trending {
+    products(
+        first: 6
+        sortKey: BEST_SELLING
+    ) {
+        nodes {
+            id
+            title
+            description
+            featuredImage { url }
+            vendor
+            variants(first: 1) {
+                nodes {
+                    price {
+                        amount
+                        currencyCode
+                    }
+                }
+            }
+        }
+    }
+}

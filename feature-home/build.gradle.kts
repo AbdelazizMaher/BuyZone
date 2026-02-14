@@ -68,6 +68,8 @@ dependencies {
 
     implementation(project(":core-ui"))
     implementation(project(":network-apollo"))
+    implementation(project(":core-session"))
+    implementation(project(":core-common"))
 }
 
 apollo {

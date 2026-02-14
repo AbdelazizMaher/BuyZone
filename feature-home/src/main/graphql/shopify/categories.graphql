@@ -1,0 +1,5 @@
+query Categories {
+    productTypes(first: 20) {
+        nodes
+    }
+}
