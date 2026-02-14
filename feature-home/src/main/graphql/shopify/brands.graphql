@@ -1,0 +1,10 @@
+query Brands($first: Int!) {
+    collections(first: $first) {
+        nodes {
+            title
+            image {
+                url
+            }
+        }
+    }
+}
