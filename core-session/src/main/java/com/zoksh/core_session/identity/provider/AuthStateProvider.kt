@@ -1,4 +1,4 @@
-package com.zoksh.core_session.identity.contract
+package com.zoksh.core_session.identity.provider
 
 import com.zoksh.core_session.identity.model.AppAuthState
 import kotlinx.coroutines.flow.StateFlow

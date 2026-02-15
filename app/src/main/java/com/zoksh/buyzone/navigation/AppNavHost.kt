@@ -3,7 +3,9 @@ package com.zoksh.buyzone.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -13,6 +15,9 @@ import com.zoksh.buyzone.navigation.auth.LoginNavHandler
 import com.zoksh.buyzone.navigation.auth.SignupNavHandler
 import com.zoksh.buyzone.navigation.home.HomeNavHandler
 import com.zoksh.buyzone.navigation.onboarding.OnBoardingNavHandler
+import com.zoksh.buyzone.session.SessionAction
+import com.zoksh.buyzone.session.SessionManager
+import com.zoksh.core_common.presentation.mvi.ObserveAsEvents
 import com.zoksh.feature_authentication.presentation.login.screen.LoginScreen
 import com.zoksh.feature_authentication.presentation.login.viewmodel.LoginViewModel
 import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
@@ -25,6 +30,7 @@ import com.zoksh.feature_onboarding.presentation.navigation.OnBoardingDestinatio
 import com.zoksh.feature_onboarding.presentation.screen.OnBoardingScreen
 import com.zoksh.feature_onboarding.presentation.viewmodel.OnBoardingViewModel
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun AppNavHost(
@@ -34,6 +40,23 @@ fun AppNavHost(
     callbackManager: CallbackManager,
     innerPadding: PaddingValues
 ) {
+    val sessionManager: SessionManager = koinInject()
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        sessionManager.startObserving(scope)
+    }
+
+    ObserveAsEvents(sessionManager.navigationEvents) { action ->
+        when (action) {
+            is SessionAction.Logout -> {
+                navController.navigate(AuthDestination.Login) {
+                    popUpTo(0) { inclusive = true }
+                }
+            }
+        }
+    }
+
     NavHost(
         navController = navController,
         startDestination = OnBoardingDestination.OnBoarding,
