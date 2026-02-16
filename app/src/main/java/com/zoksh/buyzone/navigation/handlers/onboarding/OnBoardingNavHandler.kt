@@ -1,4 +1,4 @@
-package com.zoksh.buyzone.navigation.onboarding
+package com.zoksh.buyzone.navigation.handlers.onboarding
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

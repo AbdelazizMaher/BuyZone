@@ -1,4 +1,4 @@
-package com.zoksh.buyzone.navigation.auth
+package com.zoksh.buyzone.navigation.handlers.auth
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable

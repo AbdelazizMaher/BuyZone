@@ -1,4 +1,4 @@
-package com.zoksh.buyzone.navigation.home
+package com.zoksh.buyzone.navigation.handlers.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
