@@ -1,4 +1,4 @@
-package com.zoksh.core_model
+package com.zoksh.feature_search
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.zoksh.core_model.test", appContext.packageName)
+        assertEquals("com.zoksh.feature_search.test", appContext.packageName)
     }
 }

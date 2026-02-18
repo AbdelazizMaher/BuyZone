@@ -1,4 +1,4 @@
-package com.zoksh.feature_home.presentation.components
+package com.zoksh.core_ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke

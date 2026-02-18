@@ -1,5 +1,6 @@
 package com.zoksh.feature_home.presentation.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,8 +27,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_home.R
 import com.zoksh.feature_home.presentation.model.HeaderUiModel
 
@@ -74,25 +78,28 @@ fun HeaderSection(
                 onClick = onNotificationClick,
                 modifier = Modifier
                     .padding(end = 8.dp)
-                    .size(48.dp)
                     .clip(RoundedCornerShape(18.dp))
-                    .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
             ) {
                 BadgedBox(
                     badge = {
                         if (header.notificationCount > 0) {
-                            Badge {
+                            Badge(
+                                modifier = Modifier
+                                    .size(16.dp)
+                            ) {
                                 Text(
                                     text = header.notificationCount.toString(),
                                     color = Color.White
                                 )
                             }
                         }
-                    }
+                    },
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.notification),
                         contentDescription = "Notifications",
+                        modifier = Modifier
+                            .size(24.dp),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
@@ -101,5 +108,26 @@ fun HeaderSection(
         HorizontalDivider(
             color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
         )
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(
+    showBackground = true,
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun HeaderSectionPreview() {
+    BuyZoneTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            HeaderSection(
+                header = HeaderUiModel(
+                    name = "Abdelrahman",
+                    notificationCount = 5
+                ),
+                onNotificationClick = {}
+            )
+        }
     }
 }
