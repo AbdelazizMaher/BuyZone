@@ -10,11 +10,12 @@ import com.zoksh.feature_home.domain.use_case.GetPopularBrandsUseCase
 import com.zoksh.feature_home.domain.use_case.GetPromosUseCase
 import com.zoksh.feature_home.domain.use_case.GetTrendingProductsUseCase
 import com.zoksh.feature_home.presentation.viewmodel.HomeViewModel
+import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val homeModule = module {
-    single<ShopRemoteDataSource> { ApolloShopRemoteDataSource(get()) }
+    single<ShopRemoteDataSource> { ApolloShopRemoteDataSource(get(), Dispatchers.IO) }
 
     single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
 

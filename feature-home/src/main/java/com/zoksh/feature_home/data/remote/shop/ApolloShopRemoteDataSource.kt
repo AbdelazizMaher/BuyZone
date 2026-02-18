@@ -4,16 +4,21 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.exception.ApolloException
 import com.zoksh.core_common.domain.error.DataError
 import com.zoksh.core_common.domain.result.Result
+import com.zoksh.core_common.domain.result.runResultCatching
 import com.zoksh.feature_home.domain.model.Brand
 import com.zoksh.feature_home.domain.model.Category
 import com.zoksh.feature_home.domain.model.Product
 import com.zoksh.home.shopify.BrandsQuery
 import com.zoksh.home.shopify.CategoriesQuery
 import com.zoksh.home.shopify.TrendingQuery
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.IOException
 
 class ApolloShopRemoteDataSource(
-    private val apolloClient: ApolloClient
+    private val apolloClient: ApolloClient,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ShopRemoteDataSource {
 
     override suspend fun getCategories(): Result<List<Category>, DataError.Network> {
@@ -58,14 +63,17 @@ class ApolloShopRemoteDataSource(
 
 
     private suspend fun <T> safeApolloCall(call: suspend () -> T): Result<T, DataError.Network> {
-        return try {
-            Result.Success(call())
-        } catch (_: IOException) {
-            Result.Error(DataError.Network.NO_INTERNET)
-        } catch (_: ApolloException) {
-            Result.Error(DataError.Network.SERVER_ERROR)
-        } catch (_: Exception) {
-            Result.Error(DataError.Network.UNKNOWN)
+        return withContext(ioDispatcher) {
+            runResultCatching(
+                errorMapper = { throwable ->
+                    when (throwable) {
+                        is IOException -> DataError.Network.NO_INTERNET
+                        is ApolloException -> DataError.Network.SERVER_ERROR
+                        else -> DataError.Network.UNKNOWN
+                    }
+                },
+                block = { call() }
+            )
         }
     }
 }

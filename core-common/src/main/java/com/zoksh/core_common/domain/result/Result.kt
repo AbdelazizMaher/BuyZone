@@ -1,6 +1,7 @@
 package com.zoksh.core_common.domain.result
 
 import com.zoksh.core_common.domain.error.RootError
+import kotlin.coroutines.cancellation.CancellationException
 
 
 sealed interface Result<out D, out E : RootError> {
@@ -8,6 +9,18 @@ sealed interface Result<out D, out E : RootError> {
     data class Error<out D, out E : RootError>(val error: E) : Result<D, E>
 }
 
+inline fun <T, E : RootError> runResultCatching(
+    errorMapper: (Throwable) -> E,
+    block: () -> T
+): Result<T, E> {
+    return try {
+        Result.Success(block())
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Throwable) {
+        Result.Error(errorMapper(e))
+    }
+}
 
 inline fun <D, E : RootError, R> Result<D, E>.map(transform: (D) -> R): Result<R, E> {
     return when (this) {
