@@ -3,6 +3,8 @@ package com.zoksh.feature_home.data.repository
 import com.zoksh.core_common.domain.connectivity.ConnectivityObserver
 import com.zoksh.core_common.domain.error.DataError
 import com.zoksh.core_common.domain.result.Result
+import com.zoksh.core_session.identity.model.AppAuthState
+import com.zoksh.core_session.identity.provider.AuthStateProvider
 import com.zoksh.feature_home.data.remote.shop.ShopRemoteDataSource
 import com.zoksh.feature_home.domain.model.Brand
 import com.zoksh.feature_home.domain.model.Category
@@ -14,11 +16,31 @@ import kotlinx.coroutines.flow.first
 
 class HomeRepositoryImpl(
     private val shopRemoteDataSource: ShopRemoteDataSource,
+    private val authStateProvider: AuthStateProvider,
     private val connectivityObserver: ConnectivityObserver
 ) : HomeRepository {
 
     override suspend fun getHeader(): Result<Header, DataError.Network> {
-        TODO()
+        return when (val authState = authStateProvider.authState.value) {
+            is AppAuthState.Authenticated -> {
+                Result.Success(
+                    Header(
+                        userName = authState.user.name,
+                        userImage = authState.user.image,
+                        notificationCount = 0 
+                    )
+                )
+            }
+            AppAuthState.Guest -> {
+                Result.Success(
+                    Header(
+                        userName = "Guest",
+                        userImage = null,
+                        notificationCount = 0
+                    )
+                )
+            }
+        }
     }
 
     override suspend fun getPromos(): Result<List<Promo>, DataError.Network> {
@@ -36,7 +58,6 @@ class HomeRepositoryImpl(
     override suspend fun getTrendingProducts(): Result<List<Product>, DataError.Network> {
         return executeRemoteCall { shopRemoteDataSource.getTrendingProducts() }
     }
-
 
     private suspend fun <T> executeRemoteCall(
         call: suspend () -> Result<T, DataError.Network>
