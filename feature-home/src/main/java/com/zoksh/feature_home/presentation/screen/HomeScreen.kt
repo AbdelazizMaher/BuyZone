@@ -59,7 +59,7 @@ fun HomeScreen(
                 }
             )
         }
-        item {
+        item(key = "promos", contentType = "section") {
             CarouselPromosSection(
                 modifier = itemModifier.height(200.dp),
                 promos = state.promos,
@@ -68,7 +68,7 @@ fun HomeScreen(
                 }
             )
         }
-        item {
+        item(key = "categories", contentType = "section") {
             CategoriesSection(
                 modifier = itemModifier,
                 categories = state.categories,
@@ -77,7 +77,7 @@ fun HomeScreen(
                 }
             )
         }
-        item {
+        item(key = "brands", contentType = "section") {
             BrandsSection(
                 modifier = itemModifier,
                 brands = state.brands,
@@ -89,7 +89,7 @@ fun HomeScreen(
                 }
             )
         }
-        item {
+        item(key = "trending", contentType = "section") {
             TrendingSection(
                 modifier = itemModifier,
                 trending = state.trending,
