@@ -59,8 +59,7 @@ fun AppSearchBar(
 
     Surface(
         modifier = modifier
-            .height(48.dp)
-            .fillMaxWidth(),
+            .height(48.dp),
         shape = RoundedCornerShape(14.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = if (isFocused) 4.dp else 0.dp,

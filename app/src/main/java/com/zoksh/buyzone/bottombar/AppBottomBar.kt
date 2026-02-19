@@ -1,5 +1,6 @@
 package com.zoksh.buyzone.bottombar
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,9 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.zoksh.core_ui.theme.BuyZoneTheme
 
 @Composable
 fun AppBottomBar(
@@ -93,6 +97,23 @@ fun AppBottomBar(
                         launchSingleTop = true
                     }
                 }
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(
+    showBackground = true,
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun AppBottomBarPreview() {
+    BuyZoneTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            AppBottomBar(
+                navController = rememberNavController()
             )
         }
     }

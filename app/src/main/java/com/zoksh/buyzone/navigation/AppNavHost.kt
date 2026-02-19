@@ -9,6 +9,7 @@ import com.facebook.CallbackManager
 import com.zoksh.buyzone.navigation.graphs.authGraph
 import com.zoksh.buyzone.navigation.graphs.homeGraph
 import com.zoksh.buyzone.navigation.graphs.onBoardingGraph
+import com.zoksh.buyzone.navigation.graphs.searchGraph
 import com.zoksh.buyzone.presentation.MainUiEvent
 import com.zoksh.buyzone.presentation.MainViewModel
 import com.zoksh.core_common.presentation.mvi.ObserveAsEvents
@@ -51,6 +52,12 @@ fun AppNavHost(
         )
 
         homeGraph(
+            navController = navController,
+            innerPadding = innerPadding,
+            onShowBottomBar = viewModel::setBottomBarVisible
+        )
+
+        searchGraph(
             navController = navController,
             innerPadding = innerPadding,
             onShowBottomBar = viewModel::setBottomBarVisible

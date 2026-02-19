@@ -17,7 +17,7 @@ import org.koin.dsl.module
 val homeModule = module {
     single<ShopRemoteDataSource> { ApolloShopRemoteDataSource(get(), Dispatchers.IO) }
 
-    single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
+    single<HomeRepository> { HomeRepositoryImpl(get(), get(), get()) }
 
     single { GetCategoriesUseCase(get()) }
     single { GetPopularBrandsUseCase(get()) }
