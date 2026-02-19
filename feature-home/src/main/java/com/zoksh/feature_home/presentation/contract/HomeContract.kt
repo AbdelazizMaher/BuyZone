@@ -1,6 +1,7 @@
 package com.zoksh.feature_home.presentation.contract
 
 import androidx.compose.runtime.Immutable
+import com.zoksh.core_common.presentation.ui_state.UiState
 import com.zoksh.core_ui.snackbar.model.AppMessage
 import com.zoksh.feature_home.presentation.model.BrandsUiModel
 import com.zoksh.feature_home.presentation.model.CategoryUiModel
@@ -13,14 +14,15 @@ sealed interface HomeContract {
     @Immutable
     data class State(
         val header: HeaderUiModel = HeaderUiModel(),
-        val promos: List<PromosUiModel> = emptyList(),
-        val categories: List<CategoryUiModel> = emptyList(),
-        val brands: List<BrandsUiModel> = emptyList(),
-        val trending: List<TrendingUiModel> = emptyList()
+        val promos: UiState<List<PromosUiModel>> = UiState.Loading,
+        val categories: UiState<List<CategoryUiModel>> = UiState.Loading,
+        val brands: UiState<List<BrandsUiModel>> = UiState.Loading,
+        val trending: UiState<List<TrendingUiModel>> = UiState.Loading
     )
 
     sealed interface Intent {
         data object LoadData : Intent
+        data object OnRefresh : Intent
         data object OnNotificationClick : Intent
         data object OnSearchClick : Intent
         data class OnPromoClick(val promoId: String) : Intent
