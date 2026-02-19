@@ -1,4 +1,4 @@
-package com.zoksh.feature_home.presentation.components
+package com.zoksh.core_ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
@@ -59,8 +59,7 @@ fun AppSearchBar(
 
     Surface(
         modifier = modifier
-            .height(48.dp)
-            .fillMaxWidth(),
+            .height(48.dp),
         shape = RoundedCornerShape(14.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = if (isFocused) 4.dp else 0.dp,

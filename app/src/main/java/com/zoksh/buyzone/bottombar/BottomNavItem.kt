@@ -3,7 +3,7 @@ package com.zoksh.buyzone.bottombar
 import com.zoksh.buyzone.R
 import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
 import com.zoksh.feature_home.presentation.navigation.HomeDestination
-import com.zoksh.feature_onboarding.presentation.navigation.OnBoardingDestination
+import com.zoksh.feature_search.presentation.navigation.SearchDestination
 
 
 sealed class NavItem(
@@ -20,7 +20,7 @@ sealed class NavItem(
     )
 
     object Search : NavItem(
-        OnBoardingDestination.OnBoarding,
+        SearchDestination.Search,
         "Search",
         R.drawable.ic_search_filled,
         R.drawable.ic_search

@@ -7,6 +7,7 @@ import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.zoksh.core_ui.components.AppSearchBar
 
 @Composable
 fun SearchBarLauncher(

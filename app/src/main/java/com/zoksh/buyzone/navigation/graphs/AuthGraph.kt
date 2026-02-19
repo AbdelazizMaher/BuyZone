@@ -12,6 +12,7 @@ import com.zoksh.buyzone.navigation.handlers.auth.SignupNavHandler
 import com.zoksh.feature_authentication.presentation.login.screen.LoginScreen
 import com.zoksh.feature_authentication.presentation.login.viewmodel.LoginViewModel
 import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
+import com.zoksh.feature_authentication.presentation.navigation.AuthGraph
 import com.zoksh.feature_authentication.presentation.signup.screen.SignupScreen
 import com.zoksh.feature_authentication.presentation.signup.viewmodel.SignupViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -23,7 +24,7 @@ fun NavGraphBuilder.authGraph(
     innerPadding: PaddingValues,
     onShowBottomBar: (Boolean) -> Unit
 ) {
-    navigation<AuthDestination>(
+    navigation<AuthGraph>(
         startDestination = AuthDestination.Login
     ) {
         composable<AuthDestination.Login> {

@@ -1,4 +1,4 @@
-package com.zoksh.core_model
+package com.zoksh.feature_search
 
 import org.junit.Test
 
