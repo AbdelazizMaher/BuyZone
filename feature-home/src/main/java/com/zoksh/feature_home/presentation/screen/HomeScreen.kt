@@ -26,25 +26,34 @@ fun HomeScreen(
     innerPadding: PaddingValues
 ) {
     LazyColumn(
-        contentPadding = innerPadding,
+        contentPadding = PaddingValues(
+            start = 0.dp,
+            bottom = innerPadding.calculateBottomPadding()
+        ),
+        modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         item {
             HeaderSection(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surface),
+                    .background(MaterialTheme.colorScheme.surface)
+                    .padding(top = innerPadding.calculateTopPadding())
+                    .padding(horizontal = 16.dp),
                 header = state.header,
                 onNotificationClick = {
                     onIntent(HomeContract.Intent.OnNotificationClick)
                 }
             )
         }
+
+        val itemModifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp)
+
         item {
             SearchBarLauncher(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                modifier = itemModifier.padding(vertical = 12.dp),
                 onClick = {
                     onIntent(HomeContract.Intent.OnSearchClick)
                 }
@@ -52,10 +61,7 @@ fun HomeScreen(
         }
         item {
             CarouselPromosSection(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp)
-                    .height(200.dp),
+                modifier = itemModifier.height(200.dp),
                 promos = state.promos,
                 onClick = { id ->
                     onIntent(HomeContract.Intent.OnPromoClick(id))
@@ -64,9 +70,7 @@ fun HomeScreen(
         }
         item {
             CategoriesSection(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
+                modifier = itemModifier,
                 categories = state.categories,
                 onCategoryClick = { id ->
                     onIntent(HomeContract.Intent.OnCategoryClick(id))
@@ -75,9 +79,7 @@ fun HomeScreen(
         }
         item {
             BrandsSection(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
+                modifier = itemModifier,
                 brands = state.brands,
                 onBrandClick = { id ->
                     onIntent(HomeContract.Intent.OnBrandClick(id))
@@ -89,9 +91,7 @@ fun HomeScreen(
         }
         item {
             TrendingSection(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
+                modifier = itemModifier,
                 trending = state.trending,
                 onProductClick = { id ->
                     onIntent(HomeContract.Intent.OnProductClick(id))
@@ -106,26 +106,3 @@ fun HomeScreen(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

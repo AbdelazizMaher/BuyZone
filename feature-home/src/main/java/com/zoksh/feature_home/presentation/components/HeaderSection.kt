@@ -1,17 +1,12 @@
 package com.zoksh.feature_home.presentation.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.HorizontalDivider
@@ -38,27 +33,26 @@ import com.zoksh.feature_home.presentation.model.HeaderUiModel
 fun HeaderSection(
     modifier: Modifier = Modifier,
     header: HeaderUiModel,
-    onNotificationClick: () -> Unit,
+    onSearchClick: () -> Unit = {},
+    onNotificationClick: () -> Unit = {},
 ) {
     Column(modifier = modifier) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
                 model = header.image,
                 contentDescription = "Profile Image",
                 contentScale = ContentScale.Crop,
-                placeholder = painterResource(R.drawable.avatar),
-                error = painterResource(R.drawable.avatar),
+                placeholder = painterResource(R.drawable.user),
+                error = painterResource(R.drawable.user),
                 modifier = Modifier
-                    .size(48.dp)
+                    .size(32.dp)
                     .clip(CircleShape)
             )
             Spacer(modifier = Modifier.width(12.dp))
             Column(
+                modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.Start,
             ) {
                 Text(
@@ -66,20 +60,22 @@ fun HeaderSection(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = header.name,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             }
-            Spacer(modifier = Modifier.weight(1f))
-            IconButton(
-                onClick = onNotificationClick,
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .clip(RoundedCornerShape(18.dp))
-            ) {
+            IconButton(onClick = onSearchClick) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_search),
+                    contentDescription = "Search",
+                    modifier = Modifier
+                        .size(24.dp),
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+            IconButton(onClick = onNotificationClick) {
                 BadgedBox(
                     badge = {
                         if (header.notificationCount > 0) {
@@ -123,10 +119,9 @@ private fun HeaderSectionPreview() {
         Surface(color = MaterialTheme.colorScheme.background) {
             HeaderSection(
                 header = HeaderUiModel(
-                    name = "Abdelrahman",
+                    name = "Abdelaziz Maher",
                     notificationCount = 5
-                ),
-                onNotificationClick = {}
+                )
             )
         }
     }
