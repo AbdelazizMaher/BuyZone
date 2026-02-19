@@ -25,20 +25,20 @@ fun HomeScreen(
     onIntent: (HomeContract.Intent) -> Unit,
     innerPadding: PaddingValues
 ) {
+    val bottomPadding = innerPadding.calculateBottomPadding()
+    val topPadding = innerPadding.calculateTopPadding()
+
     LazyColumn(
-        contentPadding = PaddingValues(
-            start = 0.dp,
-            bottom = innerPadding.calculateBottomPadding()
-        ),
+        contentPadding = PaddingValues(bottom = bottomPadding),
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        item {
+        item(key = "header", contentType = "header") {
             HeaderSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.surface)
-                    .padding(top = innerPadding.calculateTopPadding())
+                    .padding(top = topPadding)
                     .padding(horizontal = 16.dp),
                 header = state.header,
                 onNotificationClick = {
@@ -51,7 +51,7 @@ fun HomeScreen(
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
 
-        item {
+        item(key = "search", contentType = "search") {
             SearchBarLauncher(
                 modifier = itemModifier.padding(vertical = 12.dp),
                 onClick = {

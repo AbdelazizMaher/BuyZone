@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.zoksh.core_ui.components.AppHeader
-import com.zoksh.feature_search.presentation.components.HeaderSection
+import com.zoksh.feature_search.presentation.components.SearchBarSection
 
 @Composable
 fun SearchScreen(
@@ -29,7 +29,7 @@ fun SearchScreen(
         }
 
         item {
-            HeaderSection(
+            SearchBarSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),

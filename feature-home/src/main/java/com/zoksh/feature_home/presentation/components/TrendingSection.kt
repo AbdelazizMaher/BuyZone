@@ -1,23 +1,19 @@
 package com.zoksh.feature_home.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.zoksh.feature_home.presentation.model.TrendingUiModel
 
+
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TrendingSection(
     modifier: Modifier = Modifier,
@@ -26,6 +22,10 @@ fun TrendingSection(
     onAddToFavClick: (String) -> Unit,
     onViewAllClick: () -> Unit
 ) {
+    val displayItems = remember(trending) {
+        trending.take(16) 
+    }
+
     Column(modifier = modifier) {
         SectionHeader(
             modifier = Modifier
@@ -34,31 +34,23 @@ fun TrendingSection(
             title = "Trending Now",
             onViewAllClick = onViewAllClick
         )
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(horizontal = 8.dp)
+
+        FlowRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            maxItemsInEachRow = 2
         ) {
-            trending
-                .chunked(2)
-                .take(8)
-                .forEach { rowItems ->
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        rowItems.forEach { product ->
-                            ProductCard(
-                                modifier = Modifier.weight(1f),
-                                product = product,
-                                onClick = onProductClick,
-                                onFavoriteClick = onAddToFavClick
-                            )
-                        }
-                        if (rowItems.size == 1) {
-                            Spacer(modifier = Modifier.weight(1f))
-                        }
-                    }
-                }
+            displayItems.forEach { product ->
+                ProductCard(
+                    modifier = Modifier.fillMaxWidth(0.48f),
+                    product = product,
+                    onClick = onProductClick,
+                    onFavoriteClick = onAddToFavClick,
+                )
+            }
         }
     }
 }
