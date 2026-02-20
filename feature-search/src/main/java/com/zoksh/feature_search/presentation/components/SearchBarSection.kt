@@ -24,7 +24,7 @@ import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_search.R
 
 @Composable
-fun HeaderSection(
+fun SearchBarSection(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
@@ -75,7 +75,7 @@ fun HeaderSection(
 private fun HeaderSectionPreview() {
     BuyZoneTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            HeaderSection(
+            SearchBarSection(
                 value = "",
                 onValueChange = {},
                 hint = "Search products...",

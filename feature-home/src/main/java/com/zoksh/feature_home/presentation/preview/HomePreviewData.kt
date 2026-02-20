@@ -1,5 +1,6 @@
 package com.zoksh.feature_home.presentation.preview
 
+import com.zoksh.core_common.presentation.ui_state.UiState
 import com.zoksh.feature_home.R
 import com.zoksh.feature_home.presentation.contract.HomeContract
 import com.zoksh.feature_home.presentation.model.BrandsUiModel
@@ -89,9 +90,9 @@ object HomePreviewData {
 
     val state = HomeContract.State(
         header = header,
-        promos = promos,
-        categories = categories,
-        brands = brands,
-        trending = trending
+        promos = UiState.Success(promos),
+        categories = UiState.Success(categories),
+        brands = UiState.Success(brands),
+        trending = UiState.Success(trending)
     )
 }

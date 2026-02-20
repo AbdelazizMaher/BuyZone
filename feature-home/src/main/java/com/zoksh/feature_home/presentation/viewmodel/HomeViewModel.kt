@@ -30,6 +30,7 @@ class HomeViewModel(
             is HomeContract.Intent.OnPromoClick -> handleOnPromoClick(intent.promoId)
             HomeContract.Intent.OnSearchClick -> handleOnSearchClick()
             HomeContract.Intent.OnTrendingViewAllClick -> handleOnTrendingViewAllClick()
+            HomeContract.Intent.OnRefresh -> {}
         }
     }
 

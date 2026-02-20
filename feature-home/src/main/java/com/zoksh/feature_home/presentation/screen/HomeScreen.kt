@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.zoksh.feature_home.presentation.components.BrandsSection
@@ -25,83 +26,71 @@ fun HomeScreen(
     onIntent: (HomeContract.Intent) -> Unit,
     innerPadding: PaddingValues
 ) {
+    val bottomPadding = innerPadding.calculateBottomPadding()
+    val topPadding = innerPadding.calculateTopPadding()
+
+    val itemModifier = remember {
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp)
+    }
+
     LazyColumn(
-        contentPadding = PaddingValues(
-            start = 0.dp,
-            bottom = innerPadding.calculateBottomPadding()
-        ),
+        contentPadding = PaddingValues(bottom = bottomPadding + 16.dp),
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        item {
+        item(key = "header", contentType = "header") {
             HeaderSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.surface)
-                    .padding(top = innerPadding.calculateTopPadding())
+                    .padding(top = topPadding)
                     .padding(horizontal = 16.dp),
                 header = state.header,
-                onNotificationClick = {
-                    onIntent(HomeContract.Intent.OnNotificationClick)
-                }
+                onNotificationClick = { onIntent(HomeContract.Intent.OnNotificationClick) }
             )
         }
 
-        val itemModifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp)
-
-        item {
+        item(key = "search", contentType = "search") {
             SearchBarLauncher(
-                modifier = itemModifier.padding(vertical = 12.dp),
-                onClick = {
-                    onIntent(HomeContract.Intent.OnSearchClick)
-                }
+                modifier = itemModifier.padding(vertical = 8.dp),
+                onClick = { onIntent(HomeContract.Intent.OnSearchClick) }
             )
         }
-        item {
+
+        item(key = "promos", contentType = "section") {
             CarouselPromosSection(
                 modifier = itemModifier.height(200.dp),
-                promos = state.promos,
-                onClick = { id ->
-                    onIntent(HomeContract.Intent.OnPromoClick(id))
-                }
+                state = state.promos,
+                onClick = { id -> onIntent(HomeContract.Intent.OnPromoClick(id)) }
             )
         }
-        item {
+
+        item(key = "categories", contentType = "section") {
             CategoriesSection(
                 modifier = itemModifier,
-                categories = state.categories,
-                onCategoryClick = { id ->
-                    onIntent(HomeContract.Intent.OnCategoryClick(id))
-                }
+                state = state.categories,
+                onCategoryClick = { id -> onIntent(HomeContract.Intent.OnCategoryClick(id)) }
             )
         }
-        item {
+
+        item(key = "brands", contentType = "section") {
             BrandsSection(
                 modifier = itemModifier,
-                brands = state.brands,
-                onBrandClick = { id ->
-                    onIntent(HomeContract.Intent.OnBrandClick(id))
-                },
-                onViewAllClick = {
-                    onIntent(HomeContract.Intent.OnBrandsViewAllClick)
-                }
+                state = state.brands,
+                onBrandClick = { id -> onIntent(HomeContract.Intent.OnBrandClick(id)) },
+                onViewAllClick = { onIntent(HomeContract.Intent.OnBrandsViewAllClick) }
             )
         }
-        item {
+
+        item(key = "trending", contentType = "section") {
             TrendingSection(
                 modifier = itemModifier,
-                trending = state.trending,
-                onProductClick = { id ->
-                    onIntent(HomeContract.Intent.OnProductClick(id))
-                },
-                onAddToFavClick = { id ->
-                    onIntent(HomeContract.Intent.OnAddToFavClick(id))
-                },
-                onViewAllClick = {
-                    onIntent(HomeContract.Intent.OnTrendingViewAllClick)
-                }
+                state = state.trending,
+                onProductClick = { id -> onIntent(HomeContract.Intent.OnProductClick(id)) },
+                onAddToFavClick = { id -> onIntent(HomeContract.Intent.OnAddToFavClick(id)) },
+                onViewAllClick = { onIntent(HomeContract.Intent.OnTrendingViewAllClick) }
             )
         }
     }

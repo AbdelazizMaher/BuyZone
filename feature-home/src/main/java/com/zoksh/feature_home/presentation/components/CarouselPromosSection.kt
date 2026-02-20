@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.zoksh.core_common.presentation.ui_state.UiState
 import com.zoksh.feature_home.R
 import com.zoksh.feature_home.presentation.model.PromosUiModel
 import kotlinx.coroutines.delay
@@ -34,101 +35,114 @@ import kotlinx.coroutines.launch
 @Composable
 fun CarouselPromosSection(
     modifier: Modifier = Modifier,
-    promos: List<PromosUiModel>,
+    state: UiState<List<PromosUiModel>>,
     onClick: (String) -> Unit
 ) {
-    if (promos.isEmpty()) return
-    val pagerState = rememberPagerState { promos.size }
-    val scope = rememberCoroutineScope()
+    when (state) {
+        is UiState.Success -> {
+            val promos = state.data
+            if (promos.isEmpty()) return
+            
+            val pagerState = rememberPagerState { promos.size }
+            val scope = rememberCoroutineScope()
 
-    LaunchedEffect(pagerState) {
-        while (true) {
-            delay(3000)
-            if (!pagerState.isScrollInProgress) {
-                val nextPage = (pagerState.currentPage + 1) % promos.size
-                pagerState.animateScrollToPage(nextPage)
+            LaunchedEffect(pagerState) {
+                while (true) {
+                    delay(3000)
+                    if (!pagerState.isScrollInProgress) {
+                        val nextPage = (pagerState.currentPage + 1) % promos.size
+                        pagerState.animateScrollToPage(nextPage)
+                    }
+                }
+            }
+
+            Card(
+                modifier = modifier,
+                shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            ) {
+                Box {
+                    HorizontalPager(
+                        state = pagerState,
+                        modifier = Modifier.fillMaxSize()
+                    ) { page ->
+                        AsyncImage(
+                            model = promos[page].image,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            placeholder = painterResource(R.drawable.promo_ads),
+                            error = painterResource(R.drawable.promo_ads),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clickable { onClick(promos[page].id) }
+                        )
+                    }
+
+                    IconButton(
+                        onClick = {
+                            scope.launch {
+                                val prev = if (pagerState.currentPage == 0)
+                                    promos.lastIndex
+                                else
+                                    pagerState.currentPage - 1
+                                pagerState.animateScrollToPage(prev)
+                            }
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .padding(start = 12.dp)
+                            .size(36.dp)
+                            .background(
+                                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
+                                shape = RoundedCornerShape(18.dp)
+                            )
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+
+                    IconButton(
+                        onClick = {
+                            scope.launch {
+                                val next = (pagerState.currentPage + 1) % promos.size
+                                pagerState.animateScrollToPage(next)
+                            }
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(end = 12.dp)
+                            .size(36.dp)
+                            .background(
+                                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
+                                shape = RoundedCornerShape(18.dp)
+                            )
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+
+                    PromosIndicator(
+                        pageCount = promos.size,
+                        currentPage = pagerState.currentPage,
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 16.dp)
+                    )
+                }
             }
         }
-    }
+        is UiState.Loading -> {
 
-    Card(
-        modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
-        Box {
-            HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.fillMaxSize()
-            ) { page ->
-                AsyncImage(
-                    model = promos[page].image,
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    placeholder = painterResource(R.drawable.promo_ads),
-                    error = painterResource(R.drawable.promo_ads),
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clickable { onClick(promos[page].id) }
-                )
-            }
-
-            IconButton(
-                onClick = {
-                    scope.launch {
-                        val prev = if (pagerState.currentPage == 0)
-                            promos.lastIndex
-                        else
-                            pagerState.currentPage - 1
-                        pagerState.animateScrollToPage(prev)
-                    }
-                },
-                modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .padding(start = 12.dp)
-                    .size(36.dp)
-                    .background(
-                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
-                        shape = RoundedCornerShape(18.dp)
-                    )
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-            }
-
-            IconButton(
-                onClick = {
-                    scope.launch {
-                        val next = (pagerState.currentPage + 1) % promos.size
-                        pagerState.animateScrollToPage(next)
-                    }
-                },
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
-                    .padding(end = 12.dp)
-                    .size(36.dp)
-                    .background(
-                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
-                        shape = RoundedCornerShape(18.dp)
-                    )
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-            }
-
-            PromosIndicator(
-                pageCount = promos.size,
-                currentPage = pagerState.currentPage,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 16.dp)
-            )
         }
+        is UiState.Error -> {
+
+        }
+        else -> {}
     }
 }
