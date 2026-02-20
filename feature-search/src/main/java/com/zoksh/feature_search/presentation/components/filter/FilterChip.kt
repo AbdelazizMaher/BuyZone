@@ -17,9 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.zoksh.core_ui.theme.BuyZoneTheme
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun FilterChip(
@@ -31,18 +31,20 @@ fun FilterChip(
     Surface(
         onClick = onClick,
         modifier = modifier,
-        shape = RoundedCornerShape(24.dp),
+        shape = RoundedCornerShape(12.dp),
         color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
-        border = if (!isSelected) BorderStroke(1.dp, Color.LightGray.copy(0.5f)) else null
+        border = if (!isSelected) BorderStroke(1.dp, Color.LightGray.copy(0.3f)) else null
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = label,
                 color = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Bold,
+                fontSize = 12.sp
             )
             if (isSelected) {
                 Spacer(Modifier.width(4.dp))
@@ -50,25 +52,9 @@ fun FilterChip(
                     imageVector = Icons.Default.Check,
                     contentDescription = null,
                     tint = Color.White,
-                    modifier = Modifier.size(16.dp)
+                    modifier = Modifier.size(12.dp)
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true, name = "Unselected")
-@Composable
-private fun FilterChipUnselectedPreview() {
-    BuyZoneTheme {
-        FilterChip(label = "Electronics", isSelected = false, onClick = {})
-    }
-}
-
-@Preview(showBackground = true, name = "Selected")
-@Composable
-private fun FilterChipSelectedPreview() {
-    BuyZoneTheme {
-        FilterChip(label = "Fashion", isSelected = true, onClick = {})
     }
 }

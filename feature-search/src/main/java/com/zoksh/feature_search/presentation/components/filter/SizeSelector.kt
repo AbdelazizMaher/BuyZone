@@ -40,7 +40,7 @@ fun SizeSelector(
                 onClick = { onSelect(size) },
                 shape = RoundedCornerShape(8.dp),
                 color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
-                modifier = Modifier.size(56.dp, 44.dp),
+                modifier = Modifier.size(46.dp, 34.dp),
                 border = if (!isSelected) BorderStroke(1.dp, Color.LightGray.copy(0.5f)) else null
             ) {
                 Box(contentAlignment = Alignment.Center) {
