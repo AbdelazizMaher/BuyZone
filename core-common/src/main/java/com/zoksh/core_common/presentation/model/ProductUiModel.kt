@@ -1,9 +1,9 @@
-package com.zoksh.feature_home.presentation.model
+package com.zoksh.core_common.presentation.model
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-data class TrendingUiModel(
+data class ProductUiModel(
     val id: String,
     val image: String,
     val name: String,

@@ -7,7 +7,7 @@ import com.zoksh.feature_home.presentation.model.BrandsUiModel
 import com.zoksh.feature_home.presentation.model.CategoryUiModel
 import com.zoksh.feature_home.presentation.model.HeaderUiModel
 import com.zoksh.feature_home.presentation.model.PromosUiModel
-import com.zoksh.feature_home.presentation.model.TrendingUiModel
+import com.zoksh.core_common.presentation.model.ProductUiModel
 
 sealed interface HomeContract {
     
@@ -17,7 +17,7 @@ sealed interface HomeContract {
         val promos: UiState<List<PromosUiModel>> = UiState.Loading,
         val categories: UiState<List<CategoryUiModel>> = UiState.Loading,
         val brands: UiState<List<BrandsUiModel>> = UiState.Loading,
-        val trending: UiState<List<TrendingUiModel>> = UiState.Loading
+        val trending: UiState<List<ProductUiModel>> = UiState.Loading
     )
 
     sealed interface Intent {

@@ -1,5 +1,6 @@
-package com.zoksh.feature_home.presentation.components
+package com.zoksh.core_common.presentation.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,14 +33,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.zoksh.core_common.R
+import com.zoksh.core_common.presentation.model.ProductUiModel
+import com.zoksh.core_ui.components.DiscountBadge
 import com.zoksh.core_ui.theme.BuyZoneTheme
-import com.zoksh.feature_home.R
-import com.zoksh.feature_home.presentation.model.TrendingUiModel
 
 @Composable
 fun ProductCard(
     modifier: Modifier = Modifier,
-    product: TrendingUiModel,
+    product: ProductUiModel,
     onClick: (String) -> Unit,
     onFavoriteClick: (String) -> Unit
 ) {
@@ -57,14 +59,14 @@ fun ProductCard(
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(R.drawable.addidas_logo),
                     error = painterResource(R.drawable.addidas_logo),
-                    modifier = Modifier
+                    modifier = Modifier.Companion
                         .height(160.dp)
                         .fillMaxWidth()
                 )
 
                 product.discountPercent?.let {
                     DiscountBadge(
-                        modifier = Modifier
+                        modifier = Modifier.Companion
                             .align(Alignment.TopStart)
                             .padding(8.dp),
                         percent = it
@@ -73,7 +75,7 @@ fun ProductCard(
 
                 IconButton(
                     onClick = { onFavoriteClick(product.id) },
-                    modifier = Modifier
+                    modifier = Modifier.Companion
                         .align(Alignment.TopEnd)
                         .padding(12.dp)
                         .size(28.dp)
@@ -140,11 +142,11 @@ fun ProductCard(
 @Preview(
     showBackground = true,
     name = "Dark Mode",
-    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
 private fun ProductCardPreview() {
-    val sampleProduct = TrendingUiModel(
+    val sampleProduct = ProductUiModel(
         id = "1",
         name = "Adidas Ultraboost",
         image = "",
@@ -154,7 +156,7 @@ private fun ProductCardPreview() {
         oldPrice = null
     )
 
-    val favoriteSaleProduct = TrendingUiModel(
+    val favoriteSaleProduct = ProductUiModel(
         id = "2",
         name = "Nike Air Max Pro",
         image = "",
@@ -171,7 +173,7 @@ private fun ProductCardPreview() {
         ) {
             item {
                 ProductCard(
-                    modifier = Modifier.width(180.dp),
+                    modifier = Modifier.Companion.width(180.dp),
                     product = sampleProduct,
                     onClick = {},
                     onFavoriteClick = {}
@@ -179,7 +181,7 @@ private fun ProductCardPreview() {
             }
             item {
                 ProductCard(
-                    modifier = Modifier.width(180.dp),
+                    modifier = Modifier.Companion.width(180.dp),
                     product = favoriteSaleProduct,
                     onClick = {},
                     onFavoriteClick = {}
