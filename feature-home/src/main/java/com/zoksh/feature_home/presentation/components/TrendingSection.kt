@@ -10,14 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.zoksh.core_common.presentation.component.ProductCard
 import com.zoksh.core_common.presentation.ui_state.UiState
-import com.zoksh.feature_home.presentation.model.TrendingUiModel
+import com.zoksh.core_common.presentation.model.ProductUiModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TrendingSection(
     modifier: Modifier = Modifier,
-    state: UiState<List<TrendingUiModel>>,
+    state: UiState<List<ProductUiModel>>,
     onProductClick: (String) -> Unit,
     onAddToFavClick: (String) -> Unit,
     onViewAllClick: () -> Unit

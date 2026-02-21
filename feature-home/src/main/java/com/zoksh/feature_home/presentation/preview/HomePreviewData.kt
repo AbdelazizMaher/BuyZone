@@ -7,7 +7,7 @@ import com.zoksh.feature_home.presentation.model.BrandsUiModel
 import com.zoksh.feature_home.presentation.model.CategoryUiModel
 import com.zoksh.feature_home.presentation.model.HeaderUiModel
 import com.zoksh.feature_home.presentation.model.PromosUiModel
-import com.zoksh.feature_home.presentation.model.TrendingUiModel
+import com.zoksh.core_common.presentation.model.ProductUiModel
 
 object HomePreviewData {
 
@@ -49,7 +49,7 @@ object HomePreviewData {
     )
 
     val trending = listOf(
-        TrendingUiModel(
+        ProductUiModel(
             id = "1",
             name = "iPhone 15 Pro",
             image = "https://picsum.photos/300/300?1",
@@ -58,7 +58,7 @@ object HomePreviewData {
             discountPercent = 5,
             isFavorite = false
         ),
-        TrendingUiModel(
+        ProductUiModel(
             id = "2",
             name = "Galaxy S24",
             image = "https://picsum.photos/300/300?2",
@@ -67,7 +67,7 @@ object HomePreviewData {
             discountPercent = 5,
             isFavorite = true
         ),
-        TrendingUiModel(
+        ProductUiModel(
             id = "3",
             name = "iPhone 17 Pro",
             image = "https://picsum.photos/300/300?1",
@@ -76,7 +76,7 @@ object HomePreviewData {
             discountPercent = 5,
             isFavorite = false
         ),
-        TrendingUiModel(
+        ProductUiModel(
             id = "4",
             name = "Galaxy S20",
             image = "https://picsum.photos/300/300?2",
