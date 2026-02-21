@@ -10,11 +10,13 @@ import com.zoksh.buyzone.navigation.graphs.authGraph
 import com.zoksh.buyzone.navigation.graphs.homeGraph
 import com.zoksh.buyzone.navigation.graphs.onBoardingGraph
 import com.zoksh.buyzone.navigation.graphs.searchGraph
+import com.zoksh.buyzone.navigation.graphs.splashGraph
 import com.zoksh.buyzone.presentation.MainUiEvent
 import com.zoksh.buyzone.presentation.MainViewModel
 import com.zoksh.core_common.presentation.mvi.ObserveAsEvents
 import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
-import com.zoksh.feature_onboarding.presentation.navigation.OnBoardingDestination
+import com.zoksh.feature_splash.presentation.navigation.SplashDestination
+
 
 @Composable
 fun AppNavHost(
@@ -36,8 +38,13 @@ fun AppNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = OnBoardingDestination.OnBoarding,
+        startDestination = SplashDestination.Splash,
     ) {
+        splashGraph(
+            navController = navController,
+            onShowBottomBar = viewModel::setBottomBarVisible
+        )
+
         onBoardingGraph(
             navController = navController,
             onShowBottomBar = viewModel::setBottomBarVisible

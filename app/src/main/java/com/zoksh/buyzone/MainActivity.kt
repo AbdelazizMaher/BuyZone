@@ -7,18 +7,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.facebook.CallbackManager
 import com.facebook.FacebookSdk
-import com.zoksh.buyzone.presentation.MainViewModel
 import com.zoksh.buyzone.presentation.BuyZoneApp
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
     private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_BuyZone)
         FacebookSdk.sdkInitialize(applicationContext)
         enableEdgeToEdge()
-        
+
         setContent {
             BuyZoneApp(callbackManager = callbackManager)
         }
