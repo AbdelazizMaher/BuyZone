@@ -1,7 +1,7 @@
 package com.zoksh.feature_search.presentation.components.filter
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.Color
+import com.zoksh.core_common.presentation.model.ColorOption
 
 @Immutable
 data class FilterUiState(
@@ -18,4 +18,4 @@ data class FilterUiState(
     val currencySymbol: String = "$"
 )
 
-data class ColorOption(val id: String, val name: String, val color: Color)
+
