@@ -18,14 +18,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_search.presentation.components.filter.ActiveFiltersFooter
-import com.zoksh.feature_search.presentation.components.filter.ColorOption
-import com.zoksh.feature_search.presentation.components.filter.ColorSelector
+import com.zoksh.core_common.presentation.component.ColorSelector
 import com.zoksh.feature_search.presentation.components.filter.FilterGroupTitle
 import com.zoksh.feature_search.presentation.components.filter.FilterHeader
 import com.zoksh.feature_search.presentation.components.filter.FilterUiState
 import com.zoksh.feature_search.presentation.components.filter.MultiSelectChips
 import com.zoksh.feature_search.presentation.components.filter.PriceRangeSelector
-import com.zoksh.feature_search.presentation.components.filter.SizeSelector
+import com.zoksh.core_common.presentation.component.SizeSelector
+import com.zoksh.core_common.presentation.model.ColorOption
 
 @Composable
 fun FilterSection(
