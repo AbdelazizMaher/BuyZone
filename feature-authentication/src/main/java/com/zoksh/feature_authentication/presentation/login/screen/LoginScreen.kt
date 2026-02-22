@@ -33,7 +33,7 @@ import com.zoksh.feature_authentication.presentation.component.GuestAction
 import com.zoksh.feature_authentication.presentation.component.HeaderSection
 import com.zoksh.feature_authentication.presentation.component.OptionsRow
 import com.zoksh.feature_authentication.presentation.component.PasswordTextFieldSection
-import com.zoksh.feature_authentication.presentation.component.PrimaryAction
+import com.zoksh.core_ui.components.PrimaryActionButton
 import com.zoksh.feature_authentication.presentation.component.SocialAuthSection
 import com.zoksh.feature_authentication.presentation.component.TitleSection
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract
@@ -116,7 +116,7 @@ fun LoginScreen(
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
-        PrimaryAction(
+        PrimaryActionButton(
             text = "Sign In",
             enabled = !state.loginClicked,
             onClick = {

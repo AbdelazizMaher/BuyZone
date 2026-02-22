@@ -32,7 +32,7 @@ import com.zoksh.feature_authentication.presentation.component.HeaderSection
 import com.zoksh.feature_authentication.presentation.component.NameTextFieldSection
 import com.zoksh.feature_authentication.presentation.component.PasswordRequirementsSection
 import com.zoksh.feature_authentication.presentation.component.PasswordTextFieldSection
-import com.zoksh.feature_authentication.presentation.component.PrimaryAction
+import com.zoksh.core_ui.components.PrimaryActionButton
 import com.zoksh.feature_authentication.presentation.component.TermsAndConditions
 import com.zoksh.feature_authentication.presentation.component.TitleSection
 import com.zoksh.feature_authentication.presentation.model.PasswordRequirement
@@ -175,7 +175,7 @@ fun SignupScreen(
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
-        PrimaryAction(
+        PrimaryActionButton(
             text = "Sign Up",
             enabled = !state.signupClicked,
             onClick = {

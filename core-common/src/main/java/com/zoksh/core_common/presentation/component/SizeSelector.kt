@@ -1,4 +1,4 @@
-package com.zoksh.feature_search.presentation.components.filter
+package com.zoksh.core_common.presentation.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
