@@ -1,5 +1,6 @@
 package com.zoksh.feature_search.presentation.screen
 
+import android.content.res.Configuration
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -17,40 +18,26 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zoksh.core_common.presentation.component.ProductCard
+import com.zoksh.core_common.presentation.model.ColorOption
 import com.zoksh.core_common.presentation.model.ProductUiModel
 import com.zoksh.core_ui.components.AppHeader
+import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_search.presentation.components.FilterSection
 import com.zoksh.feature_search.presentation.components.SearchBarSection
-import com.zoksh.feature_search.presentation.components.filter.ColorOption
-import com.zoksh.feature_search.presentation.components.filter.FilterUiState
+import com.zoksh.feature_search.presentation.contract.SearchContract
 
 @Composable
 fun SearchScreen(
+    state: SearchContract.State,
+    onIntent: (SearchContract.Intent) -> Unit,
     innerPadding: PaddingValues
 ) {
-    var isFilterVisible by remember { mutableStateOf(false) }
-    var query by remember { mutableStateOf("") }
-
-    val dummyProducts = remember {
-        listOf(
-            ProductUiModel("1", "https://picsum.photos/300/300?random=1", "Adidas Ultraboost", "$150", "$200", 20, false),
-            ProductUiModel("2", "https://picsum.photos/300/300?random=2", "Nike Air Max", "$150", "$200", 25, true),
-            ProductUiModel("3", "https://picsum.photos/300/300?random=3", "Puma RS-X", "$110", "$150", 15, false),
-            ProductUiModel("4", "https://picsum.photos/300/300?random=4", "New Balance 574", "$90", "$120", 10, false),
-            ProductUiModel("5", "https://picsum.photos/300/300?random=5", "Reebok Classic", "$85", "$100", 5, true),
-            ProductUiModel("6", "https://picsum.photos/300/300?random=6", "Asics Gel-Kayano", "$160", "$200", 20, false)
-        )
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,18 +49,18 @@ fun SearchScreen(
         AppHeader(
             modifier = Modifier.fillMaxWidth(),
             title = "Search Products",
-            onBackClick = { }
+            onBackClick = { onIntent(SearchContract.Intent.NavigateBack) }
         )
 
         SearchBarSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            value = query,
-            onValueChange = { query = it },
+            value = state.query,
+            onValueChange = { onIntent(SearchContract.Intent.OnQueryChange(it)) },
             hint = "Search products...",
-            onClearQuery = { query = "" },
-            onFilterClick = { isFilterVisible = !isFilterVisible }
+            onClearQuery = { onIntent(SearchContract.Intent.OnQueryChange("")) },
+            onFilterClick = { onIntent(SearchContract.Intent.ToggleFilter) }
         )
 
         Box(
@@ -88,54 +75,73 @@ fun SearchScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxSize()
             ) {
-                items(dummyProducts, key = { it.id }) { product ->
+                items(state.products, key = { it.id }) { product ->
                     ProductCard(
                         product = product,
-                        onClick = {},
-                        onFavoriteClick = {}
+                        onClick = { onIntent(SearchContract.Intent.OnProductClick(it)) },
+                        onFavoriteClick = { }
                     )
                 }
             }
 
             androidx.compose.animation.AnimatedVisibility(
-                visible = isFilterVisible,
+                visible = state.isFilterVisible,
                 enter = slideInVertically { -it } + expandVertically(expandFrom = Alignment.Top) + fadeIn(),
                 exit = slideOutVertically { -it } + shrinkVertically(shrinkTowards = Alignment.Top) + fadeOut()
             ) {
                 FilterSection(
                     modifier = Modifier.fillMaxSize(),
-                    uiState = FilterUiState(
-                        categories = listOf("Electronics", "Fashion", "Home & Living", "Sports", "Beauty", "Books", "Toys", "Fitness"),
-                        brands = listOf("Apple", "Samsung", "Nike", "Adidas", "Sony", "LG", "Zara", "H&M", "Puma", "Reebok"),
-                        colors = listOf(
-                            ColorOption("1", "Black", Color.Black),
-                            ColorOption("2", "White", Color.White),
-                            ColorOption("3", "Blue", Color.Blue),
-                            ColorOption("4", "Red", Color.Red),
-                            ColorOption("5", "Green", Color.Green),
-                            ColorOption("6", "Yellow", Color.Yellow),
-                            ColorOption("7", "Pink", Color(0xFFFF69B4)),
-                            ColorOption("8", "Gray", Color.Gray)
-                        ),
-                        sizes = listOf("XS", "S", "M", "L", "XL", "XXL", "3XL"),
-                        selectedCategories = setOf("Fashion", "Beauty"),
-                        selectedBrands = setOf("Apple", "Nike"),
-                        selectedColorId = "4",
-                        selectedSize = "L",
-                        priceRange = 420f..1000f,
-                        activeFiltersCount = 6,
-                        currencySymbol = "$"
-                    ),
-                    onCategoryToggle = {},
-                    onBrandToggle = {},
-                    onPriceChange = {},
-                    onColorSelect = {},
-                    onSizeSelect = {},
-                    onClearAll = { isFilterVisible = false },
-                    onClose = { isFilterVisible = false },
-                    onRemoveActiveFilter = {}
+                    uiState = state.filterState,
+                    onCategoryToggle = { onIntent(SearchContract.Intent.SelectCategory(it)) },
+                    onBrandToggle = { onIntent(SearchContract.Intent.SelectBrand(it)) },
+                    onPriceChange = { onIntent(SearchContract.Intent.OnPriceChange(it)) },
+                    onColorSelect = { onIntent(SearchContract.Intent.SelectColor(it)) },
+                    onSizeSelect = { onIntent(SearchContract.Intent.SelectSize(it)) },
+                    onClearAll = { onIntent(SearchContract.Intent.ClearFilters) },
+                    onClose = { onIntent(SearchContract.Intent.ToggleFilter) },
+                    onRemoveActiveFilter = { onIntent(SearchContract.Intent.RemoveFilter(it)) }
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(
+    showBackground = true,
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun SearchScreenPreview() {
+    val mockProducts = listOf(
+        ProductUiModel(
+            "1",
+            "https://picsum.photos/300/300?random=1",
+            "Adidas Ultraboost",
+            "$150",
+            "$200",
+            20,
+            false
+        ),
+        ProductUiModel(
+            "2", "https://picsum.photos/300/300?random=2", "Nike Air Max", "$150", "$200", 25, true
+        )
+    )
+
+    BuyZoneTheme {
+        SearchScreen(
+            state = SearchContract.State(
+                products = mockProducts,
+                filterState = com.zoksh.feature_search.presentation.components.filter.FilterUiState(
+                    categories = listOf("Fashion", "Electronics"),
+                    brands = listOf("Apple", "Nike"),
+                    colors = listOf(ColorOption("1", "Black", Color.Black)),
+                    sizes = listOf("S", "M", "L")
+                )
+            ),
+            onIntent = {},
+            innerPadding = PaddingValues(0.dp)
+        )
     }
 }
