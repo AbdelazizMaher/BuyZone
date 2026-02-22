@@ -59,14 +59,14 @@ fun ProductCard(
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(R.drawable.addidas_logo),
                     error = painterResource(R.drawable.addidas_logo),
-                    modifier = Modifier.Companion
+                    modifier = Modifier
                         .height(160.dp)
                         .fillMaxWidth()
                 )
 
                 product.discountPercent?.let {
                     DiscountBadge(
-                        modifier = Modifier.Companion
+                        modifier = Modifier
                             .align(Alignment.TopStart)
                             .padding(8.dp),
                         percent = it

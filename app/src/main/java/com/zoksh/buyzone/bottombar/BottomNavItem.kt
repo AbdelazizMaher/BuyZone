@@ -1,6 +1,6 @@
 package com.zoksh.buyzone.bottombar
 
-import com.zoksh.buyzone.R
+import com.zoksh.core_common.R
 import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
 import com.zoksh.feature_home.presentation.navigation.HomeDestination
 import com.zoksh.feature_search.presentation.navigation.SearchDestination

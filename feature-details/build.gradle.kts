@@ -1,24 +1,22 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.google.services)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.apollo)
 }
 
 android {
-    namespace = "com.zoksh.buyzone"
+    namespace = "com.zoksh.feature_details"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.zoksh.buyzone"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -44,48 +42,41 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
+    debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
+    implementation(libs.kotlinx.serialization.json)
 
-    implementation("androidx.credentials:credentials:1.3.0")
-    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-
-    implementation("com.facebook.android:facebook-android-sdk:latest.release")
+    // coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
     //koin
     val koin_android_version = "4.0.2"
     implementation("io.insert-koin:koin-android:$koin_android_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
 
-    val nav_version = "2.9.6"
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    // apollo
+    implementation(libs.apollo.runtime)
 
-    implementation(project(":core-navigation"))
     implementation(project(":core-ui"))
-    implementation(project(":feature-authentication"))
-    implementation(project(":feature-onboarding"))
-    implementation(project(":feature-home"))
-    implementation(project(":feature-search"))
-    implementation(project(":feature-details"))
-    implementation(project(":feature-splash"))
-    implementation(project(":core-session"))
-    implementation(project(":core-common"))
     implementation(project(":network-apollo"))
+    implementation(project(":core-common"))
+}
+
+apollo {
+    service("shopify") {
+        packageName.set("com.zoksh.details.shopify")
+        schemaFile.set(
+            project(":network-apollo")
+                .file("src/main/graphql/shopify/schema.graphqls")
+        )
+    }
 }

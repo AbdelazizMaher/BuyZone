@@ -1,4 +1,4 @@
-package com.zoksh.feature_authentication.presentation.component
+package com.zoksh.core_ui.components
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode

@@ -1,4 +1,4 @@
-package com.zoksh.feature_search.presentation.components.filter
+package com.zoksh.core_common.presentation.component
 
 import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.zoksh.core_common.presentation.model.ColorOption
 import com.zoksh.core_ui.theme.BuyZoneTheme
 
 @Composable
@@ -46,15 +47,15 @@ fun ColorSelector(
     ) {
         items(options, key = { it.id }) { colorOption ->
             val isSelected = selectedId == colorOption.id
-            
+
             val outerRingColor by animateColorAsState(
-                targetValue = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.2f) 
-                             else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
+                targetValue = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
+                else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                 label = "outerRingColor"
             )
             val borderColor by animateColorAsState(
-                targetValue = if (isSelected) MaterialTheme.colorScheme.primary 
-                             else Color.Transparent,
+                targetValue = if (isSelected) MaterialTheme.colorScheme.primary
+                else Color.Transparent,
                 label = "borderColor"
             )
             val innerPadding by animateDpAsState(
@@ -94,15 +95,15 @@ fun ColorSelector(
                             .matchParentSize()
                     )
                 }
-                
+
                 Spacer(modifier = Modifier.height(6.dp))
-                
+
                 Text(
                     text = colorOption.name,
                     fontSize = 10.sp,
                     style = MaterialTheme.typography.labelSmall,
-                    color = if (isSelected) MaterialTheme.colorScheme.primary 
-                            else MaterialTheme.colorScheme.onSurfaceVariant
+                    color = if (isSelected) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

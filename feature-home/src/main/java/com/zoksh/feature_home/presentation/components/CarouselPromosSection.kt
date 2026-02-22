@@ -27,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.zoksh.core_common.presentation.ui_state.UiState
+import com.zoksh.core_ui.components.AppIndicator
 import com.zoksh.feature_home.R
 import com.zoksh.feature_home.presentation.model.PromosUiModel
 import kotlinx.coroutines.delay
@@ -127,7 +128,7 @@ fun CarouselPromosSection(
                         )
                     }
 
-                    PromosIndicator(
+                    AppIndicator(
                         pageCount = promos.size,
                         currentPage = pagerState.currentPage,
                         modifier = Modifier

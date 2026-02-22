@@ -1,4 +1,4 @@
-package com.zoksh.feature_home.presentation.components
+package com.zoksh.core_ui.components
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
@@ -17,10 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PromosIndicator(
+fun AppIndicator(
     modifier: Modifier = Modifier,
     pageCount: Int,
-    currentPage: Int
+    currentPage: Int,
+    activeColor: Color = Color.White,
+    inactiveColor: Color = Color.White.copy(alpha = 0.4f)
 ) {
     Row(
         modifier = modifier,
@@ -31,6 +33,7 @@ fun PromosIndicator(
             val isSelected = index == currentPage
             val width by animateDpAsState(
                 targetValue = if (isSelected) 24.dp else 8.dp,
+                label = "indicator_width"
             )
             Box(
                 modifier = Modifier
@@ -38,8 +41,8 @@ fun PromosIndicator(
                     .width(width)
                     .clip(RoundedCornerShape(2.dp))
                     .background(
-                        if (isSelected) Color.White
-                        else Color.White.copy(alpha = 0.4f)
+                        if (isSelected) activeColor
+                        else inactiveColor
                     )
             )
         }
