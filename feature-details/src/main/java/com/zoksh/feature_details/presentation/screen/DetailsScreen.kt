@@ -10,15 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.zoksh.core_common.R
 import com.zoksh.core_common.presentation.model.ColorOption
 import com.zoksh.core_ui.components.AppHeader
@@ -49,7 +48,10 @@ fun DetailsScreen(
                 title = product.category,
                 onBackClick = { onIntent(DetailsContract.Intent.NavigateBack) },
                 trailingDrawable = R.drawable.ic_cart_plus,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .zIndex(1f)
+                    .background(MaterialTheme.colorScheme.background)
             )
 
             Column(
@@ -59,38 +61,32 @@ fun DetailsScreen(
             ) {
                 ProductImageHeader(
                     images = product.images,
-                    modifier = Modifier.padding(vertical = 16.dp)
+                    modifier = Modifier.fillMaxWidth()
                 )
 
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
-                    color = MaterialTheme.colorScheme.surfaceContainer
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp)
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(24.dp)
-                            .fillMaxWidth()
-                    ) {
-                        ProductInfoSection(
-                            name = product.name,
-                            category = product.category,
-                            description = product.description
-                        )
+                    ProductInfoSection(
+                        name = product.name,
+                        category = product.category,
+                        description = product.description
+                    )
 
-                        Spacer(Modifier.height(32.dp))
+                    Spacer(Modifier.height(32.dp))
 
-                        ProductSpecSection(
-                            sizes = product.sizes,
-                            selectedSize = product.selectedSize,
-                            onSizeSelect = { onIntent(DetailsContract.Intent.SelectSize(it)) },
-                            colors = product.colors,
-                            selectedColorId = product.selectedColorId,
-                            onColorSelect = { onIntent(DetailsContract.Intent.SelectColor(it)) }
-                        )
-                        
-                        Spacer(Modifier.height(32.dp))
-                    }
+                    ProductSpecSection(
+                        sizes = product.sizes,
+                        selectedSize = product.selectedSize,
+                        onSizeSelect = { onIntent(DetailsContract.Intent.SelectSize(it)) },
+                        colors = product.colors,
+                        selectedColorId = product.selectedColorId,
+                        onColorSelect = { onIntent(DetailsContract.Intent.SelectColor(it)) }
+                    )
+                    
+                    Spacer(Modifier.height(32.dp))
                 }
             }
 
