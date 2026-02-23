@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zoksh.core_ui.R
@@ -32,6 +33,7 @@ import com.zoksh.core_ui.theme.BuyZoneTheme
 @Composable
 fun PrimaryActionButton(
     text: String,
+    style: TextStyle = MaterialTheme.typography.labelLarge,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     icon: Int? = null,
@@ -58,13 +60,13 @@ fun PrimaryActionButton(
                     Icon(
                         painter = painterResource(id = icon),
                         contentDescription = null,
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                 }
                 Text(
                     text = text,
-                    style = MaterialTheme.typography.labelLarge
+                    style = style
                 )
             }
         } else {
@@ -100,6 +102,12 @@ private fun PrimaryActionButtonPreview() {
                     text = "Loading",
                     enabled = false,
                     onClick = {}
+                )
+                PrimaryActionButton(
+                    text = "Add to Cart",
+                    style = MaterialTheme.typography.labelMedium,
+                    icon = R.drawable.ic_cart,
+                    modifier = Modifier.width(150.dp)
                 )
             }
         }
