@@ -1,5 +1,6 @@
 package com.zoksh.feature_home.presentation.screen
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,14 +12,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.zoksh.core_common.R
+import com.zoksh.core_common.presentation.component.CategoriesSection
+import com.zoksh.core_common.presentation.model.CategoryUiModel
+import com.zoksh.core_common.presentation.model.ProductUiModel
+import com.zoksh.core_common.presentation.ui_state.UiState
+import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_home.presentation.components.BrandsSection
 import com.zoksh.feature_home.presentation.components.CarouselPromosSection
-import com.zoksh.feature_home.presentation.components.CategoriesSection
 import com.zoksh.feature_home.presentation.components.HeaderSection
 import com.zoksh.feature_home.presentation.components.SearchBarLauncher
 import com.zoksh.feature_home.presentation.components.TrendingSection
 import com.zoksh.feature_home.presentation.contract.HomeContract
+import com.zoksh.feature_home.presentation.model.BrandsUiModel
+import com.zoksh.feature_home.presentation.model.HeaderUiModel
+import com.zoksh.feature_home.presentation.model.PromosUiModel
 
 @Composable
 fun HomeScreen(
@@ -93,5 +103,55 @@ fun HomeScreen(
                 onViewAllClick = { onIntent(HomeContract.Intent.OnTrendingViewAllClick) }
             )
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(
+    showBackground = true,
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun HomeScreenPreview() {
+    val mockState = HomeContract.State(
+        header = HeaderUiModel(
+            image = "https://i.pravatar.cc/150?img=3",
+            message = "Good Morning 😊",
+            name = "Abdelaziz",
+            notificationCount = 3
+        ),
+        promos = UiState.Success(listOf(
+            PromosUiModel(id = "1", image = "https://picsum.photos/800/300?1"),
+            PromosUiModel(id = "2", image = "https://picsum.photos/800/300?2"),
+            PromosUiModel(id = "3", image = "https://picsum.photos/800/300?3")
+        )),
+        categories = UiState.Success(listOf(
+            CategoryUiModel(id = "1", R.drawable.males_category, "Male", "👨"),
+            CategoryUiModel(id = "2", R.drawable.women_category, "Female", "👩"),
+            CategoryUiModel(id = "3", R.drawable.kids_category, "Kids", "👶")
+        )),
+        brands = UiState.Success(listOf(
+            BrandsUiModel(id = "1", "https://logo.clearbit.com/apple.com", "Apple"),
+            BrandsUiModel(id = "2", "https://logo.clearbit.com/samsung.com", "Samsung"),
+            BrandsUiModel(id = "3", "https://logo.clearbit.com/sony.com", "Sony"),
+            BrandsUiModel(id = "4", "https://logo.clearbit.com/nike.com", "Nike"),
+            BrandsUiModel(id = "5", "https://logo.clearbit.com/adidas.com", "Adidas"),
+            BrandsUiModel(id = "6", "https://logo.clearbit.com/mi.com", "Xiaomi")
+        )),
+        trending = UiState.Success(listOf(
+            ProductUiModel("1", "https://picsum.photos/300/300?1", "iPhone 15 Pro", "$999", "$1099", 5, false),
+            ProductUiModel("2", "https://picsum.photos/300/300?2", "Galaxy S24", "$899", "$1099", 5, true),
+            ProductUiModel("3", "https://picsum.photos/300/300?1", "iPhone 17 Pro", "$999", "$1099", 5, false),
+            ProductUiModel("4", "https://picsum.photos/300/300?2", "Galaxy S20", "$899", "$1099", 5, true)
+        ))
+    )
+
+    BuyZoneTheme {
+        HomeScreen(
+            state = mockState,
+            onIntent = {},
+            innerPadding = PaddingValues(0.dp)
+        )
     }
 }

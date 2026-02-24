@@ -1,10 +1,10 @@
 package com.zoksh.feature_home.presentation.contract
 
 import androidx.compose.runtime.Immutable
+import com.zoksh.core_common.presentation.model.CategoryUiModel
 import com.zoksh.core_common.presentation.ui_state.UiState
 import com.zoksh.core_ui.snackbar.model.AppMessage
 import com.zoksh.feature_home.presentation.model.BrandsUiModel
-import com.zoksh.feature_home.presentation.model.CategoryUiModel
 import com.zoksh.feature_home.presentation.model.HeaderUiModel
 import com.zoksh.feature_home.presentation.model.PromosUiModel
 import com.zoksh.core_common.presentation.model.ProductUiModel
