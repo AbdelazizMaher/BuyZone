@@ -1,4 +1,4 @@
-package com.zoksh.feature_home.presentation.model
+package com.zoksh.core_common.presentation.model
 
 data class CategoryUiModel(
     val id: String,

@@ -1,4 +1,4 @@
-package com.zoksh.feature_home.presentation.components
+package com.zoksh.core_common.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,26 +1,30 @@
-package com.zoksh.feature_home.presentation.components
+package com.zoksh.core_common.presentation.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.zoksh.core_common.presentation.model.CategoryUiModel
 import com.zoksh.core_common.presentation.ui_state.UiState
-import com.zoksh.feature_home.presentation.model.CategoryUiModel
+
 
 @Composable
 fun CategoriesSection(
     modifier: Modifier = Modifier,
     state: UiState<List<CategoryUiModel>>,
-    onCategoryClick: (String) -> Unit
+    onCategoryClick: (String) -> Unit,
+    title: String = "Categories",
+    showViewAll: Boolean = false,
+    onViewAllClick: () -> Unit = {}
 ) {
     when (state) {
         is UiState.Success -> {
@@ -29,8 +33,9 @@ fun CategoriesSection(
                 SectionHeader(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
-                    title = "Categories"
+                        .padding(horizontal = 8.dp, vertical = 8.dp),
+                    title = title,
+                    onViewAllClick = if (showViewAll) onViewAllClick else null
                 )
                 BoxWithConstraints {
                     val horizontalPadding = 8.dp * 2
@@ -40,12 +45,12 @@ fun CategoriesSection(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         contentPadding = PaddingValues(horizontal = 8.dp)
                     ) {
-                        items(categories, key = { it.id }) {
+                        items(categories, key = { it.id }) { category ->
                             CategoryCard(
                                 modifier = Modifier
                                     .width(itemWidth)
                                     .aspectRatio(1f),
-                                category = it,
+                                category = category,
                                 onCategoryClick = onCategoryClick
                             )
                         }
@@ -54,9 +59,6 @@ fun CategoriesSection(
             }
         }
         is UiState.Loading -> {
-
-        }
-        is UiState.Error -> {
 
         }
         else -> {}
