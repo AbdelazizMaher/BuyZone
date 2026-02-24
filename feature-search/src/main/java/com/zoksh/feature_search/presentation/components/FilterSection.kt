@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -22,7 +23,7 @@ import com.zoksh.core_common.presentation.component.ColorSelector
 import com.zoksh.feature_search.presentation.components.filter.FilterGroupTitle
 import com.zoksh.feature_search.presentation.components.filter.FilterHeader
 import com.zoksh.feature_search.presentation.components.filter.FilterUiState
-import com.zoksh.feature_search.presentation.components.filter.MultiSelectChips
+import com.zoksh.core_common.presentation.component.MultiSelectChips
 import com.zoksh.feature_search.presentation.components.filter.PriceRangeSelector
 import com.zoksh.core_common.presentation.component.SizeSelector
 import com.zoksh.core_common.presentation.model.ColorOption
@@ -46,6 +47,7 @@ fun FilterSection(
             .background(MaterialTheme.colorScheme.surfaceContainerLow)
     ) {
         FilterHeader(
+            modifier = Modifier.fillMaxWidth(),
             activeCount = uiState.activeFiltersCount,
             onClearAll = onClearAll,
             onClose = onClose
@@ -65,6 +67,7 @@ fun FilterSection(
         ) {
             FilterGroupTitle("Category")
             MultiSelectChips(
+                modifier = Modifier.fillMaxWidth(),
                 options = uiState.categories,
                 selectedOptions = uiState.selectedCategories,
                 onOptionClick = onCategoryToggle
@@ -72,12 +75,14 @@ fun FilterSection(
 
             FilterGroupTitle("Brand")
             MultiSelectChips(
+                modifier = Modifier.fillMaxWidth(),
                 options = uiState.brands,
                 selectedOptions = uiState.selectedBrands,
                 onOptionClick = onBrandToggle
             )
 
             PriceRangeSelector(
+                modifier = Modifier.fillMaxWidth(),
                 range = uiState.priceRange,
                 currencySymbol = uiState.currencySymbol,
                 onRangeChange = onPriceChange
@@ -85,6 +90,7 @@ fun FilterSection(
 
             FilterGroupTitle("Color")
             ColorSelector(
+                modifier = Modifier.fillMaxWidth(),
                 options = uiState.colors,
                 selectedId = uiState.selectedColorId,
                 onSelect = onColorSelect
@@ -92,6 +98,7 @@ fun FilterSection(
 
             FilterGroupTitle("Size")
             SizeSelector(
+                modifier = Modifier.fillMaxWidth(),
                 options = uiState.sizes,
                 selectedSize = uiState.selectedSize,
                 onSelect = onSizeSelect
@@ -101,6 +108,7 @@ fun FilterSection(
         }
 
         ActiveFiltersFooter(
+            modifier = Modifier.fillMaxWidth(),
             uiState = uiState,
             onRemove = onRemoveActiveFilter,
             onClearAll = onClearAll

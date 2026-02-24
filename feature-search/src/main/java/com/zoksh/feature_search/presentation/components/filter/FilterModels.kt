@@ -17,5 +17,3 @@ data class FilterUiState(
     val activeFiltersCount: Int = 0,
     val currencySymbol: String = "$"
 )
-
-

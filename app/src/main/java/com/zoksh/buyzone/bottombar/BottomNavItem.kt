@@ -2,8 +2,8 @@ package com.zoksh.buyzone.bottombar
 
 import com.zoksh.core_common.R
 import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
+import com.zoksh.feature_categories.presentation.navigation.CategoriesDestination
 import com.zoksh.feature_home.presentation.navigation.HomeDestination
-import com.zoksh.feature_search.presentation.navigation.SearchDestination
 
 
 sealed class NavItem(
@@ -20,10 +20,10 @@ sealed class NavItem(
     )
 
     object Search : NavItem(
-        SearchDestination.Search,
-        "Search",
-        R.drawable.ic_search_filled,
-        R.drawable.ic_search
+        CategoriesDestination.Categories,
+        "Categories",
+        R.drawable.ic_category,
+        R.drawable.ic_category
     )
 
     object Cart :
