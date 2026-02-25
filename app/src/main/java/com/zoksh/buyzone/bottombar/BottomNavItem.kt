@@ -2,6 +2,7 @@ package com.zoksh.buyzone.bottombar
 
 import com.zoksh.core_common.R
 import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
+import com.zoksh.feature_cart.presentation.navigation.CartDestination
 import com.zoksh.feature_categories.presentation.navigation.CategoriesDestination
 import com.zoksh.feature_home.presentation.navigation.HomeDestination
 
@@ -28,7 +29,7 @@ sealed class NavItem(
 
     object Cart :
         NavItem(
-            AuthDestination.Login,
+            CartDestination.Cart,
             "Cart",
             R.drawable.ic_cart_filled,
             R.drawable.ic_cart
