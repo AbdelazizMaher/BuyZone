@@ -14,11 +14,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zoksh.core_common.R
 import com.zoksh.core_common.presentation.component.CategoriesSection
 import com.zoksh.core_common.presentation.component.ProductCard
@@ -30,25 +28,9 @@ import com.zoksh.core_ui.components.AppSearchBar
 import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_categories.presentation.components.ProductTypeFilter
 import com.zoksh.feature_categories.presentation.contract.CategoriesContract
-import com.zoksh.feature_categories.presentation.viewmodel.CategoriesViewModel
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CategoriesScreen(
-    innerPadding: PaddingValues,
-    viewModel: CategoriesViewModel = koinViewModel()
-) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-
-    CategoriesContent(
-        state = state,
-        onIntent = viewModel::handleIntent,
-        innerPadding = innerPadding
-    )
-}
-
-@Composable
-private fun CategoriesContent(
     state: CategoriesContract.State,
     onIntent: (CategoriesContract.Intent) -> Unit,
     innerPadding: PaddingValues
@@ -88,6 +70,7 @@ private fun CategoriesContent(
             item(span = { GridItemSpan(2) }, key = "categories_section") {
                 CategoriesSection(
                     state = state.categories,
+                    selectedCategoryId = state.selectedCategoryId,
                     onCategoryClick = { onIntent(CategoriesContract.Intent.OnCategorySelect(it)) },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -110,9 +93,6 @@ private fun CategoriesContent(
                             onFavoriteClick = {  }
                         )
                     }
-                }
-                is UiState.Loading -> {
-                    
                 }
                 else -> {}
             }
@@ -139,10 +119,11 @@ private fun CategoriesScreenPreview() {
     )
 
     BuyZoneTheme {
-        CategoriesContent(
+        CategoriesScreen(
             state = CategoriesContract.State(
                 categories = UiState.Success(mockCategories),
-                productTypes = UiState.Success(listOf("All", "Shoes", "Clothing", "Accessories")),
+                selectedCategoryId = "1",
+                productTypes = UiState.Success(listOf("All", "Shoes", "Clothing")),
                 selectedProductType = "All",
                 products = UiState.Success(mockProducts)
             ),

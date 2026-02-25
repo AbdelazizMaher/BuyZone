@@ -1,6 +1,8 @@
 package com.zoksh.buyzone.navigation.graphs
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -18,6 +20,7 @@ fun NavGraphBuilder.categoriesGraph(
     composable<CategoriesDestination.Categories> {
         onShowBottomBar(true)
         val viewModel: CategoriesViewModel = koinViewModel()
+        val state by viewModel.state.collectAsStateWithLifecycle()
         
         CategoriesNavHandler(
             navController = navController,
@@ -25,8 +28,9 @@ fun NavGraphBuilder.categoriesGraph(
         )
         
         CategoriesScreen(
-            innerPadding = innerPadding,
-            viewModel = viewModel
+            state = state,
+            onIntent = viewModel::handleIntent,
+            innerPadding = innerPadding
         )
     }
 }
