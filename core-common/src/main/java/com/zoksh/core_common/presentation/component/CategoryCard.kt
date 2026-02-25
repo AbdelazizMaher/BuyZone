@@ -2,6 +2,7 @@ package com.zoksh.core_common.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,13 +29,19 @@ import com.zoksh.core_common.presentation.model.CategoryUiModel
 fun CategoryCard(
     modifier: Modifier = Modifier,
     category: CategoryUiModel,
+    isSelected: Boolean = false,
     onCategoryClick: (String) -> Unit
 ) {
     Card(
         modifier = modifier
-            .clickable { onCategoryClick(category.id) },
+            .clickable { onCategoryClick(category.id) }
+            .border(
+                width = if (isSelected) 2.dp else 0.dp,
+                color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
+                shape = RoundedCornerShape(12.dp)
+            ),
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(if (isSelected) 8.dp else 4.dp)
     ) {
         Box {
             Image(
@@ -46,7 +53,7 @@ fun CategoryCard(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.35f))
+                    .background(Color.Black.copy(alpha = if (isSelected) 0.15f else 0.35f))
             )
             Column(
                 modifier = Modifier

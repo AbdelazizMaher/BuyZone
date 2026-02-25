@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.facebook.CallbackManager
 import com.zoksh.buyzone.navigation.graphs.authGraph
+import com.zoksh.buyzone.navigation.graphs.cartGraph
 import com.zoksh.buyzone.navigation.graphs.categoriesGraph
 import com.zoksh.buyzone.navigation.graphs.detailsGraph
 import com.zoksh.buyzone.navigation.graphs.homeGraph
@@ -79,6 +80,12 @@ fun AppNavHost(
         )
 
         searchGraph(
+            navController = navController,
+            innerPadding = innerPadding,
+            onShowBottomBar = viewModel::setBottomBarVisible
+        )
+
+        cartGraph(
             navController = navController,
             innerPadding = innerPadding,
             onShowBottomBar = viewModel::setBottomBarVisible

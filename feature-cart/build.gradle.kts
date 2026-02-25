@@ -2,10 +2,12 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.apollo)
 }
 
 android {
-    namespace = "com.zoksh.core_ui"
+    namespace = "com.zoksh.feature_cart"
     compileSdk {
         version = release(36)
     }
@@ -51,6 +53,33 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation(libs.kotlinx.serialization.json)
+
+    // coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
     implementation ("androidx.compose.material:material-icons-extended")
 
+    //koin
+    val koin_android_version = "4.0.2"
+    implementation("io.insert-koin:koin-android:$koin_android_version")
+    implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
+
+    // apollo
+    implementation(libs.apollo.runtime)
+
+    implementation(project(":core-ui"))
+    implementation(project(":network-apollo"))
+    implementation(project(":core-session"))
+    implementation(project(":core-common"))
+}
+
+apollo {
+    service("shopify") {
+        packageName.set("com.zoksh.cart.shopify")
+        schemaFile.set(
+            project(":network-apollo")
+                .file("src/main/graphql/shopify/schema.graphqls")
+        )
+    }
 }
