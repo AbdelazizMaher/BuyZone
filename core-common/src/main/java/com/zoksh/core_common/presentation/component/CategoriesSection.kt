@@ -16,12 +16,12 @@ import androidx.compose.ui.unit.dp
 import com.zoksh.core_common.presentation.model.CategoryUiModel
 import com.zoksh.core_common.presentation.ui_state.UiState
 
-
 @Composable
 fun CategoriesSection(
-    modifier: Modifier = Modifier,
     state: UiState<List<CategoryUiModel>>,
     onCategoryClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    selectedCategoryId: String? = null,
     title: String = "Categories",
     showViewAll: Boolean = false,
     onViewAllClick: () -> Unit = {}
@@ -51,15 +51,13 @@ fun CategoriesSection(
                                     .width(itemWidth)
                                     .aspectRatio(1f),
                                 category = category,
+                                isSelected = category.id == selectedCategoryId,
                                 onCategoryClick = onCategoryClick
                             )
                         }
                     }
                 }
             }
-        }
-        is UiState.Loading -> {
-
         }
         else -> {}
     }
