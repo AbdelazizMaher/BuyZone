@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.zoksh.core_common.presentation.component.ProductCard
+import com.zoksh.core_common.presentation.component.SectionHeader
 import com.zoksh.core_common.presentation.ui_state.UiState
 import com.zoksh.core_common.presentation.model.ProductUiModel
 

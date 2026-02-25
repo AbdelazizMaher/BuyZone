@@ -1,11 +1,10 @@
-package com.zoksh.feature_search.presentation.components.filter
+package com.zoksh.core_common.presentation.component
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,11 +17,15 @@ import com.zoksh.core_ui.theme.BuyZoneTheme
 fun MultiSelectChips(
     options: List<String>,
     selectedOptions: Set<String>,
-    onOptionClick: (String) -> Unit
+    onOptionClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.spacedBy(8.dp),
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(8.dp)
 ) {
     FlowRow(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier,
+        horizontalArrangement = horizontalArrangement,
+        verticalArrangement = verticalArrangement
     ) {
         options.forEach { option ->
             val isSelected = selectedOptions.contains(option)
@@ -46,6 +49,7 @@ private fun MultiSelectChipsPreview() {
     BuyZoneTheme {
         Surface {
             MultiSelectChips(
+                modifier = Modifier.fillMaxWidth(),
                 options = listOf("Electronics", "Fashion", "Home & Living", "Sports", "Beauty", "Books"),
                 selectedOptions = setOf("Fashion", "Beauty"),
                 onOptionClick = {}

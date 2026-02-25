@@ -1,0 +1,83 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.apollo)
+}
+
+android {
+    namespace = "com.zoksh.feature_categories"
+    compileSdk {
+        version = release(36)
+    }
+
+    defaultConfig {
+        minSdk = 24
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+    buildFeatures {
+        compose = true
+    }
+}
+
+dependencies {
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.material3)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.kotlinx.serialization.json)
+
+    // coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
+    //koin
+    val koin_android_version = "4.0.2"
+    implementation("io.insert-koin:koin-android:$koin_android_version")
+    implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
+
+    // apollo
+    implementation(libs.apollo.runtime)
+
+    implementation(project(":core-ui"))
+    implementation(project(":network-apollo"))
+    implementation(project(":core-session"))
+    implementation(project(":core-common"))
+}
+
+apollo {
+    service("shopify") {
+        packageName.set("com.zoksh.categories.shopify")
+        schemaFile.set(
+            project(":network-apollo")
+                .file("src/main/graphql/shopify/schema.graphqls")
+        )
+    }
+}

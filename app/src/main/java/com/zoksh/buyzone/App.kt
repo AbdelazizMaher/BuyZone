@@ -5,6 +5,8 @@ import com.zoksh.buyzone.di.appModule
 import com.zoksh.core_common.di.coreCommonModule
 import com.zoksh.core_session.di.sessionModule
 import com.zoksh.feature_authentication.di.authModule
+import com.zoksh.feature_cart.di.cartModule
+import com.zoksh.feature_categories.di.categoriesModule
 import com.zoksh.feature_details.di.detailsModule
 import com.zoksh.feature_home.di.homeModule
 import com.zoksh.feature_onboarding.di.onBoardingModule
@@ -32,6 +34,8 @@ class App : Application() {
                 homeModule,
                 searchModule,
                 detailsModule,
+                categoriesModule,
+                cartModule,
                 sessionModule,
                 apolloModule,
                 splashModule
