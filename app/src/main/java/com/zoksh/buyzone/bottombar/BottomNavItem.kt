@@ -1,10 +1,10 @@
 package com.zoksh.buyzone.bottombar
 
 import com.zoksh.core_common.R
-import com.zoksh.feature_authentication.presentation.navigation.AuthDestination
 import com.zoksh.feature_cart.presentation.navigation.CartDestination
 import com.zoksh.feature_categories.presentation.navigation.CategoriesDestination
 import com.zoksh.feature_home.presentation.navigation.HomeDestination
+import com.zoksh.feature_settings.presentation.navigation.SettingsDestination
 
 
 sealed class NavItem(
@@ -32,11 +32,11 @@ sealed class NavItem(
             CartDestination.Cart,
             "Cart",
             R.drawable.ic_cart_filled,
-            R.drawable.ic_cart
+            R.drawable.ic_cart_filled
         )
 
     object Settings : NavItem(
-        AuthDestination.SignUp,
+        SettingsDestination.Settings,
         "Settings",
         R.drawable.ic_settings_filled,
         R.drawable.ic_settings

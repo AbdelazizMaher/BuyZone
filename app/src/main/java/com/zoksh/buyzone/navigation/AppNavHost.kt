@@ -13,6 +13,7 @@ import com.zoksh.buyzone.navigation.graphs.detailsGraph
 import com.zoksh.buyzone.navigation.graphs.homeGraph
 import com.zoksh.buyzone.navigation.graphs.onBoardingGraph
 import com.zoksh.buyzone.navigation.graphs.searchGraph
+import com.zoksh.buyzone.navigation.graphs.settingsGraph
 import com.zoksh.buyzone.navigation.graphs.splashGraph
 import com.zoksh.buyzone.presentation.MainUiEvent
 import com.zoksh.buyzone.presentation.MainViewModel
@@ -86,6 +87,12 @@ fun AppNavHost(
         )
 
         cartGraph(
+            navController = navController,
+            innerPadding = innerPadding,
+            onShowBottomBar = viewModel::setBottomBarVisible
+        )
+
+        settingsGraph(
             navController = navController,
             innerPadding = innerPadding,
             onShowBottomBar = viewModel::setBottomBarVisible

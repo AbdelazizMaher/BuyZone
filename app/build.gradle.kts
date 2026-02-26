@@ -86,6 +86,7 @@ dependencies {
     implementation(project(":feature-details"))
     implementation(project(":feature-categories"))
     implementation(project(":feature-cart"))
+    implementation(project(":feature-settings"))
     implementation(project(":feature-splash"))
     implementation(project(":core-session"))
     implementation(project(":core-common"))
