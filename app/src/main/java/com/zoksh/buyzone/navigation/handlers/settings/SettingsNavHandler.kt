@@ -14,9 +14,6 @@ fun SettingsNavHandler(
 ) {
     ObserveAsEvents(viewModel.effect) { effect ->
         when (effect) {
-            SettingsContract.Effect.NavigateToEditProfile -> {
-
-            }
             SettingsContract.Effect.NavigateToOrders -> {
 
             }

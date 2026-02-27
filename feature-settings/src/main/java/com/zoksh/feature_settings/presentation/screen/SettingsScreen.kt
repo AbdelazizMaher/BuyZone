@@ -49,10 +49,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.zoksh.core_common.presentation.ui_state.UiState
+import com.zoksh.core_ui.components.SettingsRow
 import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_settings.presentation.components.ProfileHeader
 import com.zoksh.feature_settings.presentation.components.QuickActionsSection
-import com.zoksh.feature_settings.presentation.components.SettingsRow
 import com.zoksh.feature_settings.presentation.components.SettingsSectionTitle
 import com.zoksh.feature_settings.presentation.contract.SettingsContract
 import com.zoksh.feature_settings.presentation.contract.UserUiModel
@@ -79,7 +80,7 @@ fun SettingsScreen(
             SettingsTopBar(
                 state = state,
                 alpha = scrollProgress,
-                onMoreClick = {  }
+                onMoreClick = { }
             )
         }
     ) { padding ->
@@ -92,16 +93,26 @@ fun SettingsScreen(
                 bottom = innerPadding.calculateBottomPadding() + 24.dp
             )
         ) {
-            item {
-                ProfileHeader(
-                    user = state.user,
-                    isGuest = state.isGuest,
-                    onMoreClick = {  },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = innerPadding.calculateTopPadding())
-                        .alpha(1f - scrollProgress)
-                )
+            when (val profile = state.profileState) {
+                is UiState.Success -> {
+                    item {
+                        ProfileHeader(
+                            user = profile.data,
+                            isGuest = state.isGuest,
+                            onMoreClick = { },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = innerPadding.calculateTopPadding())
+                                .alpha(1f - scrollProgress)
+                        )
+                    }
+                }
+
+                is UiState.Loading -> {
+
+                }
+
+                else -> {}
             }
 
             item {
@@ -195,6 +206,7 @@ private fun SettingsTopBar(
     onMoreClick: () -> Unit
 ) {
     val contentAlpha = (alpha - 0.5f).coerceIn(0f, 1f) * 2f
+    val user = (state.profileState as? UiState.Success)?.data
 
     TopAppBar(
         title = {
@@ -209,11 +221,11 @@ private fun SettingsTopBar(
                         .background(MaterialTheme.colorScheme.surfaceVariant),
                     contentAlignment = Alignment.Center
                 ) {
-                    if (state.isGuest || state.user?.imageUrl == null) {
+                    if (state.isGuest || user?.imageUrl == null) {
                         Icon(Icons.Outlined.Person, null, modifier = Modifier.size(20.dp))
                     } else {
                         AsyncImage(
-                            model = state.user.imageUrl,
+                            model = user.imageUrl,
                             contentDescription = null,
                             contentScale = ContentScale.Crop
                         )
@@ -221,7 +233,7 @@ private fun SettingsTopBar(
                 }
                 Spacer(Modifier.width(12.dp))
                 Text(
-                    text = if (state.isGuest) "Settings" else state.user?.name ?: "Settings",
+                    text = if (state.isGuest) "Settings" else user?.name ?: "Settings",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -255,12 +267,13 @@ private fun SettingsScreenLoggedInPreview() {
         SettingsScreen(
             state = SettingsContract.State(
                 isGuest = false,
-                user = UserUiModel(
-                    "Abdelaziz Maher",
-                    "Abdelaziz.Maher@example.com",
-                    "https://i.pravatar.cc/150?img=1"
+                profileState = UiState.Success(
+                    UserUiModel(
+                        "Abdelaziz Maher",
+                        "Abdelaziz.Maher@example.com",
+                        "https://i.pravatar.cc/150?img=1"
+                    )
                 ),
-                notificationCount = 5
             ),
             onIntent = {},
             innerPadding = PaddingValues(0.dp)
@@ -278,7 +291,10 @@ private fun SettingsScreenLoggedInPreview() {
 private fun SettingsScreenGuestPreview() {
     BuyZoneTheme {
         SettingsScreen(
-            state = SettingsContract.State(isGuest = true),
+            state = SettingsContract.State(
+                isGuest = true,
+                profileState = UiState.Success(UserUiModel("Guest", ""))
+            ),
             onIntent = {},
             innerPadding = PaddingValues(0.dp)
         )

@@ -1,20 +1,20 @@
 package com.zoksh.feature_settings.presentation.contract
 
 import androidx.compose.runtime.Immutable
+import com.zoksh.core_common.presentation.ui_state.UiState
 
 sealed interface SettingsContract {
 
     @Immutable
     data class State(
-        val user: UserUiModel? = null,
+        val profileState: UiState<UserUiModel> = UiState.Loading,
         val isGuest: Boolean = true,
         val appTheme: String = "Light",
-        val currency: String = "USD",
-        val notificationCount: Int = 0
+        val currency: String = "USD"
     )
 
     sealed interface Intent {
-        data object EditProfile : Intent
+        data object LoadProfile : Intent
         data object Orders : Intent
         data object Addresses : Intent
         data object Wishlist : Intent
@@ -28,7 +28,6 @@ sealed interface SettingsContract {
     }
 
     sealed interface Effect {
-        data object NavigateToEditProfile : Effect
         data object NavigateToOrders : Effect
         data object NavigateToAddresses : Effect
         data object NavigateToWishlist : Effect
