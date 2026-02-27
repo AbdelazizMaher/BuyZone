@@ -2,7 +2,9 @@ package com.zoksh.feature_settings.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zoksh.core_common.presentation.ui_state.UiState
 import com.zoksh.feature_settings.presentation.contract.SettingsContract
+import com.zoksh.feature_settings.presentation.contract.UserUiModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,27 +21,14 @@ class SettingsViewModel : ViewModel() {
     val effect = _effect.receiveAsFlow()
 
     init {
-        loadProfile()
-    }
-
-    private fun loadProfile() {
-        _state.update {
-            it.copy(
-                isGuest = true,
-                user = null,
-                notificationCount = 0
-            )
-        }
+        handleIntent(SettingsContract.Intent.LoadProfile)
     }
 
     fun handleIntent(intent: SettingsContract.Intent) {
         when (intent) {
-            SettingsContract.Intent.EditProfile -> sendEffect(SettingsContract.Effect.NavigateToEditProfile)
+            SettingsContract.Intent.LoadProfile -> loadProfile()
             SettingsContract.Intent.Orders -> if (!_state.value.isGuest) sendEffect(SettingsContract.Effect.NavigateToOrders)
-            SettingsContract.Intent.Addresses -> if (!_state.value.isGuest) sendEffect(
-                SettingsContract.Effect.NavigateToAddresses
-            )
-
+            SettingsContract.Intent.Addresses -> if (!_state.value.isGuest) sendEffect(SettingsContract.Effect.NavigateToAddresses)
             SettingsContract.Intent.Wishlist -> sendEffect(SettingsContract.Effect.NavigateToWishlist)
             SettingsContract.Intent.CurrencySelection -> {
             }
@@ -59,10 +48,23 @@ class SettingsViewModel : ViewModel() {
             }
 
             SettingsContract.Intent.Logout -> {
-                _state.update { it.copy(isGuest = true, user = null) }
+                _state.update { 
+                    it.copy(
+                        isGuest = true, 
+                        profileState = UiState.Success(UserUiModel("Guest", "")) 
+                    ) 
+                }
             }
-
             SettingsContract.Intent.LoginRegister -> sendEffect(SettingsContract.Effect.NavigateToLogin)
+        }
+    }
+
+    private fun loadProfile() {
+        _state.update {
+            it.copy(
+                isGuest = true,
+                profileState = UiState.Success(UserUiModel("Guest", ""))
+            )
         }
     }
 
