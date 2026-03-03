@@ -58,7 +58,8 @@ fun HomeScreen(
                     .padding(top = topPadding)
                     .padding(horizontal = 16.dp),
                 header = state.header,
-                onNotificationClick = { onIntent(HomeContract.Intent.OnNotificationClick) }
+                onNotificationClick = { onIntent(HomeContract.Intent.OnNotificationClick) },
+                onSearchClick = { onIntent(HomeContract.Intent.OnSearchClick) }
             )
         }
 
