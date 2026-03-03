@@ -7,9 +7,10 @@ import com.zoksh.feature_home.domain.model.Category
 import com.zoksh.feature_home.domain.model.Header
 import com.zoksh.feature_home.domain.model.Product
 import com.zoksh.feature_home.domain.model.Promo
+import kotlinx.coroutines.flow.Flow
 
 interface HomeRepository {
-    suspend fun getHeader(): Result<Header, DataError.Network>
+    suspend fun getHeader(): Flow<Header>
 
     suspend fun getPromos(): Result<List<Promo>, DataError.Network>
 
