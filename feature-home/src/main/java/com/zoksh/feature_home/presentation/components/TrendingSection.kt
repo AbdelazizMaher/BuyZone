@@ -51,7 +51,7 @@ fun TrendingSection(
             }
         }
         is UiState.Loading -> {
-            
+            TrendingShimmer(modifier = modifier)
         }
         else -> {}
     }
