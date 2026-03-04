@@ -39,7 +39,9 @@ fun BrandsSection(
                 }
             }
         }
-        is UiState.Loading -> {  }
+        is UiState.Loading -> {
+            BrandsShimmer(modifier = modifier)
+        }
         else -> {}
     }
 }
