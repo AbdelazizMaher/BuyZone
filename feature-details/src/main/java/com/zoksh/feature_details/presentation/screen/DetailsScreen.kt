@@ -23,6 +23,7 @@ import com.zoksh.core_common.presentation.model.ColorOption
 import com.zoksh.core_ui.components.AppHeader
 import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_details.presentation.components.DetailsBottomBar
+import com.zoksh.feature_details.presentation.components.DetailsShimmer
 import com.zoksh.feature_details.presentation.components.ProductImageHeader
 import com.zoksh.feature_details.presentation.components.ProductInfoSection
 import com.zoksh.feature_details.presentation.components.ProductSpecSection
@@ -37,64 +38,70 @@ fun DetailsScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    state.product?.let { product ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(top = innerPadding.calculateTopPadding())
-        ) {
-            AppHeader(
-                title = product.category,
-                onBackClick = { onIntent(DetailsContract.Intent.NavigateBack) },
-                trailingDrawable = R.drawable.ic_cart_plus,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .zIndex(1f)
-                    .background(MaterialTheme.colorScheme.background)
-            )
-
+    if (state.isLoading) {
+        DetailsShimmer(
+            topPadding = innerPadding.calculateTopPadding()
+        )
+    } else {
+        state.product?.let { product ->
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .verticalScroll(scrollState)
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(top = innerPadding.calculateTopPadding())
             ) {
-                ProductImageHeader(
-                    images = product.images,
-                    modifier = Modifier.fillMaxWidth()
+                AppHeader(
+                    title = product.category,
+                    onBackClick = { onIntent(DetailsContract.Intent.NavigateBack) },
+                    trailingDrawable = R.drawable.ic_cart_plus,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .zIndex(1f)
+                        .background(MaterialTheme.colorScheme.background)
                 )
 
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp)
+                        .weight(1f)
+                        .verticalScroll(scrollState)
                 ) {
-                    ProductInfoSection(
-                        name = product.name,
-                        category = product.category,
-                        description = product.description
+                    ProductImageHeader(
+                        images = product.images,
+                        modifier = Modifier.fillMaxWidth()
                     )
 
-                    Spacer(Modifier.height(32.dp))
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp)
+                    ) {
+                        ProductInfoSection(
+                            name = product.name,
+                            category = product.category,
+                            description = product.description
+                        )
 
-                    ProductSpecSection(
-                        sizes = product.sizes,
-                        selectedSize = product.selectedSize,
-                        onSizeSelect = { onIntent(DetailsContract.Intent.SelectSize(it)) },
-                        colors = product.colors,
-                        selectedColorId = product.selectedColorId,
-                        onColorSelect = { onIntent(DetailsContract.Intent.SelectColor(it)) }
-                    )
-                    
-                    Spacer(Modifier.height(32.dp))
+                        Spacer(Modifier.height(32.dp))
+
+                        ProductSpecSection(
+                            sizes = product.sizes,
+                            selectedSize = product.selectedSize,
+                            onSizeSelect = { onIntent(DetailsContract.Intent.SelectSize(it)) },
+                            colors = product.colors,
+                            selectedColorId = product.selectedColorId,
+                            onColorSelect = { onIntent(DetailsContract.Intent.SelectColor(it)) }
+                        )
+
+                        Spacer(Modifier.height(32.dp))
+                    }
                 }
-            }
 
-            DetailsBottomBar(
-                price = product.price,
-                onAddToCartClick = { onIntent(DetailsContract.Intent.AddToCart) },
-                bottomPadding = innerPadding.calculateBottomPadding()
-            )
+                DetailsBottomBar(
+                    price = product.price,
+                    onAddToCartClick = { onIntent(DetailsContract.Intent.AddToCart) },
+                    bottomPadding = innerPadding.calculateBottomPadding()
+                )
+            }
         }
     }
 }
