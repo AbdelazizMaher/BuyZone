@@ -30,6 +30,7 @@ import com.zoksh.core_ui.components.AppHeader
 import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_search.presentation.components.FilterSection
 import com.zoksh.feature_search.presentation.components.SearchBarSection
+import com.zoksh.feature_search.presentation.components.SearchResultShimmer
 import com.zoksh.feature_search.presentation.contract.SearchContract
 
 @Composable
@@ -68,19 +69,23 @@ fun SearchScreen(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(state.products, key = { it.id }) { product ->
-                    ProductCard(
-                        product = product,
-                        onClick = { onIntent(SearchContract.Intent.OnProductClick(it)) },
-                        onFavoriteClick = { }
-                    )
+            if (state.products.isEmpty() && state.query.isEmpty()) {
+                SearchResultShimmer(modifier = Modifier.fillMaxSize())
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    contentPadding = PaddingValues(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(state.products, key = { it.id }) { product ->
+                        ProductCard(
+                            product = product,
+                            onClick = { onIntent(SearchContract.Intent.OnProductClick(it)) },
+                            onFavoriteClick = { }
+                        )
+                    }
                 }
             }
 
