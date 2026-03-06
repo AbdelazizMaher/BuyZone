@@ -25,6 +25,7 @@ import com.zoksh.core_ui.components.AppHeader
 import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_cart.presentation.components.CartBottomActionBar
 import com.zoksh.feature_cart.presentation.components.CartItemCard
+import com.zoksh.feature_cart.presentation.components.CartShimmer
 import com.zoksh.feature_cart.presentation.components.OrderSummaryCard
 import com.zoksh.feature_cart.presentation.components.PromoCodeSection
 import com.zoksh.feature_cart.presentation.contract.CartContract
@@ -103,7 +104,9 @@ fun CartScreen(
                     }
                 }
 
-                is UiState.Loading -> {}
+                is UiState.Loading -> {
+                    CartShimmer()
+                }
                 is UiState.Empty -> {}
                 is UiState.Error -> {}
             }
