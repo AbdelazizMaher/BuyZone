@@ -15,19 +15,19 @@
 ### ✨ Onboarding Journey
 | Step 1 | Step 2 | Step 3 | Step 4 |
 | :---: | :---: | :---: | :---: |
-| ![Onboarding 1](https://via.placeholder.com/150x300?text=Welcome) | ![Onboarding 2](https://via.placeholder.com/150x300?text=Discover) | ![Onboarding 3](https://via.placeholder.com/150x300?text=Shop) | ![Onboarding 4](https://via.placeholder.com/150x300?text=Enjoy) |
+| ![Onboarding 1](URL_HERE) | ![Onboarding 2](URL_HERE) | ![Onboarding 3](URL_HERE) | ![Onboarding 4](URL_HERE) |
 
-### 🌗 Light & Dark Mode
+### 🌗 Light & Dark Mode Preview
 | Screen | Light Mode | Dark Mode |
 | :--- | :---: | :---: |
-| **Login** | ![Login Light](https://via.placeholder.com/150x300?text=Login+Light) | ![Login Dark](https://via.placeholder.com/150x300?text=Login+Dark) |
-| **Register** | ![Register Light](https://via.placeholder.com/150x300?text=Register+Light) | ![Register Dark](https://via.placeholder.com/150x300?text=Register+Dark) |
-| **Home** | ![Home Light](https://via.placeholder.com/150x300?text=Home+Light) | ![Home Dark](https://via.placeholder.com/150x300?text=Home+Dark) |
-| **Search & Filter**| ![Search Light](https://via.placeholder.com/150x300?text=Search+Light) | ![Search Dark](https://via.placeholder.com/150x300?text=Search+Dark) |
-| **Categories** | ![Categories Light](https://via.placeholder.com/150x300?text=Cat+Light) | ![Categories Dark](https://via.placeholder.com/150x300?text=Cat+Dark) |
-| **Product Details**| ![Details Light](https://via.placeholder.com/150x300?text=Details+Light) | ![Details Dark](https://via.placeholder.com/150x300?text=Details+Dark) |
-| **Shopping Cart** | ![Cart Light](https://via.placeholder.com/150x300?text=Cart+Light) | ![Cart Dark](https://via.placeholder.com/150x300?text=Cart+Dark) |
-| **Settings** | ![Settings Light](https://via.placeholder.com/150x300?text=Settings+Light) | ![Settings Dark](https://via.placeholder.com/150x300?text=Settings+Dark) |
+| **Login** | ![Login Light](URL_HERE) | ![Login Dark](URL_HERE) |
+| **Register** | ![Register Light](URL_HERE) | ![Register Dark](URL_HERE) |
+| **Home (Scrollable)** | ![Home Light](URL_HERE) | ![Home Dark](URL_HERE) |
+| **Search & Filter**| ![Search Light](URL_HERE) | ![Search Dark](URL_HERE) |
+| **Categories** | ![Categories Light](URL_HERE) | ![Categories Dark](URL_HERE) |
+| **Product Details**| ![Details Light](URL_HERE) | ![Details Dark](URL_HERE) |
+| **Shopping Cart** | ![Cart Light](URL_HERE) | ![Cart Dark](URL_HERE) |
+| **Settings** | ![Settings Light](URL_HERE) | ![Settings Dark](URL_HERE) |
 
 ---
 
