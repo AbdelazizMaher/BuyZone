@@ -77,7 +77,7 @@ fun LoginContent(
         HeaderSection(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 60.dp)
+                .padding(top = 40.dp)
         )
         Spacer(modifier = Modifier.height(24.dp))
         TitleSection(

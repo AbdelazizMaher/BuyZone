@@ -25,17 +25,16 @@ fun TitleSection(
             text = title,
             color = colors.onBackground,
             style = MaterialTheme.typography.headlineLarge.copy(
-                fontWeight = FontWeight.ExtraBold,
-                letterSpacing = (-0.5).sp
+                fontWeight = FontWeight.Bold
             )
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = subtitle,
             color = colors.onSurfaceVariant,
-            style = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = FontWeight.Medium,
-                lineHeight = 22.sp
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.Normal,
+                lineHeight = 24.sp
             )
         )
     }

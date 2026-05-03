@@ -2,10 +2,7 @@ package com.zoksh.feature_authentication.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -18,9 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -35,64 +29,42 @@ fun AppLogo(
 ) {
     val colors = MaterialTheme.colorScheme
 
-    val iconSize = when (size) {
-        AppLogoSize.SMALL -> 32.dp
-        AppLogoSize.MEDIUM -> 48.dp
-        AppLogoSize.LARGE -> 64.dp
-    }
-
-    val textStyle = when (size) {
-        AppLogoSize.SMALL -> MaterialTheme.typography.titleMedium
-        AppLogoSize.MEDIUM -> MaterialTheme.typography.headlineSmall
-        AppLogoSize.LARGE -> MaterialTheme.typography.headlineMedium
-    }
-
-    val spacing = when (size) {
-        AppLogoSize.SMALL -> 8.dp
-        AppLogoSize.MEDIUM -> 12.dp
-        AppLogoSize.LARGE -> 16.dp
-    }
-
-    val cornerRadius = when (size) {
-        AppLogoSize.SMALL -> 8.dp
-        AppLogoSize.MEDIUM -> 12.dp
-        AppLogoSize.LARGE -> 16.dp
+    val (iconSize, textStyle, spacing, cornerRadius) = when (size) {
+        AppLogoSize.SMALL -> Quadruple(
+            32.dp,
+            MaterialTheme.typography.titleMedium,
+            8.dp,
+            8.dp
+        )
+        AppLogoSize.MEDIUM -> Quadruple(
+            44.dp,
+            MaterialTheme.typography.headlineSmall,
+            12.dp,
+            12.dp
+        )
+        AppLogoSize.LARGE -> Quadruple(
+            56.dp,
+            MaterialTheme.typography.headlineMedium,
+            14.dp,
+            14.dp
+        )
     }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.wrapContentSize()
     ) {
-        // Icon with Gradient Background and Shadow
         Box(
             modifier = Modifier
                 .size(iconSize)
-                .shadow(
-                    elevation = 6.dp,
-                    shape = RoundedCornerShape(cornerRadius),
-                    ambientColor = colors.primary.copy(alpha = 0.5f),
-                    spotColor = colors.primary
-                )
                 .clip(RoundedCornerShape(cornerRadius))
-                .background(
-                    brush = Brush.linearGradient(
-                        colors = listOf(
-                            colors.primary,
-                            colors.secondary
-                        )
-                    )
-                )
-                .border(
-                    width = 1.dp,
-                    color = Color.White.copy(alpha = 0.3f),
-                    shape = RoundedCornerShape(cornerRadius)
-                ),
+                .background(colors.primaryContainer),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(id = CoreR.drawable.splash_logo),
                 contentDescription = null,
-                modifier = Modifier.size(iconSize * 0.6f)
+                modifier = Modifier.size(iconSize * 0.65f)
             )
         }
         
@@ -102,13 +74,20 @@ fun AppLogo(
             text = name,
             color = colors.onBackground,
             style = textStyle.copy(
-                fontWeight = FontWeight.ExtraBold,
-                letterSpacing = 0.5.sp
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 0.2.sp
             ),
             maxLines = 1
         )
     }
 }
+
+private data class Quadruple<A, B, C, D>(
+    val first: A,
+    val second: B,
+    val third: C,
+    val fourth: D
+)
 
 enum class AppLogoSize {
     SMALL,
