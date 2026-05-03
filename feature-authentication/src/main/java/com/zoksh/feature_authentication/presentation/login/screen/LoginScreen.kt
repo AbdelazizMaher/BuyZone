@@ -1,5 +1,6 @@
 package com.zoksh.feature_authentication.presentation.login.screen
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,8 +26,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.zoksh.core_ui.components.PrimaryActionButton
+import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_authentication.presentation.component.AuthSwitchSection
 import com.zoksh.feature_authentication.presentation.component.DividerWithText
 import com.zoksh.feature_authentication.presentation.component.EmailTextFieldSection
@@ -33,20 +38,32 @@ import com.zoksh.feature_authentication.presentation.component.GuestAction
 import com.zoksh.feature_authentication.presentation.component.HeaderSection
 import com.zoksh.feature_authentication.presentation.component.OptionsRow
 import com.zoksh.feature_authentication.presentation.component.PasswordTextFieldSection
-import com.zoksh.core_ui.components.PrimaryActionButton
 import com.zoksh.feature_authentication.presentation.component.SocialAuthSection
 import com.zoksh.feature_authentication.presentation.component.TitleSection
 import com.zoksh.feature_authentication.presentation.login.contract.LoginContract
 import com.zoksh.feature_authentication.presentation.login.viewmodel.LoginViewModel
-
 
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel,
     innerPadding: PaddingValues
 ) {
-    var isPasswordVisible by remember { mutableStateOf(false) }
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LoginContent(
+        state = state,
+        onIntent = { viewModel.handleIntent(it) },
+        innerPadding = innerPadding
+    )
+}
+
+@Composable
+fun LoginContent(
+    state: LoginContract.State,
+    onIntent: (LoginContract.Intent) -> Unit,
+    innerPadding: PaddingValues = PaddingValues(0.dp)
+) {
+    var isPasswordVisible by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -71,10 +88,10 @@ fun LoginScreen(
         EmailTextFieldSection(
             value = state.email,
             onValueChange = {
-                viewModel.handleIntent(LoginContract.Intent.EmailChanged(it))
+                onIntent(LoginContract.Intent.EmailChanged(it))
             },
             onFocusLost = {
-                viewModel.handleIntent(LoginContract.Intent.EmailFocusLost)
+                onIntent(LoginContract.Intent.EmailFocusLost)
             },
             label = "Email Address",
             placeholder = "email@example.com",
@@ -85,10 +102,10 @@ fun LoginScreen(
         PasswordTextFieldSection(
             value = state.password,
             onValueChange = {
-                viewModel.handleIntent(LoginContract.Intent.PasswordChanged(it))
+                onIntent(LoginContract.Intent.PasswordChanged(it))
             },
             onFocusLost = {
-                viewModel.handleIntent(LoginContract.Intent.PasswordFocusLost)
+                onIntent(LoginContract.Intent.PasswordFocusLost)
             },
             label = "Password",
             placeholder = "**********",
@@ -109,10 +126,10 @@ fun LoginScreen(
         OptionsRow(
             isChecked = state.rememberMe,
             onRememberMeClick = {
-                viewModel.handleIntent(LoginContract.Intent.RememberMe(it))
+                onIntent(LoginContract.Intent.RememberMe(it))
             },
             onForgotPasswordClick = {
-                viewModel.handleIntent(LoginContract.Intent.ForgotPassword)
+                onIntent(LoginContract.Intent.ForgotPassword)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -120,7 +137,7 @@ fun LoginScreen(
             text = "Sign In",
             enabled = !state.loginClicked,
             onClick = {
-                viewModel.handleIntent(LoginContract.Intent.SignIn)
+                onIntent(LoginContract.Intent.SignIn)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -130,10 +147,10 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
         SocialAuthSection(
             onGoogleClick = {
-                viewModel.handleIntent(LoginContract.Intent.GoogleLogin)
+                onIntent(LoginContract.Intent.GoogleLogin)
             },
             onFacebookClick = {
-                viewModel.handleIntent(LoginContract.Intent.FacebookLogin)
+                onIntent(LoginContract.Intent.FacebookLogin)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -143,7 +160,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
         GuestAction(
             onClick = {
-                viewModel.handleIntent(LoginContract.Intent.GuestAccess)
+                onIntent(LoginContract.Intent.GuestAccess)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -151,8 +168,28 @@ fun LoginScreen(
             text = "Don't have an account?",
             actionText = "Sign Up",
             onActionClick = {
-                viewModel.handleIntent(LoginContract.Intent.SignUp)
+                onIntent(LoginContract.Intent.SignUp)
             }
         )
+        Spacer(modifier = Modifier.height(24.dp))
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(
+    showBackground = true,
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun LoginScreenPreview() {
+    BuyZoneTheme {
+        Scaffold { innerPadding ->
+            LoginContent(
+                state = LoginContract.State(),
+                onIntent = {},
+                innerPadding = innerPadding
+            )
+        }
     }
 }

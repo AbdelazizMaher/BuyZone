@@ -8,10 +8,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
-@Preview(showBackground = true)
 @Composable
 fun TitleSection(
     title: String = "Title",
@@ -24,13 +24,19 @@ fun TitleSection(
         Text(
             text = title,
             color = colors.onBackground,
-            style = MaterialTheme.typography.headlineLarge
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontWeight = FontWeight.ExtraBold,
+                letterSpacing = (-0.5).sp
+            )
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = subtitle,
             color = colors.onSurfaceVariant,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.Medium,
+                lineHeight = 22.sp
+            )
         )
     }
 }

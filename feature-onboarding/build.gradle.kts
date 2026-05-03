@@ -60,4 +60,5 @@ dependencies {
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
 
     implementation(project(":core-ui"))
+    implementation(project(":core-common"))
 }

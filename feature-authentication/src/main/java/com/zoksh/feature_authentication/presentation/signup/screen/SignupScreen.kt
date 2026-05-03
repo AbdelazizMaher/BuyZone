@@ -1,5 +1,6 @@
 package com.zoksh.feature_authentication.presentation.signup.screen
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,31 +26,45 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.zoksh.core_ui.components.PrimaryActionButton
+import com.zoksh.core_ui.theme.BuyZoneTheme
 import com.zoksh.feature_authentication.presentation.component.AuthSwitchSection
 import com.zoksh.feature_authentication.presentation.component.EmailTextFieldSection
 import com.zoksh.feature_authentication.presentation.component.HeaderSection
 import com.zoksh.feature_authentication.presentation.component.NameTextFieldSection
 import com.zoksh.feature_authentication.presentation.component.PasswordRequirementsSection
 import com.zoksh.feature_authentication.presentation.component.PasswordTextFieldSection
-import com.zoksh.core_ui.components.PrimaryActionButton
 import com.zoksh.feature_authentication.presentation.component.TermsAndConditions
 import com.zoksh.feature_authentication.presentation.component.TitleSection
 import com.zoksh.feature_authentication.presentation.model.PasswordRequirement
 import com.zoksh.feature_authentication.presentation.signup.contract.SignupContract
 import com.zoksh.feature_authentication.presentation.signup.viewmodel.SignupViewModel
 
-
 @Composable
 fun SignupScreen(
     viewModel: SignupViewModel,
     innerPadding: PaddingValues
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    
+    SignupContent(
+        state = state,
+        onIntent = { viewModel.handleIntent(it) },
+        innerPadding = innerPadding
+    )
+}
+
+@Composable
+fun SignupContent(
+    state: SignupContract.State,
+    onIntent: (SignupContract.Intent) -> Unit,
+    innerPadding: PaddingValues = PaddingValues(0.dp)
+) {
     var isPasswordVisible by remember { mutableStateOf(false) }
     var isConfirmPasswordVisible by remember { mutableStateOf(false) }
-
-    val state by viewModel.state.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -73,10 +89,10 @@ fun SignupScreen(
         NameTextFieldSection(
             value = state.name,
             onValueChange = {
-                viewModel.handleIntent(SignupContract.Intent.NameChanged(it))
+                onIntent(SignupContract.Intent.NameChanged(it))
             },
             onFocusLost = {
-                viewModel.handleIntent(SignupContract.Intent.NameFocusLost)
+                onIntent(SignupContract.Intent.NameFocusLost)
             },
             label = "Full Name",
             placeholder = "Abdelaziz Maher",
@@ -87,10 +103,10 @@ fun SignupScreen(
         EmailTextFieldSection(
             value = state.email,
             onValueChange = {
-                viewModel.handleIntent(SignupContract.Intent.EmailChanged(it))
+                onIntent(SignupContract.Intent.EmailChanged(it))
             },
             onFocusLost = {
-                viewModel.handleIntent(SignupContract.Intent.EmailFocusLost)
+                onIntent(SignupContract.Intent.EmailFocusLost)
             },
             label = "Email Address",
             placeholder = "example@gmail.com",
@@ -101,10 +117,10 @@ fun SignupScreen(
         PasswordTextFieldSection(
             value = state.password,
             onValueChange = {
-                viewModel.handleIntent(SignupContract.Intent.PasswordChanged(it))
+                onIntent(SignupContract.Intent.PasswordChanged(it))
             },
             onFocusLost = {
-                viewModel.handleIntent(SignupContract.Intent.PasswordFocusLost)
+                onIntent(SignupContract.Intent.PasswordFocusLost)
             },
             label = "Password",
             placeholder = "**********",
@@ -117,7 +133,7 @@ fun SignupScreen(
                     tint = MaterialTheme.colorScheme.onBackground
                 )
             },
-            visualTransformation = if (isPasswordVisible) PasswordVisualTransformation() else VisualTransformation.None,
+            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             isError = (state.passwordTouched || state.submitAttempted) && state.passwordError != null,
             errorText = state.passwordError
         )
@@ -125,10 +141,10 @@ fun SignupScreen(
         PasswordTextFieldSection(
             value = state.confirmPassword,
             onValueChange = {
-                viewModel.handleIntent(SignupContract.Intent.ConfirmPasswordChanged(it))
+                onIntent(SignupContract.Intent.ConfirmPasswordChanged(it))
             },
             onFocusLost = {
-                viewModel.handleIntent(SignupContract.Intent.ConfirmPasswordFocusLost)
+                onIntent(SignupContract.Intent.ConfirmPasswordFocusLost)
             },
             label = "Confirm Password",
             placeholder = "**********",
@@ -171,7 +187,7 @@ fun SignupScreen(
             text = "I agree to the Terms and Conditions",
             isChecked = state.termsAccepted,
             onCheckedChange = {
-                viewModel.handleIntent(SignupContract.Intent.TermsAccepted(it))
+                onIntent(SignupContract.Intent.TermsAccepted(it))
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -179,7 +195,7 @@ fun SignupScreen(
             text = "Sign Up",
             enabled = !state.signupClicked,
             onClick = {
-                viewModel.handleIntent(SignupContract.Intent.Signup)
+                onIntent(SignupContract.Intent.Signup)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -187,8 +203,28 @@ fun SignupScreen(
             text = "Already have an account?",
             actionText = "Sign In",
             onActionClick = {
-                viewModel.handleIntent(SignupContract.Intent.Login)
+                onIntent(SignupContract.Intent.Login)
             }
         )
+        Spacer(modifier = Modifier.height(24.dp))
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(
+    showBackground = true,
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun SignupScreenPreview() {
+    BuyZoneTheme {
+        Scaffold { innerPadding ->
+            SignupContent(
+                state = SignupContract.State(),
+                onIntent = {},
+                innerPadding = innerPadding
+            )
+        }
     }
 }

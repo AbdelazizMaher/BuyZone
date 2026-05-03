@@ -1,5 +1,6 @@
 package com.zoksh.feature_splash.presentation.screen
 
+import android.content.res.Configuration
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.Spring
@@ -19,8 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zoksh.core_common.R
+import com.zoksh.core_ui.theme.BuyZoneTheme
 
 @Composable
 fun SplashScreen() {
@@ -56,5 +59,18 @@ fun SplashScreen() {
                 .scale(scale.value)
                 .alpha(alpha.value)
         )
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(
+    showBackground = true,
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun SplashScreenPreview() {
+    BuyZoneTheme {
+        SplashScreen()
     }
 }
