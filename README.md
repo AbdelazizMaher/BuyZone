@@ -15,7 +15,7 @@
 ### ✨ Onboarding Journey
 | Step 1 | Step 2 | Step 3 | Step 4 |
 | :---: | :---: | :---: | :---: |
-| ![Onboarding 1](URL_HERE) | ![Onboarding 2](URL_HERE) | ![Onboarding 3](URL_HERE) | ![Onboarding 4](URL_HERE) |
+| ![Onboarding 1](https://github.com/user-attachments/assets/8e5530d5-6e21-4a29-90c5-89094b1954e0) | ![Onboarding 2](https://github.com/user-attachments/assets/69d026dc-945e-4650-8911-7958d95383ad) | ![Onboarding 3](https://github.com/user-attachments/assets/9be6042a-7d39-4bac-a1c1-5ebb24a1f8cd) | ![Onboarding 4](https://github.com/user-attachments/assets/b05aa171-550d-4924-8151-17c3a3588860) |
 
 ### 🌗 Light & Dark Mode Preview
 | Screen | Light Mode | Dark Mode |
