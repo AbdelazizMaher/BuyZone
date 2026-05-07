@@ -60,10 +60,42 @@ class CategoriesViewModel : ViewModel() {
             )
             val mockTypes = listOf("All", "Shoes", "Clothing", "Accessories", "Equipment")
             val mockProducts = listOf(
-                ProductUiModel("1", "https://picsum.photos/300/300?random=1", "Adidas Ultraboost", "$150", "$200", 20, false),
-                ProductUiModel("2", "https://picsum.photos/300/300?random=2", "Nike Air Max", "$150", "$200", 25, true),
-                ProductUiModel("3", "https://picsum.photos/300/300?random=3", "Puma RS-X", "$110", "$150", 15, false),
-                ProductUiModel("4", "https://picsum.photos/300/300?random=4", "New Balance 574", "$90", "$120", 10, false),
+                ProductUiModel(
+                    "1",
+                    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=400",
+                    "Nike Air Max 270",
+                    "$120.00",
+                    "$150.00",
+                    5,
+                    false
+                ),
+                ProductUiModel(
+                    "2",
+                    "https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&q=80&w=400",
+                    "Classic White T-Shirt",
+                    "$25.00",
+                    "$35.00",
+                    4,
+                    true
+                ),
+                ProductUiModel(
+                    "3",
+                    "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=400",
+                    "Puma RS-X Bold",
+                    "$110.00",
+                    "$130.00",
+                    5,
+                    true
+                ),
+                ProductUiModel(
+                    "4",
+                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400",
+                    "Premium Silver Watch",
+                    "$199.00",
+                    "$250.00",
+                    5,
+                    false
+                ),
             )
 
             _state.update {

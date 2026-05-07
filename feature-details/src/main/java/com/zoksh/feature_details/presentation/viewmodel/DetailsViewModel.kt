@@ -27,22 +27,22 @@ class DetailsViewModel : ViewModel() {
                 product = DetailsUiModel(
                     id = "1",
                     name = "Nike Air Max 270",
-                    category = "Men shoes",
-                    description = "The Nike Free Metcon 3 combines Nike Free flexibility around the forefoot with Metcon stability in the heel to help you get the most out of your training session.",
-                    price = "$290.00",
+                    category = "Shoes",
+                    description = "The Nike Air Max 270 is Nike's first lifestyle Air Max, bringing you style, comfort and a big attitude. The design draws inspiration from Air Max icons, showcasing Nike's greatest innovation with its large window and fresh array of colors.",
+                    price = "$150.00",
                     rating = 4.8,
                     images = listOf(
-                        "https://picsum.photos/800/800",
-                        "https://picsum.photos/800/800",
-                        "https://picsum.photos/800/800"
+                        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800",
+                        "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80&w=800",
+                        "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=800"
                     ),
-                    sizes = listOf("6", "7", "8", "9", "10", "11"),
+                    sizes = listOf("40", "41", "42", "43", "44", "45"),
                     colors = listOf(
-                        ColorOption("1", "Grey", Color(0xFF607D8B)),
-                        ColorOption("2", "Red", Color(0xFFFF7043)),
-                        ColorOption("3", "Yellow", Color(0xFFFFCA28))
+                        ColorOption("1", "Red", Color(0xFFFF1744)),
+                        ColorOption("2", "Blue", Color(0xFF2979FF)),
+                        ColorOption("3", "Yellow", Color(0xFFFFEA00))
                     ),
-                    selectedSize = "8",
+                    selectedSize = "42",
                     selectedColorId = "1"
                 )
             )

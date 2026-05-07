@@ -42,10 +42,10 @@ class CartViewModel : ViewModel() {
             _state.update { it.copy(cartItemsState = UiState.Loading) }
             
             val mockItems = listOf(
-                CartItemUiModel("1", "p1", "Galaxy S24 Ultra", "https://picsum.photos/200/200?random=1", 1199.0, 1299.0, 8, 1, "Titanium Gray", "256GB"),
-                CartItemUiModel("2", "p2", "AirPods Pro 2", "https://picsum.photos/200/200?random=2", 249.0, null, null, 2),
-                CartItemUiModel("3", "p3", "Leather Wallet", "https://picsum.photos/200/200?random=3", 89.0, 129.0, 31, 1, "Brown"),
-                CartItemUiModel("4", "p4", "Wireless Charger", "https://picsum.photos/200/200?random=4", 49.0, null, null, 1, null, null, true)
+                CartItemUiModel("1", "p1", "Nike Air Max 270", "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=200", 150.0, 180.0, 8, 1, "Red", "42"),
+                CartItemUiModel("2", "p2", "Premium White Tee", "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=200", 35.0, 45.0, null, 2, "White", "L"),
+                CartItemUiModel("3", "p3", "Premium Silver Watch", "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=200", 199.0, 250.0, 31, 1, "Silver"),
+                CartItemUiModel("4", "p4", "Puma RS-X Bold", "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=200", 110.0, 130.0, null, 1, "Black", "43")
             )
             
             updateTotals(mockItems)

@@ -28,9 +28,9 @@ class HomeViewModel : ViewModel() {
             ),
             promos = UiState.Success(
                 listOf(
-                    PromosUiModel(id = "1", image = "https://picsum.photos/800/300?1"),
-                    PromosUiModel(id = "2", image = "https://picsum.photos/800/300?2"),
-                    PromosUiModel(id = "3", image = "https://picsum.photos/800/300?3")
+                    PromosUiModel(id = "1", image = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800"),
+                    PromosUiModel(id = "2", image = "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=800"),
+                    PromosUiModel(id = "3", image = "https://images.unsplash.com/photo-1605348532760-6753d2c43329?auto=format&fit=crop&q=80&w=800")
                 )
             ),
             categories = UiState.Success(
@@ -42,49 +42,49 @@ class HomeViewModel : ViewModel() {
             ),
             brands = UiState.Success(
                 listOf(
-                    BrandsUiModel(id = "1", "https://logo.clearbit.com/apple.com", "Apple"),
-                    BrandsUiModel(id = "2", "https://logo.clearbit.com/samsung.com", "Samsung"),
-                    BrandsUiModel(id = "3", "https://logo.clearbit.com/sony.com", "Sony"),
-                    BrandsUiModel(id = "4", "https://logo.clearbit.com/nike.com", "Nike"),
-                    BrandsUiModel(id = "5", "https://logo.clearbit.com/adidas.com", "Adidas"),
-                    BrandsUiModel(id = "6", "https://logo.clearbit.com/mi.com", "Xiaomi")
+                    BrandsUiModel(id = "1", "https://logodownload.org/wp-content/uploads/2014/04/nike-logo-0.png", "Nike"),
+                    BrandsUiModel(id = "2", "https://logodownload.org/wp-content/uploads/2014/07/adidas-logo-0.png", "Adidas"),
+                    BrandsUiModel(id = "3", "https://logodownload.org/wp-content/uploads/2014/07/puma-logo-1.png", "Puma"),
+                    BrandsUiModel(id = "4", "https://logodownload.org/wp-content/uploads/2014/05/zara-logo-1.png", "Zara"),
+                    BrandsUiModel(id = "5", "https://logodownload.org/wp-content/uploads/2014/04/h-m-logo.png", "H&M"),
+                    BrandsUiModel(id = "6", "https://logodownload.org/wp-content/uploads/2017/05/rolex-logo.png", "Rolex")
                 )
             ),
             trending = UiState.Success(
                 listOf(
                     ProductUiModel(
                         "1",
-                        "https://picsum.photos/300/300?1",
-                        "iPhone 15 Pro",
-                        "$999",
-                        "$1099",
+                        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=400",
+                        "Nike Air Max 270",
+                        "$120.00",
+                        "$150.00",
                         5,
                         false
                     ),
                     ProductUiModel(
                         "2",
-                        "https://picsum.photos/300/300?2",
-                        "Galaxy S24",
-                        "$899",
-                        "$1099",
-                        5,
+                        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=400",
+                        "Premium White Tee",
+                        "$35.00",
+                        "$45.00",
+                        4,
                         true
                     ),
                     ProductUiModel(
                         "3",
-                        "https://picsum.photos/300/300?1",
-                        "iPhone 17 Pro",
-                        "$999",
-                        "$1099",
+                        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400",
+                        "Premium Silver Watch",
+                        "$199.00",
+                        "$250.00",
                         5,
                         false
                     ),
                     ProductUiModel(
                         "4",
-                        "https://picsum.photos/300/300?2",
-                        "Galaxy S20",
-                        "$899",
-                        "$1099",
+                        "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=400",
+                        "Puma RS-X Bold",
+                        "$110.00",
+                        "$130.00",
                         5,
                         true
                     )
