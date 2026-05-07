@@ -15,19 +15,19 @@
 ### ✨ Onboarding Journey
 | Step 1 | Step 2 | Step 3 | Step 4 |
 | :---: | :---: | :---: | :---: |
-| ![Onboarding 1](https://github.com/user-attachments/assets/8e5530d5-6e21-4a29-90c5-89094b1954e0) | ![Onboarding 2](https://github.com/user-attachments/assets/69d026dc-945e-4650-8911-7958d95383ad) | ![Onboarding 3](https://github.com/user-attachments/assets/9be6042a-7d39-4bac-a1c1-5ebb24a1f8cd) | ![Onboarding 4](https://github.com/user-attachments/assets/b05aa171-550d-4924-8151-17c3a3588860) |
+| <img src="https://github.com/user-attachments/assets/8e5530d5-6e21-4a29-90c5-89094b1954e0" width="160"> | <img src="https://github.com/user-attachments/assets/69d026dc-945e-4650-8911-7958d95383ad" width="160"> | <img src="https://github.com/user-attachments/assets/9be6042a-7d39-4bac-a1c1-5ebb24a1f8cd" width="160"> | <img src="https://github.com/user-attachments/assets/b05aa171-550d-4924-8151-17c3a3588860" width="160"> |
 
 ### 🌗 Light & Dark Mode Preview
 | Screen | Light Mode | Dark Mode |
 | :--- | :---: | :---: |
-| **Login** | ![Login Light](URL_HERE) | ![Login Dark](URL_HERE) |
-| **Register** | ![Register Light](URL_HERE) | ![Register Dark](URL_HERE) |
-| **Home** | ![Home Light](https://github.com/user-attachments/assets/af7b1e10-28a2-4ba6-bf67-850b472d8c41) | ![Home Dark](https://github.com/user-attachments/assets/3d638681-429a-4a94-bfde-268e37dfebb6) |
-| **Search & Filter**| ![Search Light](URL_HERE) | ![Search Dark](URL_HERE) |
-| **Categories** | ![Categories Light](https://github.com/user-attachments/assets/3657cbcb-ea34-4965-bc8a-57f35f515a7b) | ![Categories Dark](https://github.com/user-attachments/assets/e179d652-703a-4a75-8df8-ce56c316065b) |
-| **Product Details**| ![Details Light](URL_HERE) | ![Details Dark](URL_HERE) |
-| **Shopping Cart** | ![Cart Light](URL_HERE) | ![Cart Dark](URL_HERE) |
-| **Settings** | ![Settings Light](URL_HERE) | ![Settings Dark](URL_HERE) |
+| **Login** | <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
+| **Register** | <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
+| **Home** | <img src="https://github.com/user-attachments/assets/af7b1e10-28a2-4ba6-bf67-850b472d8c41" width="200"> | <img src="https://github.com/user-attachments/assets/3d638681-429a-4a94-bfde-268e37dfebb6" width="200"> |
+| **Search & Filter**| <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
+| **Categories** | <img src="https://github.com/user-attachments/assets/3657cbcb-ea34-4965-bc8a-57f35f515a7b" width="200"> | <img src="https://github.com/user-attachments/assets/e179d652-703a-4a75-8df8-ce56c316065b" width="200"> |
+| **Product Details**| <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
+| **Shopping Cart** | <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
+| **Settings** | <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
 
 ---
 
