@@ -22,7 +22,7 @@
 | :--- | :---: | :---: |
 | **Login** | ![Login Light](URL_HERE) | ![Login Dark](URL_HERE) |
 | **Register** | ![Register Light](URL_HERE) | ![Register Dark](URL_HERE) |
-| **Home (Scrollable)** | ![Home Light](URL_HERE) | ![Home Dark](URL_HERE) |
+| **Home** | ![Home Light](https://github.com/user-attachments/assets/3d4813e9-7264-42d3-b7b1-54bc0727cfb3) | ![Home Dark](URL_HERE) |
 | **Search & Filter**| ![Search Light](URL_HERE) | ![Search Dark](URL_HERE) |
 | **Categories** | ![Categories Light](https://github.com/user-attachments/assets/3657cbcb-ea34-4965-bc8a-57f35f515a7b) | ![Categories Dark](https://github.com/user-attachments/assets/e179d652-703a-4a75-8df8-ce56c316065b) |
 | **Product Details**| ![Details Light](URL_HERE) | ![Details Dark](URL_HERE) |
