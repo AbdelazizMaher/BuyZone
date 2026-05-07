@@ -24,7 +24,7 @@
 | **Register** | ![Register Light](URL_HERE) | ![Register Dark](URL_HERE) |
 | **Home (Scrollable)** | ![Home Light](URL_HERE) | ![Home Dark](URL_HERE) |
 | **Search & Filter**| ![Search Light](URL_HERE) | ![Search Dark](URL_HERE) |
-| **Categories** | ![Categories Light](URL_HERE) | ![Categories Dark](URL_HERE) |
+| **Categories** | ![Categories Light](https://github.com/user-attachments/assets/3657cbcb-ea34-4965-bc8a-57f35f515a7b) | ![Categories Dark](https://github.com/user-attachments/assets/e179d652-703a-4a75-8df8-ce56c316065b) |
 | **Product Details**| ![Details Light](URL_HERE) | ![Details Dark](URL_HERE) |
 | **Shopping Cart** | ![Cart Light](URL_HERE) | ![Cart Dark](URL_HERE) |
 | **Settings** | ![Settings Light](URL_HERE) | ![Settings Dark](URL_HERE) |
