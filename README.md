@@ -25,7 +25,7 @@
 | **Home** | <img src="https://github.com/user-attachments/assets/af7b1e10-28a2-4ba6-bf67-850b472d8c41" width="200"> | <img src="https://github.com/user-attachments/assets/3d638681-429a-4a94-bfde-268e37dfebb6" width="200"> |
 | **Search & Filter**| <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
 | **Categories** | <img src="https://github.com/user-attachments/assets/3657cbcb-ea34-4965-bc8a-57f35f515a7b" width="200"> | <img src="https://github.com/user-attachments/assets/e179d652-703a-4a75-8df8-ce56c316065b" width="200"> |
-| **Product Details**| <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
+| **Product Details**| <img src="https://github.com/user-attachments/assets/0ac57498-b3e2-4601-ba3b-fcc95c9ecfd4" width="200"> | <img src="https://github.com/user-attachments/assets/6aa6a1d2-d6f4-4d0a-83aa-2cc04500f63f" width="200"> |
 | **Shopping Cart** | <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
 | **Settings** | <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
 
