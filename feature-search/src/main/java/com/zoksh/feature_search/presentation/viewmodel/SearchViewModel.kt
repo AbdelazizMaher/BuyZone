@@ -27,12 +27,60 @@ class SearchViewModel : ViewModel() {
         _state.update {
             it.copy(
                 products = listOf(
-                    ProductUiModel("1", "https://picsum.photos/300/300?random=1", "Adidas Ultraboost", "$150", "$200", 20, false),
-                    ProductUiModel("2", "https://picsum.photos/300/300?random=2", "Nike Air Max", "$150", "$200", 25, true),
-                    ProductUiModel("3", "https://picsum.photos/300/300?random=3", "Puma RS-X", "$110", "$150", 15, false),
-                    ProductUiModel("4", "https://picsum.photos/300/300?random=4", "New Balance 574", "$90", "$120", 10, false),
-                    ProductUiModel("5", "https://picsum.photos/300/300?random=5", "Reebok Classic", "$85", "$100", 5, true),
-                    ProductUiModel("6", "https://picsum.photos/300/300?random=6", "Asics Gel-Kayano", "$160", "$200", 20, false)
+                    ProductUiModel(
+                        "1",
+                        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=400",
+                        "Nike Air Max 270",
+                        "$120.00",
+                        "$150.00",
+                        5,
+                        false
+                    ),
+                    ProductUiModel(
+                        "2",
+                        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=400",
+                        "Premium White Tee",
+                        "$35.00",
+                        "$45.00",
+                        4,
+                        true
+                    ),
+                    ProductUiModel(
+                        "3",
+                        "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=400",
+                        "Puma RS-X Bold",
+                        "$110.00",
+                        "$130.00",
+                        5,
+                        true
+                    ),
+                    ProductUiModel(
+                        "4",
+                        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400",
+                        "Premium Silver Watch",
+                        "$199.00",
+                        "$250.00",
+                        5,
+                        false
+                    ),
+                    ProductUiModel(
+                        "5",
+                        "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=400",
+                        "Classic Black Hoodie",
+                        "$55.00",
+                        "$75.00",
+                        5,
+                        false
+                    ),
+                    ProductUiModel(
+                        "6",
+                        "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&q=80&w=400",
+                        "Leather Backpack",
+                        "$85.00",
+                        "$110.00",
+                        4,
+                        false
+                    )
                 ),
                 filterState = FilterUiState(
                     categories = listOf("Electronics", "Fashion", "Home & Living", "Sports", "Beauty", "Books"),
