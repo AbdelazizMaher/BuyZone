@@ -20,7 +20,7 @@
 ### 🌗 Light & Dark Mode Preview
 | Screen | Light Mode | Dark Mode |
 | :--- | :---: | :---: |
-| **Login** | <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
+| **Login** | <img src="https://github.com/user-attachments/assets/c73af74e-16ec-4f03-8c2a-1ae4fcd26846" width="200"> | <img src="https://github.com/user-attachments/assets/15c04dc1-002b-4ed5-8a36-21ab45c58f3e" width="200"> |
 | **Register** | <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
 | **Home** | <img src="https://github.com/user-attachments/assets/af7b1e10-28a2-4ba6-bf67-850b472d8c41" width="200"> | <img src="https://github.com/user-attachments/assets/3d638681-429a-4a94-bfde-268e37dfebb6" width="200"> |
 | **Search & Filter**| <img src="URL_HERE" width="200"> | <img src="URL_HERE" width="200"> |
